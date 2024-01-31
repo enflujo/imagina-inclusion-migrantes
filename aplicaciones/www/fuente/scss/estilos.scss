@@ -1,0 +1,40 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background-color: #30cac073;
+  color: #130808;
+}
+
+.municipio {
+  font-weight: bold;
+}
+
+.departamento {
+  font-style: italic;
+}
+
+.valor {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.lugar {
+  &.encuestado {
+    background-color: rgb(147, 185, 143);
+  }
+}
