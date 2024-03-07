@@ -64,15 +64,14 @@ async function inicio() {
     ignoreEmpty: true,
   });
 
-flujoPob.on('data', (fila2) => {
-  if (numeroFila === 1) {
-    total = fila2.totalSheetSize;
-  }
+  flujoPob.on('data', (fila2) => {
+    if (numeroFila === 1) {
+      total = fila2.totalSheetSize;
+    }
 
-  numeroFila++;
-  //console.log(fila2.raw.arr)
-  procesarFilaPoblacion(fila2.raw.arr, numeroFila);
-});
+    numeroFila++;
+    procesarFilaPoblacion(fila2.raw.arr, numeroFila);
+  });
 
   const flujo = await getXlsxStream({
     filePath: ruta,
@@ -91,18 +90,17 @@ flujoPob.on('data', (fila2) => {
     procesarFila(fila.formatted.arr, numeroFila);
   });
 
-
-
   flujo.on('close', () => {
     guardarJSON(datos, 'inclusion-municipios');
     console.log('FIN');
   });
 
   function procesarFilaPoblacion(fila: FilaPoblacion, numeroFila: number) {
-    const [codigo, departamentoNombre, municipioNombre, poblacionH, poblacionL, poblacionT] = fila;
-
+    //const [codigo, departamentoNombre, municipioNombre, poblacionH, poblacionL, poblacionT] = fila;
+    const codigo = fila[0];
+    const poblacionT = fila[5];
     const mun = municipios.datos.find((municipio) => {
-     return +municipio[3] === +codigo
+      return +municipio[3] === +codigo;
     });
 
     mapaPoblacionMunicipios.set(codigo, poblacionT);
@@ -134,5 +132,4 @@ flujoPob.on('data', (fila2) => {
       poblacionTotal: +mapaPoblacionMunicipios.get(mun[3]),
     });
   }
-
 }
