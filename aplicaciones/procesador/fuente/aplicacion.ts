@@ -4,6 +4,7 @@ import { getXlsxStream } from 'xlstream';
 import { guardarJSON } from './utilidades/ayudas';
 
 const nombreArchivo = 'Inclusion scores nationwide';
+const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
 
 type Fila = [
   /** Nombre del municipio */
@@ -20,11 +21,28 @@ type Fila = [
   indiceEncuestado: number,
 ];
 
+type FilaPoblacion = [
+  codigo: string,
+
+  departamento: string,
+
+  municipio: string,
+
+  poblacionHogares: number,
+
+  poblacionLEA: number,
+
+  poblacionTotal: string,
+];
+
 interface DatosInclusion {
   nombre: string;
   dep: string;
   valor: number;
   encuestado: boolean;
+  latitud: number;
+  longitud: number;
+  poblacionTotal?: number;
 }
 
 inicio().catch(console.error);
@@ -34,6 +52,26 @@ async function inicio() {
   let numeroFila = 1;
   let total = 0;
   const datos: DatosInclusion[] = [];
+  let mapaPoblacionMunicipios = new Map();
+
+  //Cargar población:
+  numeroFila = 1;
+  total = 0;
+  const flujoPob = await getXlsxStream({
+    filePath: resolve(__dirname, `../datos/${nombreArchivoPoblacion}.xlsx`),
+    sheet: 'Hoja1',
+    withHeader: true,
+    ignoreEmpty: true,
+  });
+
+  flujoPob.on('data', (fila2) => {
+    if (numeroFila === 1) {
+      total = fila2.totalSheetSize;
+    }
+
+    numeroFila++;
+    procesarFilaPoblacion(fila2.raw.arr, numeroFila);
+  });
 
   const flujo = await getXlsxStream({
     filePath: ruta,
@@ -57,6 +95,16 @@ async function inicio() {
     console.log('FIN');
   });
 
+  function procesarFilaPoblacion(fila: FilaPoblacion, numeroFila: number) {
+    const codigo = fila[0];
+    const poblacionT = fila[5];
+    const mun = municipios.datos.find((municipio) => {
+      return +municipio[3] === +codigo;
+    });
+
+    mapaPoblacionMunicipios.set(codigo, poblacionT);
+  }
+
   function procesarFila(fila: Fila, numeroFila: number) {
     const [nombreMun, codMun, nombreDep, codDep, valor, indiceEncuestado] = fila;
     const mun = municipios.datos.find((municipio) => +municipio[3] === codMun);
@@ -73,6 +121,14 @@ async function inicio() {
       return;
     }
 
-    datos.push({ nombre: mun[1], dep: dep[1], valor, encuestado: !!indiceEncuestado });
+    datos.push({
+      nombre: mun[1],
+      dep: dep[1],
+      valor,
+      encuestado: !!indiceEncuestado,
+      latitud: dep[2],
+      longitud: dep[3],
+      poblacionTotal: +mapaPoblacionMunicipios.get(mun[3]),
+    });
   }
 }
