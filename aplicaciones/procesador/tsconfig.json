@@ -8,8 +8,8 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "outDir": "./publico",
-    "baseUrl": "./fuente"
+    "baseUrl": "./fuente",
   },
   "include": ["./fuente/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
