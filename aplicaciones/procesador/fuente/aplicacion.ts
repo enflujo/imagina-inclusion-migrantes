@@ -96,7 +96,6 @@ async function inicio() {
   });
 
   function procesarFilaPoblacion(fila: FilaPoblacion, numeroFila: number) {
-    //const [codigo, departamentoNombre, municipioNombre, poblacionH, poblacionL, poblacionT] = fila;
     const codigo = fila[0];
     const poblacionT = fila[5];
     const mun = municipios.datos.find((municipio) => {
