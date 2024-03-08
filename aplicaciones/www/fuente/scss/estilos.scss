@@ -43,4 +43,30 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
+canvas {
+  display: block;
+  width: 580px;
+  height: 580px;
+  margin: auto;
+  border: 2px solid #ccc;
+}
+
+#button-row,
+#selector-row {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.radio-box {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+button {
+  display: inline-block;
+  margin: 0px 20px 0px 20px;
+}
+
+#new {
+  background-color: #cfc;
 }
