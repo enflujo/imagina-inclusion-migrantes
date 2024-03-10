@@ -1,5 +1,6 @@
+import mapa from './mapa';
 import './scss/estilos.scss';
-
+mapa();
 fetch('/inclusion-municipios.json')
   .then((respuesta) => respuesta.json())
   .then((datos) => {
