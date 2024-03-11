@@ -24,7 +24,6 @@ export default class SimEvent {
   }
 
   isValid(simTime: number, longitudCanvas: number) {
-    console.log('valid');
     // Nota: se usa toFixed(4) para evitar posibles errores de exactitud de floating-point
     var log = '';
     // Note: this check forces only one event at a given instant
@@ -47,7 +46,6 @@ export default class SimEvent {
       //console.log(log);
       return this.time.toFixed(4) === (simTime + this.b.timeToHitVerticalWall(longitudCanvas)).toFixed(4);
     } else if (this.b === null) {
-      //h muro horizontal
       log += 'Validating vertical wall.\n';
       log +=
         'Event time: ' +

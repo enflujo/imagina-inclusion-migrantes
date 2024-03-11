@@ -1,21 +1,22 @@
-/*
-	Minimum Priority Queue (MinPQ) constructor
-*/
+// /*
+// 	Minimum Priority Queue (MinPQ) constructor
+// */
 
 import SimEvent from './SimEvent';
 
 export default class MinPQ {
-  heap: SimEvent[];
+  heap: SimEvent[] | null[];
   n: number;
 
   constructor() {
-    this.heap = [];
+    this.heap = [null];
     this.n = 0;
   }
 
   insert(key: SimEvent) {
     this.heap.push(key);
-    this.swim(++this.n);
+    //++this.n - 1;
+    this.swim(++this.n - 5);
   }
 
   viewMin() {
@@ -42,7 +43,6 @@ export default class MinPQ {
 
   swim(k: number) {
     let j = Math.floor(k / 2);
-    //  console.log('???', k, j > 0 && this.less(k, j));
     while (j > 0 && this.less(k, j)) {
       this.exch(j, k);
       k = j;
@@ -69,7 +69,8 @@ export default class MinPQ {
     // Note: this is particular to the SimEvent object.
     //console.log(this.heap[i]);
     //console.log(this.heap[j]);
-    console.log('less', this.heap, i);
+    //console.log('less', this.heap, i);
+    if (!this.heap[i]) return;
     return this.heap[i].time < this.heap[j].time;
   }
 
@@ -77,6 +78,5 @@ export default class MinPQ {
     const swap = this.heap[i];
     this.heap[i] = this.heap[j];
     this.heap[j] = swap;
-    console.log('exch');
   }
 }
