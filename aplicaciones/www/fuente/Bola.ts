@@ -10,8 +10,23 @@ export default class Bola {
   m: number;
   p: { x: number; y: number };
   v: { x: number; y: number };
+  activo: boolean;
+  color: string;
+  esMuro: boolean;
+  largoMuro: number;
+  //rotacion: number;
+  parabola: number;
 
-  constructor(posX: number, posY: number, velX: number, velY: number, r: number, m?: number) {
+  constructor(
+    posX: number,
+    posY: number,
+    velX: number,
+    velY: number,
+    r: number,
+    m?: number,
+    color?: string,
+    esMuro = false
+  ) {
     this.posX = posX;
     this.posY = posY;
     this.velX = velX;
@@ -19,18 +34,61 @@ export default class Bola {
     this.r = r;
     this.p = { x: posX, y: posY };
     this.v = { x: velX, y: velY };
+    this.activo = !esMuro;
     this.m = m !== undefined ? m : Math.ceil(Math.PI * r * r);
+    this.color = color || 'black';
+    this.esMuro = esMuro;
+    this.largoMuro = (Math.random() * this.r) / 2;
+    this.parabola = 1.1;
+    //this.altoMuro = (Math.random() * this.r) / 2;
+    // this.rotacion = Math.random() * (Math.PI * 2);
+    // if (esMuro) {
+    //   if (this.posX > 250) {
+    //     this.posX = 250;
+    //   }
+    // }
   }
 
   // mover/dibujar básico
   move(dt: number) {
-    this.p.x = this.p.x + this.v.x * dt;
-    this.p.y = this.p.y + this.v.y * dt;
+    if (this.esMuro) return;
+
+    if (this.activo && this.p.x > 400) {
+      this.activo = false;
+    } else {
+    }
+
+    if (this.activo) {
+      this.p.x = this.p.x + this.v.x * dt;
+      this.p.y = this.p.y + this.v.y * dt;
+    } else {
+      if (this.v.x > 0) {
+        let nueva = Math.pow(this.parabola, 2);
+        this.v.x = this.p.x < 575 ? this.v.x - nueva : 0;
+        this.v.y = 0;
+        this.p.x = this.p.x + this.v.x * dt;
+        this.p.y = this.p.y + this.v.y * dt;
+
+        this.parabola += 0.01;
+      }
+      this.color = 'rgb(4, 149, 168)';
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
-    ctx.arc(this.p.x, this.p.y, this.r, 0, 2 * Math.PI);
+    if (this.esMuro && this.largoMuro) {
+      ctx.save();
+      ctx.translate(this.posX, this.posY);
+      // ctx.rotate(this.rotacion);
+      //ctx.rect(0, 0, this.r, this.r * this.largoMuro);
+      ctx.rect(0, 0, this.r, this.r);
+      ctx.restore();
+    } else {
+      ctx.arc(this.p.x, this.p.y, this.r, 0, 2 * Math.PI);
+    }
+
+    ctx.fillStyle = this.color;
     ctx.fill();
   }
 

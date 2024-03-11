@@ -52,23 +52,29 @@ function posNeg() {
 function generarBolas(n: number) {
   /* Crear muro */
   let bolas = [];
-  let m = 79; //debe ser impar. A menor número, mayor diámetro de los círculos del muro
+  let m = 41; //debe ser impar. A menor número, mayor diámetro de los círculos del muro
   let h = CANVAS_LENGTH / m; // longitud del canvas / m
-
+  const cantidadMuros = 50;
   // el valor que se suma a i define la distancia entre los círculos que forman el muro
-  for (let i = -1; i < m + 1; i += 2) {
-    if (i === Math.floor((m - 1) / 2) || i === Math.floor((m - 1) / 2) - 1) {
-      continue;
-    }
+  for (let i = 0; i < cantidadMuros; i++) {
+    // if (i === Math.floor((m - 1) / 2) || i === Math.floor((m - 1) / 2) - 1) {
+    //   continue;
+    // }
 
+    const x = Math.floor(Math.random() * (CANVAS_LENGTH * 0.6));
+    const y = Math.floor(Math.random() * CANVAS_LENGTH);
     bolas.push(
       new Bola(
-        0.5 * CANVAS_LENGTH, // distancia del borde izquierdo al muro
-        (h + 0.5) * (i - 5),
+        x,
+        // 0.5 * CANVAS_LENGTH, // distancia del borde izquierdo al muro
+        //(h + 0.5) * (i - 5),
+        y,
         0,
         0,
         h,
-        200000
+        200000,
+        '#222',
+        true
       )
     );
   }
@@ -107,7 +113,7 @@ let sim: Sim;
 let bolas = [];
 
 function hacerSimulacion() {
-  bolas = generarBolas(150);
+  bolas = generarBolas(100);
   // Crear nueva simulación
   sim = new Sim(bolas, CANVAS_LENGTH);
   if (!ctx) return;
@@ -137,9 +143,7 @@ function correrSimulacion() {
   }
 }
 
-// let bolas = generarBolas(150);
 hacerSimulacion();
-//sim = new Sim(bolas, CANVAS_LENGTH);
 
 const botonEmpezar = document.getElementById('empezar') as HTMLButtonElement;
 const botonDetener = document.getElementById('detener') as HTMLButtonElement;
