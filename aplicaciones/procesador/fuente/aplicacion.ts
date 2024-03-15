@@ -2,6 +2,7 @@ import { resolve } from 'path';
 import { departamentos, municipios } from './utilidades/lugaresColombia';
 import { getXlsxStream } from 'xlstream';
 import { guardarJSON } from './utilidades/ayudas';
+import { DatosInclusion } from '../../../tipos/compartidos';
 
 const nombreArchivo = 'Inclusion scores nationwide';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
@@ -23,27 +24,12 @@ type Fila = [
 
 type FilaPoblacion = [
   codigo: string,
-
   departamento: string,
-
   municipio: string,
-
   poblacionHogares: number,
-
   poblacionLEA: number,
-
   poblacionTotal: string,
 ];
-
-interface DatosInclusion {
-  nombre: string;
-  dep: string;
-  valor: number;
-  encuestado: boolean;
-  latitud: number;
-  longitud: number;
-  poblacionTotal?: number;
-}
 
 inicio().catch(console.error);
 

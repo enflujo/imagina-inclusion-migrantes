@@ -10,6 +10,6 @@
     "outDir": "./publico",
     "baseUrl": "./fuente",
   },
-  "include": ["./fuente/**/*"],
+  "include": ["./fuente/**/*", "../../tipos/**/*"],
   "exclude": ["node_modules"],
 }
