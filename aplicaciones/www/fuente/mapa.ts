@@ -1,19 +1,13 @@
 import mapboxgl from 'mapbox-gl';
 import type { Map } from 'mapbox-gl';
-//import type { GeoJSONSource, Map } from 'mapbox-gl';
 import type { Feature, FeatureCollection, Point } from 'geojson';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default async function mapa() {
   const datos = await fetch('/inclusion-municipios.json').then((res) => res.json());
-  const datos2 = await fetch('/trees.geojson').then((res) => res.json());
   console.log(datos);
-  console.log(datos2);
-  //let mapaCreado = false;
-  //let mapaCargado = false;
   const geoJson: FeatureCollection = { type: 'FeatureCollection', features: [] };
   datos.forEach((lugar) => {
-    // "type":"FeatureCollection","features":[{"type":"Feature","properties":{"dbh":0},"geometry":{"type":"Point","coordinates":[-79.91746,40.44356]}}
     geoJson.features.push({
       type: 'Feature',
       properties: { ranking: lugar.valor, poblacion: lugar.poblacionTotal },
@@ -56,8 +50,8 @@ export default async function mapa() {
           },
           'heatmap-intensity': {
             stops: [
-              [1, 2],
-              [977, 1],
+              [5, 0.1],
+              [15, 0.4],
             ],
           },
           'heatmap-color': [
@@ -65,24 +59,24 @@ export default async function mapa() {
             ['linear'],
             ['heatmap-density'],
             0,
-            'rgba(236,222,239,0)',
+            'rgba(51,255,51,0)',
             0.2,
-            'rgb(208,209,230)',
-            0.4,
-            'rgb(166,189,219)',
-            0.8,
-            'rgb(28,144,153)',
+            'rgb(60,179,113)', //Verde
+            0.6,
+            'rgb(255,255,51)', //Amarillo
+            1,
+            'rgb(255,0,0)', //Rojo
           ],
           'heatmap-radius': {
             stops: [
-              [11, 35],
-              [977, 2],
+              [5, 60],
+              [15, 70],
             ],
           },
           'heatmap-opacity': {
-            default: 1,
+            default: 0.8,
             stops: [
-              [14, 1],
+              [8, 1],
               [15, 0],
             ],
           },
@@ -96,16 +90,16 @@ export default async function mapa() {
         id: 'municipios-point',
         type: 'circle',
         source: 'municipios',
-        minzoom: 14,
+        minzoom: 7,
         paint: {
           'circle-radius': {
             property: 'ranking',
             type: 'exponential',
             stops: [
-              [{ zoom: 15, value: 1 }, 5],
-              [{ zoom: 15, value: 62 }, 10],
-              [{ zoom: 22, value: 1 }, 20],
-              [{ zoom: 22, value: 62 }, 50],
+              [{ zoom: 7, value: 1 }, 10],
+              [{ zoom: 7, value: 977 }, 15],
+              [{ zoom: 15, value: 1 }, 20],
+              [{ zoom: 15, value: 977 }, 50],
             ],
           },
           'circle-color': {
@@ -118,12 +112,32 @@ export default async function mapa() {
               [30, 'rgb(166,189,219)'],
               [40, 'rgb(103,169,207)'],
               [50, 'rgb(28,144,153)'],
-              [60, 'rgb(1,108,89)'],
+              [60, 'rgb(238,130,238)'],
+            ],
+          },
+          'circle-stroke-color': 'white',
+          'circle-stroke-width': 1,
+          'circle-opacity': {
+            stops: [
+              [7, 0],
+              [15, 1],
             ],
           },
         },
       },
       'waterway-label'
     );
+
+    map.on('click', 'municipios-point', (evento) => {
+      const feature = evento.features?.[0] as Feature<Point>;
+      if (feature && feature.properties) {
+        const coords = feature.geometry.coordinates as [number, number];
+        const ranking = feature.properties.ranking as number;
+        new mapboxgl.Popup()
+          .setLngLat(coords)
+          .setHTML('<strong>Ranking de inclusión:</strong> ' + ranking)
+          .addTo(map);
+      }
+    });
   });
 }
