@@ -2,15 +2,18 @@ import mapboxgl from 'mapbox-gl';
 import type { Map } from 'mapbox-gl';
 import type { Feature, FeatureCollection, Point } from 'geojson';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { pedirDatos } from './utilidades/ayudas';
+import { DatosInclusion } from '../../../tipos/compartidos';
 
 export default async function mapa() {
-  const datos = await fetch('/inclusion-municipios.json').then((res) => res.json());
+  const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
   console.log(datos);
   const geoJson: FeatureCollection = { type: 'FeatureCollection', features: [] };
+
   datos.forEach((lugar) => {
     geoJson.features.push({
       type: 'Feature',
-      properties: { ranking: lugar.valor, poblacion: lugar.poblacionTotal },
+      properties: { ranking: lugar.valor, poblacion: lugar.poblacionTotal, mun: lugar.nombre, dep: lugar.dep },
       geometry: { type: 'Point', coordinates: [lugar.longitud, lugar.latitud] },
     });
   });
@@ -33,109 +36,87 @@ export default async function mapa() {
       data: geoJson,
     });
 
-    map.addLayer(
-      {
-        id: 'municipios-heat',
-        type: 'heatmap',
-        source: 'municipios',
-        maxzoom: 15,
-        paint: {
-          'heatmap-weight': {
-            property: 'ranking',
-            type: 'exponential',
-            stops: [
-              [1, 0],
-              [977, 1],
-            ],
-          },
-          'heatmap-intensity': {
-            stops: [
-              [5, 0.1],
-              [15, 0.4],
-            ],
-          },
-          'heatmap-color': [
-            'interpolate',
-            ['linear'],
-            ['heatmap-density'],
-            0,
-            'rgba(51,255,51,0)',
-            0.2,
-            'rgb(60,179,113)', //Verde
-            0.6,
-            'rgb(255,255,51)', //Amarillo
-            1,
-            'rgb(255,0,0)', //Rojo
+    const zoomMax = 15;
+
+    map.addLayer({
+      id: 'municipios-areas',
+      type: 'heatmap',
+      source: 'municipios',
+      maxzoom: zoomMax,
+
+      paint: {
+        'heatmap-weight': {
+          property: 'ranking',
+          type: 'exponential',
+          stops: [
+            [1, 0],
+            [977, 1],
           ],
-          'heatmap-radius': {
-            stops: [
-              [5, 60],
-              [15, 70],
-            ],
-          },
-          'heatmap-opacity': {
-            default: 0.8,
-            stops: [
-              [8, 1],
-              [15, 0],
-            ],
-          },
+        },
+        'heatmap-intensity': {
+          stops: [
+            [5, 0.1],
+            [zoomMax, 0.4],
+          ],
+        },
+        'heatmap-color': [
+          'interpolate',
+          ['linear'],
+          ['heatmap-density'],
+          0,
+          'rgba(51,255,51,0)',
+          0.2,
+          'rgb(60,179,113)', //Verde
+          0.6,
+          'rgb(255,255,51)', //Amarillo
+          1,
+          'rgb(255,0,0)', //Rojo
+        ],
+        'heatmap-radius': {
+          stops: [
+            [5, 60],
+            [zoomMax, 70],
+          ],
+        },
+        'heatmap-opacity': {
+          default: 0.8,
+          stops: [
+            [8, 1],
+            [zoomMax, 0],
+          ],
         },
       },
-      'waterway-label'
-    );
+    });
 
-    map.addLayer(
-      {
-        id: 'municipios-point',
-        type: 'circle',
-        source: 'municipios',
-        minzoom: 7,
-        paint: {
-          'circle-radius': {
-            property: 'ranking',
-            type: 'exponential',
-            stops: [
-              [{ zoom: 7, value: 1 }, 10],
-              [{ zoom: 7, value: 977 }, 15],
-              [{ zoom: 15, value: 1 }, 20],
-              [{ zoom: 15, value: 977 }, 50],
-            ],
-          },
-          'circle-color': {
-            property: 'ranking',
-            type: 'exponential',
-            stops: [
-              [0, 'rgba(236,222,239,0)'],
-              [10, 'rgb(236,222,239)'],
-              [20, 'rgb(208,209,230)'],
-              [30, 'rgb(166,189,219)'],
-              [40, 'rgb(103,169,207)'],
-              [50, 'rgb(28,144,153)'],
-              [60, 'rgb(238,130,238)'],
-            ],
-          },
-          'circle-stroke-color': 'white',
-          'circle-stroke-width': 1,
-          'circle-opacity': {
-            stops: [
-              [7, 0],
-              [15, 1],
-            ],
-          },
-        },
+    map.addLayer({
+      id: 'municipios-puntos',
+      type: 'circle',
+      source: 'municipios',
+      minzoom: 7,
+      paint: {
+        'circle-radius': 10,
+        'circle-color': 'yellow',
+        'circle-stroke-color': 'white',
+        'circle-stroke-width': 1,
       },
-      'waterway-label'
-    );
+    });
 
-    map.on('click', 'municipios-point', (evento) => {
-      const feature = evento.features?.[0] as Feature<Point>;
-      if (feature && feature.properties) {
-        const coords = feature.geometry.coordinates as [number, number];
-        const ranking = feature.properties.ranking as number;
+    map.on('click', 'municipios-puntos', (evento) => {
+      const punto = evento.features?.[0] as Feature<Point>;
+
+      if (punto && punto.properties) {
+        const coords = punto.geometry.coordinates as [number, number];
+        const ranking = punto.properties.ranking as number;
+        const municipio = punto.properties.mun;
+        const departamento = punto.properties.dep;
+        console.log(punto);
         new mapboxgl.Popup()
           .setLngLat(coords)
-          .setHTML('<strong>Ranking de inclusión:</strong> ' + ranking)
+          .setHTML(
+            `<p class="nombreMunicipio">${municipio} (${departamento})</p>` +
+              '<span class="yanaina">Ranking de inclusión:</span> ' +
+              ranking
+          )
           .addTo(map);
       }
     });
