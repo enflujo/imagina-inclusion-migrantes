@@ -50,7 +50,7 @@ export default class Bola {
   }
 
   // mover/dibujar básico
-  move(dt: number) {
+  mover(dt: number) {
     if (this.esMuro) return;
 
     if (this.activo && this.p.x > 400) {
@@ -75,7 +75,7 @@ export default class Bola {
     }
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
+  dibujar(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     if (this.esMuro && this.largoMuro) {
       ctx.save();

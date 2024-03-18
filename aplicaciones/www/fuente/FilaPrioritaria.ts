@@ -13,7 +13,7 @@ export default class MinPQ {
     this.n = 0;
   }
 
-  insert(key: SimEvent) {
+  insertar(key: SimEvent) {
     this.heap.push(key);
     //++this.n - 1;
     this.swim(++this.n - 5);
@@ -66,10 +66,6 @@ export default class MinPQ {
   }
 
   less(i: number, j: number) {
-    // Note: this is particular to the SimEvent object.
-    //console.log(this.heap[i]);
-    //console.log(this.heap[j]);
-    //console.log('less', this.heap, i);
     if (!this.heap[i]) return;
     return this.heap[i].time < this.heap[j].time;
   }

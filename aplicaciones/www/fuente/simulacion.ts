@@ -120,16 +120,16 @@ function hacerSimulacion() {
   sim.redibujar(ctx);
 }
 
-let interval: number, intervalActive: boolean;
-function activateInterval() {
-  if (!intervalActive) {
-    interval = window.setInterval(correrSimulacion, ms);
-    intervalActive = true;
+let intervalo: number, intervalActivo: boolean;
+function activarIntervalo() {
+  if (!intervalActivo) {
+    intervalo = window.setInterval(correrSimulacion, ms);
+    intervalActivo = true;
   }
 }
-function deactivateInterval() {
-  window.clearInterval(interval);
-  intervalActive = false;
+function desactivarIntervalo() {
+  window.clearInterval(intervalo);
+  intervalActivo = false;
 }
 
 function correrSimulacion() {
@@ -139,7 +139,7 @@ function correrSimulacion() {
     sim.simulate(dt);
   } catch (e) {
     console.log(e);
-    window.clearInterval(interval);
+    window.clearInterval(intervalo);
   }
 }
 
@@ -149,11 +149,11 @@ const botonEmpezar = document.getElementById('empezar') as HTMLButtonElement;
 const botonDetener = document.getElementById('detener') as HTMLButtonElement;
 const botonNuevaSimulacion = document.getElementById('nuevo') as HTMLButtonElement;
 
-botonEmpezar.addEventListener('click', activateInterval);
+botonEmpezar.addEventListener('click', activarIntervalo);
 
-botonDetener.addEventListener('click', deactivateInterval);
+botonDetener.addEventListener('click', desactivarIntervalo);
 
 botonNuevaSimulacion.addEventListener('click', () => {
-  deactivateInterval();
+  desactivarIntervalo();
   hacerSimulacion();
 });

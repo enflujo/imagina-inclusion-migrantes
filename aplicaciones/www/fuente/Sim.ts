@@ -27,11 +27,11 @@ export default class Sim {
     this.cl = cl;
 
     for (var i = 0; i < bolas.length; i++) {
-      this.predictAll(this.bolas[i]);
+      this.predecirTodo(this.bolas[i]);
     }
   }
 
-  predictAll(bola: Bola) {
+  predecirTodo(bola: Bola) {
     if (bola == null) {
       return;
     }
@@ -48,22 +48,22 @@ export default class Sim {
       if (!isFinite(dt) || dt <= 0) {
         continue;
       }
-      this.pq.insert(new SimEvent(this.tiempo + dt, bola, this.bolas[i]));
+      this.pq.insertar(new SimEvent(this.tiempo + dt, bola, this.bolas[i]));
       //console.log('Ball event inserted');
     }
     dt = bola.timeToHitVerticalWall(this.cl);
     if (isFinite(dt) && dt > 0) {
       //console.log('Vert event inserted');
-      this.pq.insert(new SimEvent(this.tiempo + dt, null, bola));
+      this.pq.insertar(new SimEvent(this.tiempo + dt, null, bola));
     }
     dt = bola.timeToHitHorizontalWall(this.cl);
     if (isFinite(dt) && dt > 0) {
       //console.log('Horiz event inserted');
-      this.pq.insert(new SimEvent(this.tiempo + dt, bola, null));
+      this.pq.insertar(new SimEvent(this.tiempo + dt, bola, null));
     }
   }
-  predictBalls(ball: Bola) {
-    if (ball == null) {
+  predecirBolas(bola: Bola) {
+    if (bola == null) {
       return;
     }
     var dt;
@@ -75,32 +75,32 @@ export default class Sim {
       //
       //
 
-      dt = ball.timeToHit(this.bolas[i]);
+      dt = bola.timeToHit(this.bolas[i]);
       if (!isFinite(dt) || dt <= 0) {
         continue;
       }
-      this.pq.insert(new SimEvent(this.tiempo + dt, ball, this.bolas[i]));
+      this.pq.insertar(new SimEvent(this.tiempo + dt, bola, this.bolas[i]));
     }
   }
 
-  predictVerticalWall(ball: Bola) {
-    if (ball == null) {
+  predecirMuroVertical(bola: Bola) {
+    if (bola == null) {
       return;
     }
-    var dt = ball.timeToHitVerticalWall(this.cl);
+    var dt = bola.timeToHitVerticalWall(this.cl);
     if (isFinite(dt) && dt > 0) {
       //console.log('Vert event inserted');
-      this.pq.insert(new SimEvent(this.tiempo + dt, null, ball));
+      this.pq.insertar(new SimEvent(this.tiempo + dt, null, bola));
     }
   }
-  predictHorizontalWall(ball: Bola) {
-    if (ball == null) {
+  predecirMuroHorizontal(bola: Bola) {
+    if (bola == null) {
       return;
     }
-    var dt = ball.timeToHitHorizontalWall(this.cl);
+    var dt = bola.timeToHitHorizontalWall(this.cl);
     if (isFinite(dt) && dt > 0) {
       //console.log('Horiz event inserted');
-      this.pq.insert(new SimEvent(this.tiempo + dt, ball, null));
+      this.pq.insertar(new SimEvent(this.tiempo + dt, bola, null));
     }
   }
 
@@ -108,7 +108,7 @@ export default class Sim {
     const cl = this.cl;
     ctx.clearRect(0, 0, cl, cl);
     for (var i = 0; i < this.bolas.length; i++) {
-      this.bolas[i].draw(ctx);
+      this.bolas[i].dibujar(ctx);
     }
   }
 
@@ -132,15 +132,15 @@ export default class Sim {
       }
       this.pq.delMin();
       if (!minEvent.isValid(this.tiempo, this.cl)) {
-        simLog += 'Invalid event: ' + minEvent.type() + '\n';
+        simLog += 'Evento inválido: ' + minEvent.type() + '\n';
         continue;
       }
 
-      simLog += 'Valid event: ' + minEvent.type() + '; ';
+      simLog += 'Evento válido: ' + minEvent.type() + '; ';
       inc = minEvent.time - this.tiempo;
 
       for (var i = 0; i < this.bolas.length; i++) {
-        this.bolas[i].move(inc);
+        this.bolas[i].mover(inc);
       }
       this.tiempo = minEvent.time;
 
@@ -149,19 +149,19 @@ export default class Sim {
       if (a !== null && b !== null) {
         a.bounceOff(b);
         simLog += 'Bounced off particle\n';
-        this.predictAll(a);
-        this.predictAll(b);
+        this.predecirTodo(a);
+        this.predecirTodo(b);
       } else if (a === null && b !== null) {
         b.bounceOffVerticalWall();
         simLog += 'Bounced off vertical\n';
-        this.predictBalls(b);
-        this.predictVerticalWall(b);
+        this.predecirBolas(b);
+        this.predecirMuroVertical(b);
       } else {
         if (!a) return;
         a.bounceOffHorizontalWall();
         simLog += 'Bounced off horizontal\n';
-        this.predictBalls(a);
-        this.predictHorizontalWall(a);
+        this.predecirBolas(a);
+        this.predecirMuroHorizontal(a);
       }
 
       /// TEMPORARY COUNTER
@@ -175,7 +175,7 @@ export default class Sim {
 
     inc = end - this.tiempo;
     for (var i = 0; i < this.bolas.length; i++) {
-      this.bolas[i].move(inc);
+      this.bolas[i].mover(inc);
     }
     this.tiempo = end;
 
