@@ -16,6 +16,7 @@ export default class Bola {
   largoMuro: number;
   //rotacion: number;
   parabola: number;
+  corono: boolean;
 
   constructor(
     posX: number,
@@ -47,6 +48,8 @@ export default class Bola {
     //     this.posX = 250;
     //   }
     // }
+
+    this.corono = false;
   }
 
   // mover/dibujar básico
@@ -71,7 +74,7 @@ export default class Bola {
 
         this.parabola += 0.01;
       }
-      this.color = 'rgb(4, 149, 168)';
+      this.color = 'rgb(4, 149, 168)'; // Color de las bolas cuando pasan al otro lado
     }
   }
 

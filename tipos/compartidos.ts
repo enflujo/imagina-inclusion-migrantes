@@ -1,7 +1,8 @@
 export interface DatosInclusion {
   nombre: string;
   dep: string;
-  valor: number;
+  valorRank: number;
+  valorIndice: number;
   encuestado: boolean;
   latitud: number;
   longitud: number;

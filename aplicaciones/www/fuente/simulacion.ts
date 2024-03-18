@@ -1,6 +1,9 @@
 import Bola from './Bola';
 import Sim from './Sim';
 
+import { pedirDatos } from './utilidades/ayudas';
+import { DatosInclusion } from '../../../tipos/compartidos';
+
 /*
 	Configurar canvas
 */
@@ -49,12 +52,11 @@ function posNeg() {
  * @param params {n: cantidad de partículas}
  * @returns
  */
-function generarBolas(n: number) {
+function generarBolas(cantidadBolas: number, cantidadMuros: number) {
   /* Crear muro */
   let bolas = [];
   let m = 41; //debe ser impar. A menor número, mayor diámetro de los círculos del muro
   let h = CANVAS_LENGTH / m; // longitud del canvas / m
-  const cantidadMuros = 50;
   // el valor que se suma a i define la distancia entre los círculos que forman el muro
   for (let i = 0; i < cantidadMuros; i++) {
     // if (i === Math.floor((m - 1) / 2) || i === Math.floor((m - 1) / 2) - 1) {
@@ -81,7 +83,7 @@ function generarBolas(n: number) {
 
   // Generar partículas
   let badBallCounter = 0;
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < cantidadBolas; i++) {
     let newBall = new Bola(
       0.1 * Math.floor(Math.random() * CANVAS_LENGTH),
       Math.floor(Math.random() * CANVAS_LENGTH),
@@ -110,30 +112,50 @@ function generarBolas(n: number) {
 const ms = 30;
 const dt = ms / 1000;
 let sim: Sim;
-let bolas = [];
 
-function hacerSimulacion() {
-  bolas = generarBolas(100);
+const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
+
+// Definir número de muros según los datos -> Pensar mejor...
+const numeroMuros = Math.ceil(100 - datos[0].valorIndice);
+
+// Definir lugar elegido
+const lugarElegido = 0;
+
+export default async function hacerSimulacion(cantidadBolas: number, cantidadMuros: number) {
+  const bolas = generarBolas(cantidadBolas, cantidadMuros);
+
   // Crear nueva simulación
-  sim = new Sim(bolas, CANVAS_LENGTH);
+  sim = new Sim(bolas, CANVAS_LENGTH, cantidadMuros);
   if (!ctx) return;
   sim.redibujar(ctx);
 }
 
-let intervalo: number, intervalActivo: boolean;
+let intervalo: number;
+let intervaloActivo: boolean;
+
 function activarIntervalo() {
-  if (!intervalActivo) {
+  if (!intervaloActivo) {
     intervalo = window.setInterval(correrSimulacion, ms);
-    intervalActivo = true;
+    intervaloActivo = true;
   }
 }
+
 function desactivarIntervalo() {
   window.clearInterval(intervalo);
-  intervalActivo = false;
+  intervaloActivo = false;
 }
 
 function correrSimulacion() {
   if (!ctx) return;
+
+  const indiceInclusion = Math.ceil(datos[lugarElegido].valorIndice);
+
+  // Detener la simulación cuando corone el número de bolas = al índice de inclusión
+  if (sim.bolasCoronadas >= indiceInclusion) {
+    desactivarIntervalo();
+    console.log(`bolas coronadas: ${sim.bolasCoronadas}`);
+  }
+
   sim.redibujar(ctx);
   try {
     sim.simulate(dt);
@@ -143,7 +165,7 @@ function correrSimulacion() {
   }
 }
 
-hacerSimulacion();
+hacerSimulacion(100, 100 - datos[0].valorIndice);
 
 const botonEmpezar = document.getElementById('empezar') as HTMLButtonElement;
 const botonDetener = document.getElementById('detener') as HTMLButtonElement;
@@ -155,5 +177,5 @@ botonDetener.addEventListener('click', desactivarIntervalo);
 
 botonNuevaSimulacion.addEventListener('click', () => {
   desactivarIntervalo();
-  hacerSimulacion();
+  hacerSimulacion(100, numeroMuros);
 });

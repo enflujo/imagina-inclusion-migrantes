@@ -10,8 +10,10 @@ export default class Sim {
   bolas: Bola[];
   pq: MinPQ;
   cl: number;
+  cantidadMuros: number;
+  bolasCoronadas: number;
 
-  constructor(bolas: Bola[], cl: number) {
+  constructor(bolas: Bola[], cl: number, cantidadMuros: number) {
     if (bolas == null) {
       throw new Error('Sim constructor requires array of balls');
     }
@@ -25,6 +27,8 @@ export default class Sim {
     this.bolas = bolas;
     this.pq = new MinPQ();
     this.cl = cl;
+    this.cantidadMuros = cantidadMuros;
+    this.bolasCoronadas = 0;
 
     for (var i = 0; i < bolas.length; i++) {
       this.predecirTodo(this.bolas[i]);
@@ -106,10 +110,25 @@ export default class Sim {
 
   redibujar(ctx: CanvasRenderingContext2D) {
     const cl = this.cl;
+
     ctx.clearRect(0, 0, cl, cl);
-    for (var i = 0; i < this.bolas.length; i++) {
-      this.bolas[i].dibujar(ctx);
+    for (let i = 0; i < this.bolas.length; i++) {
+      const bola = this.bolas[i];
+      bola.dibujar(ctx);
     }
+
+    this.bolasCoronadas = this.bolas.reduce(
+      (conteo, bola) => {
+        if (!bola.activo) conteo += 1;
+        return conteo;
+      },
+      0 - Math.ceil(this.cantidadMuros)
+    );
+
+    if (this.bolasCoronadas > 100 - this.cantidadMuros) {
+      console.log('Fin de la simulación');
+    }
+    //console.log(this.bolasCoronadas);
   }
 
   // 'Increment' the simulation by time dt
@@ -178,7 +197,7 @@ export default class Sim {
       this.bolas[i].mover(inc);
     }
     this.tiempo = end;
-
+    //  console.log(this.tiempo);
     //console.log(simLog);
   }
 }

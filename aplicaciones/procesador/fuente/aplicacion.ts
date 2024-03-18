@@ -4,7 +4,7 @@ import { getXlsxStream } from 'xlstream';
 import { guardarJSON } from './utilidades/ayudas';
 import { DatosInclusion } from '../../../tipos/compartidos';
 
-const nombreArchivo = 'Inclusion scores nationwide';
+const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
 
 type Fila = [
@@ -16,8 +16,10 @@ type Fila = [
   departamento: string,
   /** Código del departamento */
   codigoDep: number,
+  /** Ranking de inclusión */
+  valorRank: number,
   /** Índice de inclusión */
-  valor: number,
+  valorIndice: number,
   /** Índice de encuestados */
   indiceEncuestado: number,
 ];
@@ -67,6 +69,7 @@ async function inicio() {
   });
 
   flujo.on('data', (fila) => {
+    console.log(fila);
     if (numeroFila === 1) {
       total = fila.totalSheetSize;
     }
@@ -92,7 +95,7 @@ async function inicio() {
   }
 
   function procesarFila(fila: Fila, numeroFila: number) {
-    const [nombreMun, codMun, nombreDep, codDep, valor, indiceEncuestado] = fila;
+    const [nombreMun, codMun, nombreDep, codDep, valorRank, valorIndice, indiceEncuestado] = fila;
     const mun = municipios.datos.find((municipio) => +municipio[3] === codMun);
 
     if (!mun) {
@@ -110,7 +113,8 @@ async function inicio() {
     datos.push({
       nombre: mun[1],
       dep: dep[1],
-      valor,
+      valorRank,
+      valorIndice,
       encuestado: !!indiceEncuestado,
       latitud: dep[2],
       longitud: dep[3],
