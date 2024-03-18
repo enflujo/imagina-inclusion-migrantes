@@ -5,7 +5,7 @@ import Sim from './Sim';
 	Configurar canvas
 */
 var CANVAS_LENGTH = 580;
-var canvas = document.getElementById('canvas') as HTMLCanvasElement;
+var canvas = document.getElementById('simulacion') as HTMLCanvasElement;
 var ctx = canvas.getContext('2d');
 
 if (canvas) {
