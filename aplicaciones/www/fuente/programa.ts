@@ -8,8 +8,7 @@ fetch('/inclusion-municipios.json')
   });
 
 function inicio(datos: { nombre: string; dep: string; valor: number; encuestado: boolean }[]) {
-  console.log(datos);
-  const contenedor = document.getElementById('contenedor');
+  const contenedorLista = document.getElementById('contenedorLista');
   const lista = document.createElement('ul');
 
   datos.forEach((lugar) => {
@@ -37,5 +36,5 @@ function inicio(datos: { nombre: string; dep: string; valor: number; encuestado:
     lista.appendChild(elemento);
   });
 
-  contenedor?.appendChild(lista);
+  contenedorLista?.appendChild(lista);
 }

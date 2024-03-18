@@ -40,7 +40,41 @@ body {
 }
 
 #contenedorMapa {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 99vw;
+  height: 100vh;
+
+  canvas {
+    display: block;
+    width: 580px;
+    height: 580px;
+    margin: auto;
+    border: 2px solid #747474;
+    background-color: #fff8f8;
+  }
+}
+
+#contenedorSimulacion {
+  padding: 3em;
+
+  #simulacion {
+    transform: translateX(25vw);
+    background-color: rgb(254, 228, 255);
+    width: 40vw;
+  }
+}
+
+#button-row,
+#selector-row {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.radio-box {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+button {
+  display: inline-block;
+  margin: 0px 20px 0px 20px;
 }
