@@ -4,12 +4,14 @@ import Sim from './Sim';
 import { pedirDatos } from './utilidades/ayudas';
 import { DatosInclusion } from '../../../tipos/compartidos';
 
+const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
+
 /*
 	Configurar canvas
 */
-var CANVAS_LENGTH = 580;
-var canvas = document.getElementById('simulacion') as HTMLCanvasElement;
-var ctx = canvas.getContext('2d');
+let CANVAS_LENGTH = 580;
+let canvas = document.getElementById('simulacion') as HTMLCanvasElement;
+let ctx = canvas.getContext('2d');
 
 if (canvas) {
   canvas.width = CANVAS_LENGTH;
@@ -17,7 +19,7 @@ if (canvas) {
   canvas.style.marginTop = '20px';
 }
 
-var diff = document.documentElement.clientHeight - CANVAS_LENGTH;
+let diff = document.documentElement.clientHeight - CANVAS_LENGTH;
 // /*
 // 	Generar estados iniciales
 // */
@@ -30,10 +32,10 @@ function validarNuevaBola(bolas: Bola[], ball: Bola) {
   ) {
     return false;
   }
-  var dx;
-  var dy;
-  var r;
-  for (var i = 0; i < bolas.length; i++) {
+  let dx;
+  let dy;
+  let r;
+  for (let i = 0; i < bolas.length; i++) {
     dx = bolas[i].p.x - ball.p.x;
     dy = bolas[i].p.y - ball.p.y;
     r = bolas[i].r + ball.r;
@@ -113,8 +115,6 @@ const ms = 30;
 const dt = ms / 1000;
 let sim: Sim;
 
-const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
-
 // Definir número de muros según los datos -> Pensar mejor...
 const numeroMuros = Math.ceil(100 - datos[0].valorIndice);
 
@@ -148,7 +148,7 @@ function desactivarIntervalo() {
 function correrSimulacion() {
   if (!ctx) return;
 
-  const indiceInclusion = Math.ceil(datos[lugarElegido].valorIndice);
+  const indiceInclusion = Math.round(datos[lugarElegido].valorIndice);
 
   // Detener la simulación cuando corone el número de bolas = al índice de inclusión
   if (sim.bolasCoronadas >= indiceInclusion) {

@@ -25,7 +25,7 @@ export default class SimEvent {
 
   isValid(simTime: number, longitudCanvas: number) {
     // Nota: se usa toFixed(4) para evitar posibles errores de exactitud de floating-point
-    var log = '';
+    let log = '';
     // Note: this check forces only one event at a given instant
     if (this.time < simTime) {
       log += 'Event precedes simulation time';
