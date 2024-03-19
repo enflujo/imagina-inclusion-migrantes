@@ -1,6 +1,12 @@
+@import './constantes';
+
 html {
   box-sizing: border-box;
   height: 100%;
+  font-family: var(--fuenteParrafo);
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1;
 }
 
 *,
