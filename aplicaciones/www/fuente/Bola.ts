@@ -111,18 +111,18 @@ export default class Bola {
     if (this.equals(bola)) {
       return Number.POSITIVE_INFINITY;
     }
-    var dpx = bola.p.x - this.p.x;
-    var dpy = bola.p.y - this.p.y;
-    var dvx = bola.v.x - this.v.x;
-    var dvy = bola.v.y - this.v.y;
-    var dpdv = dvx * dpx + dvy * dpy;
+    let dpx = bola.p.x - this.p.x;
+    let dpy = bola.p.y - this.p.y;
+    let dvx = bola.v.x - this.v.x;
+    let dvy = bola.v.y - this.v.y;
+    let dpdv = dvx * dpx + dvy * dpy;
     if (dpdv > 0) {
       return Number.POSITIVE_INFINITY;
     }
-    var dvdv = dvx * dvx + dvy * dvy;
-    var dpdp = dpx * dpx + dpy * dpy;
-    var R = bola.r + this.r;
-    var D = dpdv * dpdv - dvdv * (dpdp - R * R);
+    let dvdv = dvx * dvx + dvy * dvy;
+    let dpdp = dpx * dpx + dpy * dpy;
+    let R = bola.r + this.r;
+    let D = dpdv * dpdv - dvdv * (dpdp - R * R);
     if (D < 0) {
       return Number.POSITIVE_INFINITY;
     }
@@ -152,15 +152,15 @@ export default class Bola {
 
   // Resolución de la colisión
   bounceOff(bola: Bola) {
-    var dpx = bola.p.x - this.p.x;
-    var dpy = bola.p.y - this.p.y;
-    var dvx = bola.v.x - this.v.x;
-    var dvy = bola.v.y - this.v.y;
-    var dpdv = dpx * dvx + dpy * dvy;
-    var R = this.r + bola.r;
-    var J = (2 * this.m * bola.m * dpdv) / ((this.m + bola.m) * R);
-    var Jx = (J * dpx) / R;
-    var Jy = (J * dpy) / R;
+    let dpx = bola.p.x - this.p.x;
+    let dpy = bola.p.y - this.p.y;
+    let dvx = bola.v.x - this.v.x;
+    let dvy = bola.v.y - this.v.y;
+    let dpdv = dpx * dvx + dpy * dvy;
+    let R = this.r + bola.r;
+    let J = (2 * this.m * bola.m * dpdv) / ((this.m + bola.m) * R);
+    let Jx = (J * dpx) / R;
+    let Jy = (J * dpy) / R;
     this.v.x += Jx / this.m;
     this.v.y += Jy / this.m;
     bola.v.x -= Jx / bola.m;
