@@ -12,6 +12,7 @@ const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
 let CANVAS_LENGTH = 580;
 let canvas = document.getElementById('simulacion') as HTMLCanvasElement;
 let ctx = canvas.getContext('2d');
+let contador = document.getElementById('contador');
 
 if (canvas) {
   canvas.width = CANVAS_LENGTH;
@@ -150,9 +151,14 @@ function correrSimulacion() {
 
   const indiceInclusion = Math.round(datos[lugarElegido].valorIndice);
 
+  if (!contador) return;
+
+  contador.innerText = `${sim.bolasCoronadas}`;
+
   // Detener la simulación cuando corone el número de bolas = al índice de inclusión
   if (sim.bolasCoronadas >= indiceInclusion) {
     desactivarIntervalo();
+    contador.innerText = `El índice de inclusión en XXX es ${sim.bolasCoronadas}`;
     console.log(`bolas coronadas: ${sim.bolasCoronadas}`);
   }
 
@@ -176,6 +182,8 @@ botonEmpezar.addEventListener('click', activarIntervalo);
 botonDetener.addEventListener('click', desactivarIntervalo);
 
 botonNuevaSimulacion.addEventListener('click', () => {
+  if (!contador) return;
+
   desactivarIntervalo();
-  hacerSimulacion(100, numeroMuros);
+  hacerSimulacion(143672, numeroMuros);
 });
