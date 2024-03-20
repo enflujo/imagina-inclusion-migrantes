@@ -7,7 +7,7 @@ fetch('/inclusion-municipios.json')
     inicio(datos);
   });
 
-function inicio(datos: { nombre: string; dep: string; valor: number; encuestado: boolean }[]) {
+function inicio(datos: { nombre: string; dep: string; valorRank: number; encuestado: boolean }[]) {
   const contenedorLista = document.getElementById('contenedorLista');
   const lista = document.createElement('ul');
 
@@ -27,7 +27,7 @@ function inicio(datos: { nombre: string; dep: string; valor: number; encuestado:
     departamento.className = 'departamento';
 
     const valor = document.createElement('span');
-    valor.innerText = `${lugar.valor}`;
+    valor.innerText = `${lugar.valorRank}`;
     valor.className = 'valor';
 
     elemento.appendChild(municipio);

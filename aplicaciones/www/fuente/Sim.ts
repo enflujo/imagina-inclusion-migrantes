@@ -10,12 +10,14 @@ export default class Sim {
   bolas: Bola[];
   pq: MinPQ;
   cl: number;
+  cantidadMuros: number;
+  bolasCoronadas: number;
 
-  constructor(bolas: Bola[], cl: number) {
+  constructor(bolas: Bola[], cl: number, cantidadMuros: number) {
     if (bolas == null) {
       throw new Error('Sim constructor requires array of balls');
     }
-    for (var i = 0; i < bolas.length; i++) {
+    for (let i = 0; i < bolas.length; i++) {
       if (bolas[i] == null) {
         throw new Error('Invalid ball passed to Sim constructor');
       }
@@ -25,8 +27,10 @@ export default class Sim {
     this.bolas = bolas;
     this.pq = new MinPQ();
     this.cl = cl;
+    this.cantidadMuros = cantidadMuros;
+    this.bolasCoronadas = 0;
 
-    for (var i = 0; i < bolas.length; i++) {
+    for (let i = 0; i < bolas.length; i++) {
       this.predecirTodo(this.bolas[i]);
     }
   }
@@ -35,8 +39,8 @@ export default class Sim {
     if (bola == null) {
       return;
     }
-    var dt;
-    for (var i = 0; i < this.bolas.length; i++) {
+    let dt;
+    for (let i = 0; i < this.bolas.length; i++) {
       //
       //
       // Uncomment this once the wall collisions are working,
@@ -66,8 +70,8 @@ export default class Sim {
     if (bola == null) {
       return;
     }
-    var dt;
-    for (var i = 0; i < this.bolas.length; i++) {
+    let dt;
+    for (let i = 0; i < this.bolas.length; i++) {
       //
       //
       // Uncomment this once the wall collisions are working,
@@ -87,7 +91,7 @@ export default class Sim {
     if (bola == null) {
       return;
     }
-    var dt = bola.timeToHitVerticalWall(this.cl);
+    let dt = bola.timeToHitVerticalWall(this.cl);
     if (isFinite(dt) && dt > 0) {
       //console.log('Vert event inserted');
       this.pq.insertar(new SimEvent(this.tiempo + dt, null, bola));
@@ -97,7 +101,7 @@ export default class Sim {
     if (bola == null) {
       return;
     }
-    var dt = bola.timeToHitHorizontalWall(this.cl);
+    let dt = bola.timeToHitHorizontalWall(this.cl);
     if (isFinite(dt) && dt > 0) {
       //console.log('Horiz event inserted');
       this.pq.insertar(new SimEvent(this.tiempo + dt, bola, null));
@@ -106,20 +110,35 @@ export default class Sim {
 
   redibujar(ctx: CanvasRenderingContext2D) {
     const cl = this.cl;
+
     ctx.clearRect(0, 0, cl, cl);
-    for (var i = 0; i < this.bolas.length; i++) {
-      this.bolas[i].dibujar(ctx);
+    for (let i = 0; i < this.bolas.length; i++) {
+      const bola = this.bolas[i];
+      bola.dibujar(ctx);
     }
+
+    this.bolasCoronadas = this.bolas.reduce(
+      (conteo, bola) => {
+        if (!bola.activo) conteo += 1;
+        return conteo;
+      },
+      0 - Math.ceil(this.cantidadMuros)
+    );
+
+    if (this.bolasCoronadas > 100 - this.cantidadMuros) {
+      console.log('Fin de la simulación');
+    }
+    //console.log(this.bolasCoronadas);
   }
 
   // 'Increment' the simulation by time dt
   simulate(dt: number) {
-    var simLog = 'Start time: ' + this.tiempo + '\n';
-    var end = this.tiempo + dt;
-    var minEvent;
-    var inc;
+    let simLog = 'Start time: ' + this.tiempo + '\n';
+    let end = this.tiempo + dt;
+    let minEvent;
+    let inc;
 
-    var counter = 0;
+    let counter = 0;
     while (!this.pq.isEmpty()) {
       // Check min event time. If outside time window, break.
       // Otherwise, delete it. If not valid, continue.
@@ -139,13 +158,13 @@ export default class Sim {
       simLog += 'Evento válido: ' + minEvent.type() + '; ';
       inc = minEvent.time - this.tiempo;
 
-      for (var i = 0; i < this.bolas.length; i++) {
+      for (let i = 0; i < this.bolas.length; i++) {
         this.bolas[i].mover(inc);
       }
       this.tiempo = minEvent.time;
 
-      var a = minEvent.a;
-      var b = minEvent.b;
+      let a = minEvent.a;
+      let b = minEvent.b;
       if (a !== null && b !== null) {
         a.bounceOff(b);
         simLog += 'Bounced off particle\n';
@@ -174,11 +193,11 @@ export default class Sim {
     }
 
     inc = end - this.tiempo;
-    for (var i = 0; i < this.bolas.length; i++) {
+    for (let i = 0; i < this.bolas.length; i++) {
       this.bolas[i].mover(inc);
     }
     this.tiempo = end;
-
+    //  console.log(this.tiempo);
     //console.log(simLog);
   }
 }

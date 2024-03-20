@@ -7,17 +7,17 @@ import { DatosInclusion } from '../../../tipos/compartidos';
 
 export default async function mapa() {
   const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
-  console.log(datos);
+  // console.log(datos);
   const geoJson: FeatureCollection = { type: 'FeatureCollection', features: [] };
 
   datos.forEach((lugar) => {
     geoJson.features.push({
       type: 'Feature',
-      properties: { ranking: lugar.valor, poblacion: lugar.poblacionTotal, mun: lugar.nombre, dep: lugar.dep },
+      properties: { ranking: lugar.valorRank, poblacion: lugar.poblacionTotal, mun: lugar.nombre, dep: lugar.dep },
       geometry: { type: 'Point', coordinates: [lugar.longitud, lugar.latitud] },
     });
   });
-  console.log(geoJson);
+  //  console.log(geoJson);
   let map: Map;
   const contenedorMapa = document.getElementById('contenedorMapa') as HTMLDivElement;
   const estilo = 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94';
@@ -109,7 +109,7 @@ export default async function mapa() {
         const ranking = punto.properties.ranking as number;
         const municipio = punto.properties.mun;
         const departamento = punto.properties.dep;
-        console.log(punto);
+        //  console.log(punto);
         new mapboxgl.Popup()
           .setLngLat(coords)
           .setHTML(
