@@ -4,7 +4,7 @@ import { getXlsxStream } from 'xlstream';
 import { guardarJSON } from './utilidades/ayudas';
 import { DatosInclusion } from '../../../tipos/compartidos';
 
-const nombreArchivo = 'Inclusion scores nationwide180324';
+const nombreArchivo = 'Inclusion scores nationwide200324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
 
 type Fila = [
