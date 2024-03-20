@@ -9,11 +9,13 @@ const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
 /*
 	Configurar canvas
 */
-let CANVAS_LENGTH = 580;
-let canvas = document.getElementById('simulacion') as HTMLCanvasElement;
-let ctx = canvas.getContext('2d');
-let contador = document.getElementById('contador');
-const indiceLugar = 800;
+const CANVAS_LENGTH = 580;
+const canvas = document.getElementById('simulacion') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d');
+const contador = document.getElementById('contador');
+const infoCanvas = document.getElementById('infoCanvas');
+const lugarElegido = 800;
+
 if (canvas) {
   canvas.width = CANVAS_LENGTH;
   canvas.height = CANVAS_LENGTH;
@@ -116,13 +118,14 @@ const ms = 30;
 const dt = ms / 1000;
 let sim: Sim;
 
-// Definir número de muros según los datos -> Pensar mejor...
-const numeroMuros = Math.ceil(100 - datos[indiceLugar].valorIndice);
-
-// Definir lugar elegido
-const lugarElegido = 0;
-
-export default async function hacerSimulacion(cantidadBolas: number, cantidadMuros: number) {
+/**
+ *
+ * @param indiceLugar : índice del lugar
+ * @param cantidadBolas: Cantidad de bolas que vamos a generar
+ * @returns
+ */
+export default async function hacerSimulacion(indiceLugar: number, cantidadBolas: number) {
+  const cantidadMuros = 100 - datos[indiceLugar].valorIndice;
   const bolas = generarBolas(cantidadBolas, cantidadMuros);
 
   // Crear nueva simulación
@@ -149,7 +152,7 @@ function desactivarIntervalo() {
 function correrSimulacion() {
   if (!ctx) return;
 
-  const indiceInclusion = Math.round(datos[indiceLugar].valorIndice);
+  const indiceInclusion = Math.round(datos[lugarElegido].valorIndice);
 
   if (!contador) return;
   contador.innerText = `${sim.bolasCoronadas}`;
@@ -157,8 +160,7 @@ function correrSimulacion() {
   // Detener la simulación cuando corone el número de bolas = al índice de inclusión
   if (sim.bolasCoronadas >= indiceInclusion) {
     desactivarIntervalo();
-    contador.innerText = `El índice de inclusión en ${datos[indiceLugar].nombre} es ${datos[indiceLugar].valorIndice}`;
-    console.log(`bolas coronadas: ${datos[lugarElegido].valorIndice}`);
+    contador.innerText = `El índice de inclusión en ${datos[lugarElegido].nombre} es ${datos[lugarElegido].valorIndice.toFixed(2)}`;
   }
 
   sim.redibujar(ctx);
@@ -170,7 +172,17 @@ function correrSimulacion() {
   }
 }
 
-hacerSimulacion(100, 100 - datos[indiceLugar].valorIndice);
+function mostrarInfo(indiceLugar: number) {
+  const infoPobVen = document.createElement('p');
+  const infoRegularizados = document.createElement('p');
+  infoPobVen.innerText = `Según los datos en 2023 había ${datos[indiceLugar].pobVenMun} personas venezolanas en ${datos[indiceLugar].nombre},`;
+  infoRegularizados.innerText = `de las cuales el ${(datos[indiceLugar].porcentRegularMun * 100).toFixed(2)}% estaba regularizado`;
+  infoCanvas?.append(infoPobVen);
+  infoCanvas?.append(infoRegularizados);
+}
+
+mostrarInfo(lugarElegido);
+hacerSimulacion(lugarElegido, 100);
 
 const botonEmpezar = document.getElementById('empezar') as HTMLButtonElement;
 const botonDetener = document.getElementById('detener') as HTMLButtonElement;
@@ -184,5 +196,5 @@ botonNuevaSimulacion.addEventListener('click', () => {
   if (!contador) return;
 
   desactivarIntervalo();
-  hacerSimulacion(100, 100 - datos[indiceLugar].valorIndice);
+  hacerSimulacion(lugarElegido, 100);
 });
