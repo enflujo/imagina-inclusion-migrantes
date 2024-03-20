@@ -152,7 +152,6 @@ function correrSimulacion() {
   const indiceInclusion = Math.round(datos[indiceLugar].valorIndice);
 
   if (!contador) return;
-
   contador.innerText = `${sim.bolasCoronadas}`;
 
   // Detener la simulación cuando corone el número de bolas = al índice de inclusión

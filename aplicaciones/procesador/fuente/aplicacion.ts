@@ -16,6 +16,12 @@ type Fila = [
   departamento: string,
   /** Código del departamento */
   codigoDep: number,
+  /** Número de personas venezolanas por municipio */
+  pobVenMun: number,
+  /** Porcentaje de venezolanxs regularizadxs por municipio */
+  porcentRegularMun: number,
+  /** Porcentaje de venezolanxs afiliadxs por depto */
+  porcentAfiliadDep: number,
   /** Ranking de inclusión */
   valorRank: number,
   /** Índice de inclusión */
@@ -95,7 +101,18 @@ async function inicio() {
   }
 
   function procesarFila(fila: Fila, numeroFila: number) {
-    const [nombreMun, codMun, nombreDep, codDep, valorRank, valorIndice, indiceEncuestado] = fila;
+    const [
+      nombreMun,
+      codMun,
+      nombreDep,
+      codDep,
+      pobVenMun,
+      porcentRegularMun,
+      porcentAfiliadDep,
+      valorRank,
+      valorIndice,
+      indiceEncuestado,
+    ] = fila;
     const mun = municipios.datos.find((municipio) => +municipio[3] === codMun);
 
     if (!mun) {
@@ -113,6 +130,9 @@ async function inicio() {
     datos.push({
       nombre: mun[1],
       dep: dep[1],
+      pobVenMun,
+      porcentRegularMun,
+      porcentAfiliadDep,
       valorRank,
       valorIndice,
       encuestado: !!indiceEncuestado,
