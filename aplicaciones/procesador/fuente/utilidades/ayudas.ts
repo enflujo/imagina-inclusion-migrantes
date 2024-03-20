@@ -6,5 +6,5 @@ import { writeFileSync } from 'fs';
  * @param {String} nombre Nombre del archivo, resulta en ${nombre}.json
  */
 export const guardarJSON = (json: any, nombre: string) => {
-  writeFileSync(`../www/estaticos/${nombre}.json`, JSON.stringify(json));
+  writeFileSync(`../www/src/assets/${nombre}.json`, JSON.stringify(json));
 };

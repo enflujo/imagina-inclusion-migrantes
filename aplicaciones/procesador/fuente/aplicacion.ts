@@ -69,7 +69,6 @@ async function inicio() {
   });
 
   flujo.on('data', (fila) => {
-    console.log(fila);
     if (numeroFila === 1) {
       total = fila.totalSheetSize;
     }

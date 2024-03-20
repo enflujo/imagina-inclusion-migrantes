@@ -1,7 +1,7 @@
 import Bola from './Bola';
 import Sim from './Sim';
 
-import { pedirDatos } from './utilidades/ayudas';
+import { pedirDatos } from '../../www/src/utilidades/ayudas';
 import { DatosInclusion } from '../../../tipos/compartidos';
 
 const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');

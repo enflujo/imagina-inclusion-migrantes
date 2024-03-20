@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import type { Map } from 'mapbox-gl';
 import type { Feature, FeatureCollection, Point } from 'geojson';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { pedirDatos } from './utilidades/ayudas';
+import { pedirDatos } from '../../www/src/utilidades/ayudas';
 import { DatosInclusion } from '../../../tipos/compartidos';
 
 export default async function mapa() {

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- <link rel="manifest" href="/sitio.webmanifest" /> -->
+    <!-- <link rel="canonical" href="https://enflujo.com" /> -->
+
+    <title>..:: EnFlujo ::..</title>
+    <!-- <meta name="description" content="Descripción del sitio...." /> -->
+
+    <!-- OpenGraph -->
+    <meta property="og:locale" content="es_CO" />
+    <!-- <meta property="og:site_name" content="EnFlujo" /> -->
+    <meta property="og:type" content="website" />
+    <!-- <meta property="og:url" content="https://enflujo.com" /> -->
+    <!-- <meta property="og:title" content="Titulo ..." /> -->
+    <!-- <meta property="og:description" content="Descripción ..." /> -->
+    <!-- <meta property="og:image" content="https://xxxxxx.jpg" /> -->
+    <!-- <meta property="og:image:alt" content="Texto que describe la imagen" /> -->
+    <!-- <meta property="og:image:width" content="1200" /> -->
+    <!-- <meta property="og:image:height" content="630" /> -->
+
+    <!-- Twitter -->
+    <!-- <meta name="twitter:card" content="summary_large_image" /> -->
+    <!-- <meta name="twitter:site" content="@labenflujo" /> -->
+    <!-- <meta name="twitter:creator" content="@labenflujo" /> -->
+    <!-- <meta name="twitter:url" content="https://enflujo.com" /> -->
+    <!-- <meta name="twitter:title" content="Titulo ..." /> -->
+    <!-- <meta name="twitter:description" content="Descripción ..." /> -->
+    <!-- <meta name="twitter:image" content="https://xxxxxx.jpg" /> -->
+    <!-- <meta name="twitter:image:alt" content="Texto que describe la imagen" /> -->
+
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=supreme@2,1&f[]=sentient@2,1&f[]=bevellier@2,1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section>
+      <div id="contenedorIntroduccion">
+        <div id="tituloSubtitulo">
+          <h1>¿Por qué es tan larga la ruta a la inclusión en Colombia?</h1>
+          <div id="subtitulo">
+            <h3>
+              Problemas en la regularización y el acceso igualitario a la salud para migrantes venezolanos en Colombia
+            </h3>
+            <!--             <h4>Cómo puede un nacional venezolano acceder a servivios de salud en Colombia</h4>
+ -->
+          </div>
+        </div>
+      </div>
+      <!--  <div id="simuladorIntro">
+        <canvas id="simulacion2"></canvas>
+      </div> -->
+      <div id="contenedorSimulacion">
+        <h2>Simulación</h2>
+        <canvas id="simulacion"></canvas>
+        <div id="selector-row"></div>
+        <div id="button-row">
+          <button id="empezar">Empezar</button>
+          <button id="detener">Detener</button>
+          <button id="nuevo">Nueva simulación</button>
+          <div id="contador"></div>
+        </div>
+      </div>
+    </section>
+    <section id="contenedorIndice">
+      <h2>Índice de inclusión</h2>
+      <div id="contenedorMapa"></div>
+      <main id="contenedorLista"></main>
+    </section>
+    <script type="module" src="/fuente/simulacion.ts"></script>
+    <script type="module" src="/fuente/programa.ts"></script>
+  </body>
+</html>
