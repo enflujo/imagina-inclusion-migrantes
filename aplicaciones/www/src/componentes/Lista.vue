@@ -31,6 +31,10 @@ function ordenarLista(criterioOrden: 'ascendente' | 'descendente' | 'alfabetico'
   }
 }
 
+function actualizarId(id: number) {
+  cerebroDatos.lugarSeleccionado = id;
+}
+
 // function filtrarLista(
 //   min: number,
 //   max: number,
@@ -182,6 +186,7 @@ function ordenarLista(criterioOrden: 'ascendente' | 'descendente' | 'alfabetico'
             :key="`${elemento.nombre}-${i}`"
             class="lugar"
             :class="`${elemento.encuestado ? ' encuestado' : ''}`"
+            @click="actualizarId(elemento.id)"
           >
             <span class="municipio">{{ elemento.nombre }}</span>
             <span class="departamento">, {{ elemento.dep }}</span>

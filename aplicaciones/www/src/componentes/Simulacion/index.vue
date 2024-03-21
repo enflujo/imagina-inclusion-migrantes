@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, type Ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
 import Sim from './Sim';
 import type { DatosInclusion } from 'tipos/compartidos';
 import { usarCerebroDatos } from '@/cerebros/datos';
@@ -8,7 +8,15 @@ import { generarBolas } from './utilidadesSimulacion';
 const cerebroDatos = usarCerebroDatos();
 const CANVAS_LENGTH = 580;
 
-const lugarElegido: Ref<number> = ref(800);
+const lugarElegido: Ref<number> = ref(0);
+
+watch(
+  () => cerebroDatos.lugarSeleccionado,
+  (nuevo) => {
+    lugarElegido.value = nuevo;
+    enNuevaSimulacion();
+  }
+);
 
 const lienzo: Ref<HTMLCanvasElement | null> = ref(null);
 const contexto: Ref<CanvasRenderingContext2D | null> = ref(null);
@@ -39,9 +47,10 @@ const desactivarIntervalo = () => {
 };
 
 const enNuevaSimulacion = () => {
-  if (!contador.value) return;
   desactivarIntervalo();
   hacerSimulacion(100);
+  contador.value = '';
+  mostrarInfo();
 };
 
 onMounted(async () => {
@@ -84,8 +93,9 @@ function escalar() {
  * @returns
  */
 function hacerSimulacion(cantidadBolas: number) {
-  const indiceLugar = lugarElegido.value;
-  const cantidadMuros = 100 - datos.value[indiceLugar].valorIndice;
+  const fuente = datos.value.find((obj) => obj.id === lugarElegido.value);
+  if (!fuente) return;
+  const cantidadMuros = 100 - fuente.valorIndice;
   const bolas = generarBolas(cantidadBolas, cantidadMuros, CANVAS_LENGTH);
 
   // Crear nueva simulación
@@ -97,7 +107,8 @@ function hacerSimulacion(cantidadBolas: number) {
 function correrSimulacion() {
   if (!contexto.value) return;
 
-  const fuente = datos.value[lugarElegido.value];
+  const fuente = datos.value.find((obj) => obj.id === lugarElegido.value);
+  if (!fuente) return;
   const indiceInclusion = Math.round(fuente.valorIndice);
   const simulador = sim.value;
 
@@ -122,26 +133,28 @@ function correrSimulacion() {
 }
 
 function mostrarInfo() {
-  const fuente = datos.value[lugarElegido.value];
+  const fuente = datos.value.find((obj) => obj.id === lugarElegido.value);
   if (!fuente) return;
   infoPobVen.value = `Según los datos en 2023 había ${fuente.pobVenMun.toLocaleString('en-US')} personas venezolanas en ${fuente.nombre} (población ${fuente.poblacionTotal?.toLocaleString('en-US')}), de las cuales el ${fuente.porcentRegularMun.toFixed(2)}% estaban regularizadas.`;
 }
 </script>
 
 <template>
-  <h2>Simulación</h2>
+  <section id="contenedorSimulacion">
+    <h2>Simulación</h2>
 
-  <div id="infoLienzo">
-    <p>{{ infoPobVen }}</p>
-  </div>
-  <canvas ref="lienzo"></canvas>
+    <div id="infoLienzo">
+      <p>{{ infoPobVen }}</p>
+    </div>
+    <canvas ref="lienzo"></canvas>
 
-  <div id="botonesSimulacion">
-    <button ref="empezar" id="empezar">Empezar</button>
-    <button ref="detener" id="detener">Detener</button>
-    <button ref="nuevo" id="nuevo">Nueva simulación</button>
-    <div id="contador">{{ contador }}</div>
-  </div>
+    <div id="botonesSimulacion">
+      <button ref="empezar" id="empezar">Empezar</button>
+      <button ref="detener" id="detener">Detener</button>
+      <button ref="nuevo" id="nuevo">Nueva simulación</button>
+      <div id="contador">{{ contador }}</div>
+    </div>
+  </section>
 </template>
 
 <style lang="scss">

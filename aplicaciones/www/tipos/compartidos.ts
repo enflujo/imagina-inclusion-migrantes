@@ -1,4 +1,5 @@
 export interface DatosInclusion {
+  id?: number;
   nombre: string;
   dep: string;
   pobVenMun: number;

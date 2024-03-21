@@ -5,9 +5,16 @@ import Simulacion from '@/componentes/Simulacion/index.vue';
 </script>
 
 <template>
-  <main>
+  <main id="contenedor">
+    <Mapa />
     <Lista />
     <Simulacion />
-    <Mapa />
   </main>
 </template>
+
+<style lang="scss" scoped>
+#contenedor {
+  display: flex;
+  max-height: 100vh;
+}
+</style>

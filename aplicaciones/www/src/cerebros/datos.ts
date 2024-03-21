@@ -8,6 +8,7 @@ interface EstructuraDatos {
   datos: DatosInclusion[];
   geojson: FeatureCollection;
   cargados: boolean;
+  lugarSeleccionado: number;
 }
 
 export const useCounterStore = defineStore('counter', () => {
@@ -25,6 +26,7 @@ export const usarCerebroDatos = defineStore('datos', {
     datos: [],
     geojson: { type: 'FeatureCollection', features: [] },
     cargados: false,
+    lugarSeleccionado: 200,
   }),
 
   getters: {},
@@ -34,7 +36,8 @@ export const usarCerebroDatos = defineStore('datos', {
       const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
       const lugares: Feature[] = [];
 
-      datos.forEach((lugar) => {
+      datos.forEach((lugar, i) => {
+        lugar.id = i;
         lugares.push({
           type: 'Feature',
           properties: { ranking: lugar.valorRank, poblacion: lugar.poblacionTotal, mun: lugar.nombre, dep: lugar.dep },
