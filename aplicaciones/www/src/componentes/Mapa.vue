@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type Map } from 'mapbox-gl';
-import type { Feature, FeatureCollection, Point } from 'geojson';
+import type { Feature, Point } from 'geojson';
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
-import { pedirDatos } from '@/utilidades/ayudas';
-import type { DatosInclusion } from 'tipos/compartidos';
 import { usarCerebroDatos } from '@/cerebros/datos';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
@@ -14,13 +12,9 @@ const mapa: Ref<Map | null> = ref(null);
 const cerebroDatos = usarCerebroDatos();
 
 onMounted(async () => {
-  console.log('montado');
   if (!cerebroDatos.cargados) {
-    console.log('cargando datos...');
     await cerebroDatos.cargarDatos();
   }
-
-  console.log('datos cargados');
 
   const instanciaMapa = new mapboxgl.Map({
     container: contenedorMapa.value as HTMLDivElement,
