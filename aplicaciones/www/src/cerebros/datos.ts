@@ -40,7 +40,13 @@ export const usarCerebroDatos = defineStore('datos', {
         lugar.id = i;
         lugares.push({
           type: 'Feature',
-          properties: { ranking: lugar.valorRank, poblacion: lugar.poblacionTotal, mun: lugar.nombre, dep: lugar.dep },
+          properties: {
+            ranking: lugar.valorRank,
+            indice: lugar.valorIndice,
+            poblacion: lugar.poblacionTotal,
+            mun: lugar.nombre,
+            dep: lugar.dep,
+          },
           geometry: { type: 'Point', coordinates: [lugar.longitud, lugar.latitud] },
         });
       });

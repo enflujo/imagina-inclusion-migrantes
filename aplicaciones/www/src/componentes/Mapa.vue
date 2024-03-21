@@ -29,27 +29,27 @@ onMounted(async () => {
       data: cerebroDatos.geojson,
     });
 
-    const zoomMax = 15;
+    const zoomMax = 8;
 
     instanciaMapa.addLayer({
       id: 'municipios-areas',
       type: 'heatmap',
       source: 'municipios',
       maxzoom: zoomMax,
-
+      //https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/
       paint: {
         'heatmap-weight': {
-          property: 'ranking',
+          property: 'indice',
           type: 'exponential',
           stops: [
             [1, 0],
-            [977, 1],
+            [100, 1],
           ],
         },
         'heatmap-intensity': {
           stops: [
             [5, 0.1],
-            [zoomMax, 0.4],
+            [zoomMax, 0],
           ],
         },
         'heatmap-color': [
@@ -68,7 +68,7 @@ onMounted(async () => {
         'heatmap-radius': {
           stops: [
             [5, 60],
-            [zoomMax, 70],
+            [zoomMax, 10],
           ],
         },
         'heatmap-opacity': {
@@ -86,29 +86,39 @@ onMounted(async () => {
       type: 'circle',
       source: 'municipios',
       minzoom: 7,
+
       paint: {
         'circle-radius': 10,
-        'circle-color': 'yellow',
+        'circle-color': {
+          property: 'indice',
+          stops: [
+            [0, 'rgb(255, 0, 0)'],
+            [50, 'rgb(255, 223, 0)'],
+            [100, 'rgb(20, 165, 63)'],
+          ],
+        },
+
         'circle-stroke-color': 'white',
-        'circle-stroke-width': 1,
+        'circle-stroke-width': 0,
       },
     });
 
     instanciaMapa.on('click', 'municipios-puntos', (evento) => {
       const punto = evento.features?.[0] as Feature<Point>;
-
+      console.log(punto);
       if (punto && punto.properties) {
         const coords = punto.geometry.coordinates as [number, number];
-        const ranking = punto.properties.ranking as number;
+        const indice = punto.properties.indice.toFixed(2) as number;
+
         const municipio = punto.properties.mun;
         const departamento = punto.properties.dep;
-        //  console.log(punto);
+
         new mapboxgl.Popup()
           .setLngLat(coords)
           .setHTML(
             `<p class="nombreMunicipio">${municipio} (${departamento})</p>` +
-              '<span class="yanaina">Ranking de inclusión:</span> ' +
-              ranking
+              '<span class="yanaina">Índice de inclusión:</span> ' +
+              indice
           )
           .addTo(instanciaMapa);
       }
