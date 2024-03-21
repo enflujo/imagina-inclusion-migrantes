@@ -1,44 +1,37 @@
-import mapboxgl from 'mapbox-gl';
-import type { Map } from 'mapbox-gl';
-import type { Feature, FeatureCollection, Point } from 'geojson';
+<script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { pedirDatos } from './utilidades/ayudas';
-import { DatosInclusion } from '../../../tipos/compartidos';
+import mapboxgl, { type Map } from 'mapbox-gl';
+import type { Feature, Point } from 'geojson';
+import { ref, onMounted, type Ref, onUnmounted } from 'vue';
+import { usarCerebroDatos } from '@/cerebros/datos';
 
-export default async function mapa() {
-  const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
-  // console.log(datos);
-  const geoJson: FeatureCollection = { type: 'FeatureCollection', features: [] };
+mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
-  datos.forEach((lugar) => {
-    geoJson.features.push({
-      type: 'Feature',
-      properties: { ranking: lugar.valorRank, poblacion: lugar.poblacionTotal, mun: lugar.nombre, dep: lugar.dep },
-      geometry: { type: 'Point', coordinates: [lugar.longitud, lugar.latitud] },
-    });
-  });
-  //  console.log(geoJson);
-  let map: Map;
-  const contenedorMapa = document.getElementById('contenedorMapa') as HTMLDivElement;
-  const estilo = 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94';
-  mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
+const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
+const mapa: Ref<Map | null> = ref(null);
+const cerebroDatos = usarCerebroDatos();
 
-  map = new mapboxgl.Map({
-    container: contenedorMapa,
-    style: estilo,
-    center: [-74.1810727, 4.316107698],
-    zoom: 5,
+onMounted(async () => {
+  if (!cerebroDatos.cargados) {
+    await cerebroDatos.cargarDatos();
+  }
+
+  const instanciaMapa = new mapboxgl.Map({
+    container: contenedorMapa.value as HTMLDivElement,
+    style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
+    center: [-71.5810727, 4.116107698],
+    zoom: 4.3,
   });
 
-  map.on('load', () => {
-    map.addSource('municipios', {
+  instanciaMapa.on('load', () => {
+    instanciaMapa.addSource('municipios', {
       type: 'geojson',
-      data: geoJson,
+      data: cerebroDatos.geojson,
     });
 
     const zoomMax = 15;
 
-    map.addLayer({
+    instanciaMapa.addLayer({
       id: 'municipios-areas',
       type: 'heatmap',
       source: 'municipios',
@@ -88,7 +81,7 @@ export default async function mapa() {
       },
     });
 
-    map.addLayer({
+    instanciaMapa.addLayer({
       id: 'municipios-puntos',
       type: 'circle',
       source: 'municipios',
@@ -101,7 +94,7 @@ export default async function mapa() {
       },
     });
 
-    map.on('click', 'municipios-puntos', (evento) => {
+    instanciaMapa.on('click', 'municipios-puntos', (evento) => {
       const punto = evento.features?.[0] as Feature<Point>;
 
       if (punto && punto.properties) {
@@ -117,8 +110,29 @@ export default async function mapa() {
               '<span class="yanaina">Ranking de inclusión:</span> ' +
               ranking
           )
-          .addTo(map);
+          .addTo(instanciaMapa);
       }
     });
   });
+
+  mapa.value = instanciaMapa;
+});
+
+onUnmounted(() => {
+  mapa.value?.remove();
+  mapa.value = null;
+});
+</script>
+
+<template>
+  <section class="seccionLado">
+    <h2>Mapa de inclusión</h2>
+    <div id="contenedorMapa" ref="contenedorMapa"></div>
+  </section>
+</template>
+
+<style lang="scss" scoped>
+#contenedorMapa {
+  height: calc(100% - 30px);
 }
+</style>

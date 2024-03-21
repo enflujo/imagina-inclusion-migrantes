@@ -4,8 +4,7 @@ $corte3: 1000px;
 $corte4: 1333px;
 
 :root {
-  /// Fuentes tipográficas hemochas
-  /// --fuenteParrafo: 'Inter', 'Helvetica', 'Roboto', 'Arial', 'Tahoma', 'Verdana', sans-serif;
+  // Fuentes tipográficas hemochas
   --fuenteParrafo: 'Bevellier', 'Helvetica', 'Roboto', 'Arial', 'Tahoma', 'Verdana', sans-serif;
   --fuenteTitulo: 'Sentient', serif;
 
@@ -14,7 +13,7 @@ $corte4: 1333px;
   --amarilloClaro: #fef6bc;
   --amarillo: #ffeb3b;
   --naranjaClaro: #f5b55b;
-  --naranja: #ff9800;
+  --naranja: #fff0da;
   --naranja2: #f7941d;
   --terracota: #c22f20;
   --blanco: #ffffff;
@@ -22,7 +21,7 @@ $corte4: 1333px;
   --negro: #000100;
 
   // Fondos
-
+  --minAltoSeccion: 70vh;
   // Textos
 
   /// Medidas
