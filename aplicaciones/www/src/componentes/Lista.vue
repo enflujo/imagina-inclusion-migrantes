@@ -2,9 +2,10 @@
 import { usarCerebroDatos } from '@/cerebros/datos';
 import type { DatosInclusion } from 'tipos/compartidos';
 import { onMounted, ref, type Ref } from 'vue';
-
+type OrdenLista = 'ascendente' | 'descendente' | 'alfabetico';
 const cerebroDatos = usarCerebroDatos();
 const datos: Ref<DatosInclusion[]> = ref([]);
+const orden: Ref<OrdenLista> = ref('ascendente');
 
 onMounted(async () => {
   if (!cerebroDatos.cargados) {
@@ -12,14 +13,11 @@ onMounted(async () => {
   }
 
   datos.value = cerebroDatos.datos;
-
-  inicio();
+  ordenarLista(orden.value);
 });
 
-function inicio() {}
-
-function ordenarLista(criterioOrden: 'ascendente' | 'descendente' | 'alfabetico') {
-  console.log(criterioOrden);
+function ordenarLista(criterioOrden: OrdenLista) {
+  orden.value = criterioOrden;
   if (criterioOrden === 'ascendente') datos.value.sort((a, b) => a.valorRank - b.valorRank);
   else if (criterioOrden === 'descendente') datos.value.sort((a, b) => b.valorRank - a.valorRank);
   else if (criterioOrden === 'alfabetico') {
@@ -169,31 +167,98 @@ function actualizarId(id: number) {
 </script>
 
 <template>
-  <section id="contenedorIndice">
+  <section id="contenedorIndice" class="seccionCentro">
     <h2>Índice de inclusión</h2>
 
-    <section id="moduloLista">
-      <div id="ordenarPor">
-        <p>Ordenar por:</p>
-        <button id="alfabetico" @click="ordenarLista('alfabetico')">Alfabético</button>
-        <button id="ascendente" @click="ordenarLista('ascendente')">Ranking ascendente</button>
-        <button id="descendente" @click="ordenarLista('descendente')">Ranking descendente</button>
-      </div>
-      <div id="contenedorLista">
-        <ul>
-          <li
-            v-for="(elemento, i) in datos"
-            :key="`${elemento.nombre}-${i}`"
-            class="lugar"
-            :class="`${elemento.encuestado ? ' encuestado' : ''}`"
-            @click="actualizarId(elemento.id)"
-          >
-            <span class="municipio">{{ elemento.nombre }}</span>
-            <span class="departamento">, {{ elemento.dep }}</span>
-            <span class="valor">: {{ elemento.valorRank }}</span>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <div id="ordenarPor">
+      <span
+        class="botonFiltro alfabetico"
+        :class="`${orden === 'alfabetico' ? 'activo' : ''}`"
+        @click="ordenarLista('alfabetico')"
+        >Alfabético</span
+      >
+      <span
+        class="botonFiltro ascendente"
+        :class="`${orden === 'ascendente' ? 'activo' : ''}`"
+        @click="ordenarLista('ascendente')"
+        >Ranking ascendente</span
+      >
+      <span
+        class="botonFiltro descendente"
+        :class="`${orden === 'descendente' ? 'activo' : ''}`"
+        @click="ordenarLista('descendente')"
+        >Ranking descendente</span
+      >
+    </div>
+
+    <ul class="listaLugares">
+      <li
+        v-for="(elemento, i) in datos"
+        :key="`${elemento.nombre}-${i}`"
+        class="lugar"
+        :class="`${elemento.id === cerebroDatos.lugarSeleccionado ? ' activo' : ''}`"
+        @click="actualizarId(elemento.id as number)"
+      >
+        <span class="municipio">{{ elemento.nombre }}</span>
+        <span class="departamento">, {{ elemento.dep }}</span>
+        <span class="valor">: {{ elemento.valorRank }}</span>
+      </li>
+    </ul>
   </section>
 </template>
+
+<style lang="scss" scoped>
+#contenedorIndice {
+  padding: 0 2em;
+  overflow: auto;
+}
+
+#ordenarPor {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1em;
+
+  .botonFiltro {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    transition: opacity 0.25s ease-in-out;
+
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &.activo {
+      background-color: rgb(147, 185, 143);
+    }
+  }
+}
+
+.listaLugares {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lugar {
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 241, 163, 0.5);
+  }
+
+  &.activo {
+    background-color: rgb(147, 185, 143);
+  }
+}
+
+.departamento {
+  font-style: italic;
+}
+
+.valor {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+</style>

@@ -19,8 +19,8 @@ onMounted(async () => {
   const instanciaMapa = new mapboxgl.Map({
     container: contenedorMapa.value as HTMLDivElement,
     style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
-    center: [-74.1810727, 4.316107698],
-    zoom: 5,
+    center: [-71.5810727, 4.116107698],
+    zoom: 4.3,
   });
 
   instanciaMapa.on('load', () => {
@@ -125,20 +125,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div id="contenedorMapa" ref="contenedorMapa"></div>
+  <section class="seccionLado">
+    <h2>Mapa de inclusión</h2>
+    <div id="contenedorMapa" ref="contenedorMapa"></div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
 #contenedorMapa {
-  width: 80vw;
-  height: 100vh;
-  margin: auto;
-
-  canvas {
-    display: block;
-    width: 580px;
-    height: 580px;
-    margin: auto;
-  }
+  height: calc(100% - 30px);
 }
 </style>

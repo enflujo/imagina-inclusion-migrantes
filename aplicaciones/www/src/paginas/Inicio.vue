@@ -15,6 +15,6 @@ import Simulacion from '@/componentes/Simulacion/index.vue';
 <style lang="scss" scoped>
 #contenedor {
   display: flex;
-  max-height: 100vh;
+  justify-content: space-around;
 }
 </style>

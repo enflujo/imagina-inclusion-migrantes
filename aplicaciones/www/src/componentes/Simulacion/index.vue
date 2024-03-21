@@ -1,57 +1,44 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch, type Ref, computed } from 'vue';
 import Sim from './Sim';
 import type { DatosInclusion } from 'tipos/compartidos';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { generarBolas } from './utilidadesSimulacion';
 
 const cerebroDatos = usarCerebroDatos();
-const CANVAS_LENGTH = 580;
-
-const lugarElegido: Ref<number> = ref(0);
-
-watch(
-  () => cerebroDatos.lugarSeleccionado,
-  (nuevo) => {
-    lugarElegido.value = nuevo;
-    enNuevaSimulacion();
-  }
-);
-
+const contenedor: Ref<HTMLElement | null> = ref(null);
 const lienzo: Ref<HTMLCanvasElement | null> = ref(null);
 const contexto: Ref<CanvasRenderingContext2D | null> = ref(null);
 const datos: Ref<DatosInclusion[]> = ref([]);
-const empezar: Ref<HTMLButtonElement | null> = ref(null);
-const detener: Ref<HTMLButtonElement | null> = ref(null);
-const nuevo: Ref<HTMLButtonElement | null> = ref(null);
+const fuente = computed(() => datos.value.find((obj) => obj.id === cerebroDatos.lugarSeleccionado));
 
+const nombreLugar: Ref<string> = ref('');
 const contador: Ref<string> = ref('');
 const infoPobVen: Ref<string> = ref('');
+const anchoLienzo: Ref<number> = ref(500);
 
 const ms = 30;
 const dt = ms / 1000;
 const sim: Ref<Sim | null> = ref(null);
-let intervalo: number;
-let intervaloActivo: boolean;
+let intervalo: number = 0;
 
 const activarIntervalo = () => {
-  if (!intervaloActivo) {
+  if (!intervalo) {
     intervalo = window.setInterval(correrSimulacion, ms);
-    intervaloActivo = true;
   }
 };
 
 const desactivarIntervalo = () => {
   window.clearInterval(intervalo);
-  intervaloActivo = false;
+  intervalo = 0;
 };
 
-const enNuevaSimulacion = () => {
-  desactivarIntervalo();
-  hacerSimulacion(100);
-  contador.value = '';
-  mostrarInfo();
-};
+watch(
+  () => cerebroDatos.lugarSeleccionado,
+  () => {
+    iniciarSimulacion();
+  }
+);
 
 onMounted(async () => {
   if (!lienzo.value) return;
@@ -64,26 +51,27 @@ onMounted(async () => {
   contexto.value = lienzo.value.getContext('2d');
   escalar();
 
-  mostrarInfo();
-  hacerSimulacion(100);
-
-  empezar.value?.addEventListener('click', activarIntervalo);
-  detener.value?.addEventListener('click', desactivarIntervalo);
-  nuevo.value?.addEventListener('click', enNuevaSimulacion);
+  iniciarSimulacion();
 });
 
 onUnmounted(() => {
-  empezar.value?.removeEventListener('click', activarIntervalo);
-  detener.value?.removeEventListener('click', desactivarIntervalo);
-  nuevo.value?.removeEventListener('click', enNuevaSimulacion);
   window.clearInterval(intervalo);
 });
 
+function iniciarSimulacion() {
+  desactivarIntervalo();
+  hacerSimulacion(100);
+  contador.value = '';
+  mostrarInfo();
+  activarIntervalo();
+}
+
 function escalar() {
-  if (!lienzo.value) return;
-  const l = lienzo.value;
-  l.width = CANVAS_LENGTH;
-  l.height = CANVAS_LENGTH;
+  let anchoSeccion = contenedor.value?.clientWidth;
+  if (!lienzo.value || !anchoSeccion) return;
+  lienzo.value.width = anchoSeccion;
+  lienzo.value.height = anchoSeccion;
+  anchoLienzo.value = anchoSeccion;
 }
 
 /**
@@ -93,13 +81,14 @@ function escalar() {
  * @returns
  */
 function hacerSimulacion(cantidadBolas: number) {
-  const fuente = datos.value.find((obj) => obj.id === lugarElegido.value);
-  if (!fuente) return;
-  const cantidadMuros = 100 - fuente.valorIndice;
-  const bolas = generarBolas(cantidadBolas, cantidadMuros, CANVAS_LENGTH);
+  const datosLugar = fuente.value;
+  const dimLienzo = anchoLienzo.value;
+  if (!datosLugar) return;
+  const cantidadMuros = 100 - datosLugar.valorIndice;
+  const bolas = generarBolas(cantidadBolas, cantidadMuros, dimLienzo);
 
   // Crear nueva simulación
-  sim.value = new Sim(bolas, CANVAS_LENGTH, cantidadMuros);
+  sim.value = new Sim(bolas, dimLienzo, cantidadMuros);
   if (!contexto.value) return;
   sim.value.redibujar(contexto.value);
 }
@@ -107,9 +96,9 @@ function hacerSimulacion(cantidadBolas: number) {
 function correrSimulacion() {
   if (!contexto.value) return;
 
-  const fuente = datos.value.find((obj) => obj.id === lugarElegido.value);
-  if (!fuente) return;
-  const indiceInclusion = Math.round(fuente.valorIndice);
+  const datosLugar = fuente.value;
+  if (!datosLugar) return;
+  const indiceInclusion = Math.round(datosLugar.valorIndice);
   const simulador = sim.value;
 
   if (!contador || !simulador) return;
@@ -118,8 +107,7 @@ function correrSimulacion() {
   // Detener la simulación cuando corone el número de bolas = al índice de inclusión
   if (simulador.bolasCoronadas >= indiceInclusion) {
     desactivarIntervalo();
-
-    contador.value = `El índice de inclusión en ${fuente.nombre} es ${fuente.valorIndice.toFixed(2)}`;
+    contador.value = `El índice de inclusión en ${datosLugar.nombre} es ${datosLugar.valorIndice.toFixed(2)}`;
   }
 
   simulador.redibujar(contexto.value);
@@ -133,38 +121,35 @@ function correrSimulacion() {
 }
 
 function mostrarInfo() {
-  const fuente = datos.value.find((obj) => obj.id === lugarElegido.value);
-  if (!fuente) return;
-  infoPobVen.value = `Según los datos en 2023 había ${fuente.pobVenMun.toLocaleString('en-US')} personas venezolanas en ${fuente.nombre} (población ${fuente.poblacionTotal?.toLocaleString('en-US')}), de las cuales el ${fuente.porcentRegularMun.toFixed(2)}% estaban regularizadas.`;
+  const datosLugar = fuente.value;
+  if (!datosLugar) return;
+  nombreLugar.value = `${datosLugar.nombre}, ${datosLugar.dep}`;
+  infoPobVen.value = `Según los datos en 2023 había ${datosLugar.pobVenMun.toLocaleString('en-US')} personas venezolanas en ${datosLugar.nombre}, ${datosLugar.dep} (población ${datosLugar.poblacionTotal?.toLocaleString('en-US')}), de las cuales el ${datosLugar.porcentRegularMun.toFixed(2)}% estaban regularizadas.`;
 }
 </script>
 
 <template>
-  <section id="contenedorSimulacion">
-    <h2>Simulación</h2>
-
-    <div id="infoLienzo">
+  <section id="contenedorSimulacion" class="seccionLado" ref="contenedor">
+    <div id="infoSimulacion">
+      <h2>{{ nombreLugar }}</h2>
       <p>{{ infoPobVen }}</p>
     </div>
-    <canvas ref="lienzo"></canvas>
+
+    <canvas id="lienzoSim" ref="lienzo"></canvas>
 
     <div id="botonesSimulacion">
-      <button ref="empezar" id="empezar">Empezar</button>
-      <button ref="detener" id="detener">Detener</button>
-      <button ref="nuevo" id="nuevo">Nueva simulación</button>
       <div id="contador">{{ contador }}</div>
     </div>
   </section>
 </template>
 
-<style lang="scss">
-#lienzo {
-  margin-top: 20px;
+<style lang="scss" scoped>
+#infoSimulacion {
+  padding: 0 20px;
 }
 
-#botonesSimulacion {
-  text-align: center;
-  margin-top: 20px;
+#lienzoSim {
+  border: 1px solid #7d7979;
 }
 
 #contador {

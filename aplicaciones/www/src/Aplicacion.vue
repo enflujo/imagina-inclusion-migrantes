@@ -4,12 +4,10 @@ import { RouterLink, RouterView } from 'vue-router';
 
 <template>
   <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Inicio</RouterLink>
-        <RouterLink to="/sobre">Sobre</RouterLink>
-      </nav>
-    </div>
+    <nav>
+      <RouterLink to="/">Inicio</RouterLink>
+      <RouterLink to="/sobre">Sobre</RouterLink>
+    </nav>
   </header>
 
   <RouterView />
@@ -27,54 +25,29 @@ header {
 }
 
 nav {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
-}
+  margin-top: 1rem;
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+  a,
+  a:link {
+    color: black;
+    padding: 0 1rem;
+    border-left: 1px solid;
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
+    &.router-link-exact-active {
+      background-color: rgba(225, 118, 118, 0.278);
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
+      &:hover {
+        opacity: 0.7;
+      }
+    }
 
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+    &:first-of-type {
+      border: 0;
+    }
   }
 }
 </style>
