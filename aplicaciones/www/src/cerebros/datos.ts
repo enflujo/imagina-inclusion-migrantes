@@ -33,6 +33,7 @@ export const usarCerebroDatos = defineStore('datos', {
     async cargarDatos() {
       const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
       const lugares: Feature[] = [];
+
       datos.forEach((lugar) => {
         lugares.push({
           type: 'Feature',
@@ -41,6 +42,7 @@ export const usarCerebroDatos = defineStore('datos', {
         });
       });
 
+      this.datos = datos;
       this.geojson.features = lugares;
     },
   },

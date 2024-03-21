@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { departamentos, municipios } from './utilidades/lugaresColombia';
 import { getXlsxStream } from 'xlstream';
 import { guardarJSON } from './utilidades/ayudas';
-import { DatosInclusion } from '../../../tipos/compartidos';
+import { DatosInclusion } from '../../www/tipos/compartidos';
 
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
@@ -16,6 +16,12 @@ type Fila = [
   departamento: string,
   /** Código del departamento */
   codigoDep: number,
+  /** Número de personas venezolanas por municipio */
+  pobVenMun: number,
+  /** Porcentaje de venezolanxs regularizadxs por municipio */
+  porcentRegularMun: number,
+  /** Porcentaje de venezolanxs afiliadxs por depto */
+  porcentAfiliadDep: number,
   /** Ranking de inclusión */
   valorRank: number,
   /** Índice de inclusión */
@@ -86,15 +92,22 @@ async function inicio() {
   function procesarFilaPoblacion(fila: FilaPoblacion, numeroFila: number) {
     const codigo = fila[0];
     const poblacionT = fila[5];
-    const mun = municipios.datos.find((municipio) => {
-      return +municipio[3] === +codigo;
-    });
-
     mapaPoblacionMunicipios.set(codigo, poblacionT);
   }
 
   function procesarFila(fila: Fila, numeroFila: number) {
-    const [nombreMun, codMun, nombreDep, codDep, valorRank, valorIndice, indiceEncuestado] = fila;
+    const [
+      nombreMun,
+      codMun,
+      nombreDep,
+      codDep,
+      pobVenMun,
+      porcentRegularMun,
+      porcentAfiliadDep,
+      valorRank,
+      valorIndice,
+      indiceEncuestado,
+    ] = fila;
     const mun = municipios.datos.find((municipio) => +municipio[3] === codMun);
 
     if (!mun) {
@@ -112,6 +125,9 @@ async function inicio() {
     datos.push({
       nombre: mun[1],
       dep: dep[1],
+      pobVenMun,
+      porcentRegularMun,
+      porcentAfiliadDep,
       valorRank,
       valorIndice,
       encuestado: !!indiceEncuestado,
