@@ -3,6 +3,8 @@
 html {
   box-sizing: border-box;
   height: 100%;
+  background: linear-gradient(to right, rgba(236, 196, 220, 0.686), rgba(187, 228, 207, 0.68) 100%);
+
   font-family: var(--fuenteParrafo);
   font-feature-settings:
     'liga' 1,
@@ -26,65 +28,19 @@ body {
   color: #130808;
 }
 
-.municipio {
-  font-weight: bold;
+main {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.departamento {
-  font-style: italic;
+.seccionLado {
+  width: 33%;
+  height: var(--minAltoSeccion);
 }
 
-.valor {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.lugar {
-  &.encuestado {
-    background-color: rgb(147, 185, 143);
-  }
-}
-
-#contenedorMapa {
-  width: 80vw;
-  height: 100vh;
-  margin: auto;
-
-  canvas {
-    display: block;
-    width: 580px;
-    height: 580px;
-    margin: auto;
-    border: 2px solid var(--azul);
-    background-color: var(--naranja);
-  }
-}
-
-#contenedorSimulacion {
-  padding: 3em;
-  background-color: var(--naranja);
-
-  #simulacion {
-    transform: translateX(25vw);
-    background-color: var(--amarilloClaro);
-    width: 40vw;
-  }
-}
-
-#button-row,
-#selector-row {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.radio-box {
-  display: inline-block;
-  margin-left: 5px;
-}
-
-button {
-  display: inline-block;
-  margin: 0px 20px 0px 20px;
+.seccionCentro {
+  width: 30%;
+  height: var(--minAltoSeccion);
 }
 
 #contador {
@@ -126,9 +82,4 @@ button {
       }
     }
   }
-}
-
-#contenedorLista {
-  max-height: 70vh;
-  overflow-y: auto;
 }
