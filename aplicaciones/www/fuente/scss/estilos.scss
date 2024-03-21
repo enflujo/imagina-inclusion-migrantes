@@ -127,3 +127,15 @@ button {
     }
   }
 }
+
+#moduloLista {
+  padding: 1em;
+  #contenedorLista {
+    height: 80vh;
+    border: solid 1px black;
+    width: fit-content;
+    overflow: auto;
+    margin: 1em 0;
+    padding-right: 1em;
+  }
+}
