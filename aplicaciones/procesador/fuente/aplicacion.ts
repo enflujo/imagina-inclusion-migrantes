@@ -108,6 +108,7 @@ async function inicio() {
       valorIndice,
       indiceEncuestado,
     ] = fila;
+
     const mun = municipios.datos.find((municipio) => +municipio[3] === codMun);
 
     if (!mun) {

@@ -29,9 +29,9 @@ onMounted(async () => {
       data: cerebroDatos.geojson,
     });
 
-    const zoomMax = 8;
+    /* const zoomMax = 8;
 
-    instanciaMapa.addLayer({
+      instanciaMapa.addLayer({
       id: 'municipios-areas',
       type: 'heatmap',
       source: 'municipios',
@@ -48,7 +48,7 @@ onMounted(async () => {
         },
         'heatmap-intensity': {
           stops: [
-            [5, 0.1],
+            [8, 0.1],
             [zoomMax, 0],
           ],
         },
@@ -67,7 +67,7 @@ onMounted(async () => {
         ],
         'heatmap-radius': {
           stops: [
-            [5, 60],
+            [5, 100],
             [zoomMax, 10],
           ],
         },
@@ -79,16 +79,16 @@ onMounted(async () => {
           ],
         },
       },
-    });
+    }); */
 
     instanciaMapa.addLayer({
       id: 'municipios-puntos',
       type: 'circle',
       source: 'municipios',
-      minzoom: 7,
+      minzoom: 1,
 
       paint: {
-        'circle-radius': 10,
+        'circle-radius': 8,
         'circle-color': {
           property: 'indice',
           stops: [
@@ -105,7 +105,7 @@ onMounted(async () => {
 
     instanciaMapa.on('click', 'municipios-puntos', (evento) => {
       const punto = evento.features?.[0] as Feature<Point>;
-      console.log(punto);
+      // console.log(punto);
       if (punto && punto.properties) {
         const coords = punto.geometry.coordinates as [number, number];
         const indice = punto.properties.indice.toFixed(2) as number;

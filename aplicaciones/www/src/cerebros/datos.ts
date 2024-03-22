@@ -37,6 +37,7 @@ export const usarCerebroDatos = defineStore('datos', {
       const lugares: Feature[] = [];
 
       datos.forEach((lugar, i) => {
+        console.log(lugar);
         lugar.id = i;
         lugares.push({
           type: 'Feature',
@@ -50,7 +51,6 @@ export const usarCerebroDatos = defineStore('datos', {
           geometry: { type: 'Point', coordinates: [lugar.longitud, lugar.latitud] },
         });
       });
-
       this.datos = datos;
       this.geojson.features = lugares;
     },
