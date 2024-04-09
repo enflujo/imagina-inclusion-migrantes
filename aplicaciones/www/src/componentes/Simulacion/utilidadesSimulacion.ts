@@ -34,7 +34,7 @@ export function generarBolas(cantidadBolas: number, cantidadMuros: number, dim: 
     //   continue;
     // }
 
-    const x = Math.floor(Math.random() * (dim * 0.6));
+    const x = Math.floor(Math.random() * (dim * 0.7));
     const y = Math.floor(Math.random() * dim);
     bolas.push(
       new Bola(
@@ -59,8 +59,8 @@ export function generarBolas(cantidadBolas: number, cantidadMuros: number, dim: 
     const bola = new Bola(
       0.1 * Math.floor(Math.random() * dim),
       Math.floor(Math.random() * dim),
-      posNeg() * Math.floor(Math.random() * 200), // El último número es la velocidad de las partículas
-      posNeg() * Math.floor(Math.random() * 200),
+      posNeg() * Math.floor(Math.random() * 100), // El último número es la velocidad de las partículas
+      posNeg() * Math.floor(Math.random() * 10),
       2, // Radio de las partículas. Tiene un límite
       0.00001
     );

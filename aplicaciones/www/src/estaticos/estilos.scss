@@ -33,6 +33,22 @@ main {
   margin: 0 auto;
 }
 
+#cursor,
+.circulo {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 100%;
+  pointer-events: none;
+}
+
+#principal {
+  .cursor {
+  }
+}
+
 .seccionLado {
   width: 33%;
   height: var(--minAltoSeccion);
