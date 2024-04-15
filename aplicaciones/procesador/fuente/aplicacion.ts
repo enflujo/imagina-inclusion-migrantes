@@ -6,6 +6,7 @@ import { DatosInclusion } from '../../www/tipos/compartidos';
 
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
+const nombreArchivoMun = 'municipios_colombia';
 
 type Fila = [
   /** Nombre del municipio */
@@ -38,6 +39,10 @@ type FilaPoblacion = [
   poblacionLEA: number,
   poblacionTotal: string,
 ];
+
+type FilaMunicipio = [nombre: string, codigoDepto: number, lat: number, lon: number];
+
+const datosMunicipios: FilaMunicipio[] = [];
 
 inicio().catch(console.error);
 
@@ -89,6 +94,36 @@ async function inicio() {
     console.log('FIN');
   });
 
+  // const flujoMun = await getXlsxStream({
+  //   filePath: resolve(__dirname, `../datos/${nombreArchivoMun}.xlsx`),
+  //   sheet: 'Sheet2',
+  //   withHeader: true,
+  //   ignoreEmpty: true,
+  // });
+
+  // flujoMun.on('data', (fila2) => {
+  //   if (numeroFila === 1) {
+  //     total = fila2.totalSheetSize;
+  //   }
+
+  //   numeroFila++;
+  //   procesarFilaMun(fila2.raw.arr, numeroFila);
+  // });
+
+  // flujoMun.on('close', () => {
+  //   guardarJSON(datosMunicipios, 'coordenadas-municipios');
+  //   console.log('FIN MUNICIPIOS');
+  // });
+
+  function procesarFilaMun(fila: FilaMunicipio, numeroFila: number) {
+    const nombre = fila[0];
+    const codigoDepto = fila[3];
+    const lat = fila[1];
+    const lon = fila[2];
+
+    datosMunicipios.push([nombre, codigoDepto, lat, lon]);
+  }
+
   function procesarFilaPoblacion(fila: FilaPoblacion, numeroFila: number) {
     const codigo = fila[0];
     const poblacionT = fila[5];
@@ -121,6 +156,10 @@ async function inicio() {
       console.log(nombreDep);
       return;
     }
+
+    const munCoordenadas = datosMunicipios.find((municipio) => municipio[1] === codDep && municipio[0] === nombreMun);
+
+    console.log(munCoordenadas);
 
     datos.push({
       nombre: mun[1],
