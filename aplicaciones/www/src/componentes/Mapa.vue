@@ -29,7 +29,7 @@ onMounted(async () => {
       data: cerebroDatos.geojson,
     });
 
-    const zoomMax = 8;
+    const zoomMax = 11;
 
     instanciaMapa.addLayer({
       id: 'municipios-areas',
@@ -67,14 +67,14 @@ onMounted(async () => {
         ],
         'heatmap-radius': {
           stops: [
-            [5, 60],
-            [zoomMax, 10],
+            [8, 50],
+            [zoomMax, 5],
           ],
         },
         'heatmap-opacity': {
           default: 0.8,
           stops: [
-            [8, 1],
+            [7, 1],
             [zoomMax, 0],
           ],
         },

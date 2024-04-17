@@ -1,8 +1,9 @@
 import { resolve } from 'path';
-import { departamentos, municipios } from './utilidades/lugaresColombia';
+import { departamentos, municipios, municipiosCoordenadas } from './utilidades/lugaresColombia';
 import { getXlsxStream } from 'xlstream';
 import { guardarJSON } from './utilidades/ayudas';
 import { DatosInclusion } from '../../www/tipos/compartidos';
+import { MunicipioCoordenadas } from '../tipos';
 
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
@@ -94,32 +95,32 @@ async function inicio() {
     console.log('FIN');
   });
 
-  // const flujoMun = await getXlsxStream({
-  //   filePath: resolve(__dirname, `../datos/${nombreArchivoMun}.xlsx`),
-  //   sheet: 'Sheet2',
-  //   withHeader: true,
-  //   ignoreEmpty: true,
-  // });
+  const flujoMun = await getXlsxStream({
+    filePath: resolve(__dirname, `../datos/${nombreArchivoMun}.xlsx`),
+    sheet: 'Sheet2',
+    withHeader: true,
+    ignoreEmpty: true,
+  });
 
-  // flujoMun.on('data', (fila2) => {
-  //   if (numeroFila === 1) {
-  //     total = fila2.totalSheetSize;
-  //   }
+  flujoMun.on('data', (fila2) => {
+    if (numeroFila === 1) {
+      total = fila2.totalSheetSize;
+    }
 
-  //   numeroFila++;
-  //   procesarFilaMun(fila2.raw.arr, numeroFila);
-  // });
+    numeroFila++;
+    procesarFilaMun(fila2.raw.arr, numeroFila);
+  });
 
-  // flujoMun.on('close', () => {
-  //   guardarJSON(datosMunicipios, 'coordenadas-municipios');
-  //   console.log('FIN MUNICIPIOS');
-  // });
+  flujoMun.on('close', () => {
+    guardarJSON(datosMunicipios, 'coordenadas-municipios');
+    console.log('FIN MUNICIPIOS');
+  });
 
   function procesarFilaMun(fila: FilaMunicipio, numeroFila: number) {
     const nombre = fila[0];
     const codigoDepto = fila[3];
-    const lat = fila[1];
-    const lon = fila[2];
+    const lat = +fila[2];
+    const lon = +fila[1];
 
     datosMunicipios.push([nombre, codigoDepto, lat, lon]);
   }
@@ -129,7 +130,7 @@ async function inicio() {
     const poblacionT = fila[5];
     mapaPoblacionMunicipios.set(codigo, poblacionT);
   }
-
+  // let i = 0;
   function procesarFila(fila: Fila, numeroFila: number) {
     const [
       nombreMun,
@@ -157,9 +158,16 @@ async function inicio() {
       return;
     }
 
-    const munCoordenadas = datosMunicipios.find((municipio) => municipio[1] === codDep && municipio[0] === nombreMun);
+    const munCoordenadas = municipiosCoordenadas.datos.find(
+      (municipio: MunicipioCoordenadas) =>
+        +municipio[1] === codDep && municipio[0].toLowerCase() === nombreMun.toLowerCase()
+    );
 
-    console.log(munCoordenadas);
+    if (!munCoordenadas) {
+      //  i++;
+      console.log(nombreMun.toLowerCase(), nombreDep, codDep);
+      // return;
+    }
 
     datos.push({
       nombre: mun[1],
@@ -170,8 +178,8 @@ async function inicio() {
       valorRank,
       valorIndice,
       encuestado: !!indiceEncuestado,
-      latitud: dep[2],
-      longitud: dep[3],
+      latitud: munCoordenadas ? +munCoordenadas[3] : dep[2],
+      longitud: munCoordenadas ? +munCoordenadas[2] : dep[3],
       poblacionTotal: +mapaPoblacionMunicipios.get(mun[3]),
     });
   }
