@@ -9,6 +9,7 @@
     "moduleResolution": "node",
     "outDir": "./publico",
     "baseUrl": "./fuente",
+    "resolveJsonModule": true,
   },
   "include": ["./fuente/**/*", "../../tipos/**/*"],
   "exclude": ["node_modules"],

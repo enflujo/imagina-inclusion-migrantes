@@ -768,7 +768,7 @@ export const municipiosCoordenadas: ObjetoMunicipioCoord = {
     ['La Chorrera', 91, -72.7915204, -1.4433831],
     ['La Pedrera', 91, -69.5811239, -1.3227795],
     ['La Victoria', 91, -71.507695, -0.1190366],
-    ['Puerto Santander', 91, -76.6138698, -1.0677332],
+    ['Puerto Santander', 91, -72.5156301, -1.0677332],
     ['Puerto Alegría', 91, -73.8132227, -0.9171904],
     ['El Encanto', 91, -73.21171, -1.747214],
     ['Providencia y Santa Catalina', 88, -82.2020433, 12.9365903],
