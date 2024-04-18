@@ -4,11 +4,11 @@ import { getXlsxStream } from 'xlstream';
 import { guardarJSON } from './utilidades/ayudas';
 import { DatosInclusion } from '../../www/tipos/compartidos';
 import { MunicipioCoordenadas } from '../tipos';
-
+import datosMunicipiosAlgunos from '../datos/municipios.json';
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
 const nombreArchivoMun = 'municipios_colombia';
-
+console.log(datosMunicipiosAlgunos.collections[0].data);
 type Fila = [
   /** Nombre del municipio */
   municipio: string,
