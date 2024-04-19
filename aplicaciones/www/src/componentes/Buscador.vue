@@ -8,7 +8,7 @@ const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
 
 const buscador: Ref<HTMLInputElement | undefined> = ref();
 const sugerencias: Ref<string[]> = ref(['']);
-let fuenteBusqueda: { nombre: string}[];
+let fuenteBusqueda: { nombre: string }[];
 
 fuenteBusqueda = datos;
 
@@ -16,7 +16,6 @@ llenarBaseLista();
 
 function actualizarSugerencias() {
   console.log('estoy en el evento onChange');
-  
 }
 
 function buscar() {
@@ -69,6 +68,6 @@ function llenarBaseLista() {
 
 <style>
 option {
-    display: block !important
+  display: block !important;
 }
 </style>
