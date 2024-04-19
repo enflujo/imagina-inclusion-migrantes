@@ -1,11 +1,16 @@
 import { resolve } from 'path';
 import { departamentos, municipios } from './utilidades/lugaresColombia';
 import { getXlsxStream } from 'xlstream';
-import { guardarJSON } from './utilidades/ayudas';
+import { guardarJSON, normalizarTexto } from './utilidades/ayudas';
 import { DatosInclusion } from '../../www/tipos/compartidos';
-
+import { MunicipioCoordenadas } from '../tipos';
+import datosMunicipiosAlgunos from '../datos/municipios.json';
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
+const municipiosBDJuan: FilaMunicipioBDJuan[] = [];
+let cantidadMunFaltantes = 0;
+
+type FilaMunicipioBDJuan = [nombre: string, nombreDepto: string, lat: number, lon: number];
 
 type Fila = [
   /** Nombre del municipio */
@@ -38,6 +43,20 @@ type FilaPoblacion = [
   poblacionLEA: number,
   poblacionTotal: string,
 ];
+
+datosMunicipiosAlgunos.collections[0].data.forEach((mun) => {
+  let lugar = mun.name.split(',');
+  if (mun.name.includes('Archipiélago')) {
+    lugar = ['Archipiélago de San Andrés, Providencia y Santa Catalina', lugar[2]];
+  }
+
+  const lat = mun.lat;
+  const lon = mun.lon;
+  const nombre = lugar[1] ? lugar[1] : '';
+  const nombreDepto = lugar[0];
+
+  municipiosBDJuan.push([nombre, nombreDepto, lat, lon]);
+});
 
 inicio().catch(console.error);
 
@@ -108,17 +127,31 @@ async function inicio() {
       valorIndice,
       indiceEncuestado,
     ] = fila;
+
     const mun = municipios.datos.find((municipio) => +municipio[3] === codMun);
 
     if (!mun) {
-      console.log(nombreMun);
+      console.log(`El municipio ${nombreMun} no existe en la fuente de lugaresColombia.ts`);
       return;
     }
 
     const dep = departamentos.datos.find((departamento) => +departamento[0] === codDep);
 
     if (!dep) {
-      console.log(nombreDep);
+      console.log(`El departamento ${nombreDep} no existe en la fuente de lugaresColombia.ts`);
+      return;
+    }
+
+    const munCoordenadas = municipiosBDJuan.find((municipio: MunicipioCoordenadas) => {
+      return (
+        normalizarTexto(municipio[1]) === normalizarTexto(dep[1]) &&
+        normalizarTexto(municipio[0]) === normalizarTexto(mun[1])
+      );
+    });
+
+    if (!munCoordenadas) {
+      cantidadMunFaltantes++;
+      // console.log(cantidadMunFaltantes, dep[1], ' - ', mun[1]);
       return;
     }
 
@@ -131,8 +164,8 @@ async function inicio() {
       valorRank,
       valorIndice,
       encuestado: !!indiceEncuestado,
-      latitud: dep[2],
-      longitud: dep[3],
+      latitud: munCoordenadas ? +munCoordenadas[2] : dep[2],
+      longitud: munCoordenadas ? +munCoordenadas[3] : dep[3],
       poblacionTotal: +mapaPoblacionMunicipios.get(mun[3]),
     });
   }

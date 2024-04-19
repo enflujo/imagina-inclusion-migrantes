@@ -11,6 +11,8 @@ export type Municipio = [
   codigoCompleto: string,
 ];
 
+export type MunicipioCoordenadas = [nombre: string, depto: string, latitud: number, longitud: number];
+
 export type ObjetoDepartamentos = {
   llaves: string[];
   datos: Departamento[];
@@ -19,4 +21,9 @@ export type ObjetoDepartamentos = {
 export type ObjetoMunicipios = {
   llaves: string[];
   datos: Municipio[];
+};
+
+export type ObjetoMunicipioCoord = {
+  llaves: string[];
+  datos: MunicipioCoordenadas[];
 };

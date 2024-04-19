@@ -2,11 +2,11 @@ import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import type { DatosInclusion } from 'tipos/compartidos';
 import { pedirDatos } from '@/utilidades/ayudas';
-import type { Feature, FeatureCollection } from 'geojson';
+import type { Feature, FeatureCollection, Point } from 'geojson';
 
 interface EstructuraDatos {
   datos: DatosInclusion[];
-  geojson: FeatureCollection;
+  geojson: FeatureCollection<Point>;
   cargados: boolean;
   lugarSeleccionado: number;
 }
@@ -34,7 +34,7 @@ export const usarCerebroDatos = defineStore('datos', {
   actions: {
     async cargarDatos() {
       const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
-      const lugares: Feature[] = [];
+      const lugares: Feature<Point>[] = [];
 
       datos.forEach((lugar, i) => {
         lugar.id = i;

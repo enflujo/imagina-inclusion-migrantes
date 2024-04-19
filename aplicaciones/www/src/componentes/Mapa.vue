@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type Map } from 'mapbox-gl';
-import type { Feature, Point } from 'geojson';
+import type { Feature, FeatureCollection, GeoJsonProperties, Point, Polygon } from 'geojson';
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
+import { Delaunay } from 'd3';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
@@ -16,6 +17,50 @@ onMounted(async () => {
     await cerebroDatos.cargarDatos();
   }
 
+  const coordenadas: [lat: number, lon: number][] = [];
+
+  let lonMin = -82.2020433;
+  let lonMax = -66.8;
+  let latMin = -4.2167;
+  let latMax = 12.9365903;
+
+  // Borrar datos repetidos
+  const datosUnicos: any = cerebroDatos.geojson.features.filter((lugar, indice) => {
+    return (
+      indice ===
+      cerebroDatos.geojson.features.findIndex(
+        (registrado) =>
+          lugar.geometry.coordinates[0] === registrado['geometry']['coordinates'][0] &&
+          lugar['geometry']['coordinates'][1] === registrado['geometry']['coordinates'][1]
+      )
+    );
+  });
+
+  // Guardar coordenadas de los datos no repetidos
+  for (let i = 0; i < datosUnicos.length; i++) {
+    const coo = datosUnicos[i]['geometry']['coordinates'];
+
+    coordenadas.push(coo);
+  }
+
+  const delaunay = Delaunay.from(coordenadas);
+  const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
+  const geojson: FeatureCollection<Polygon> = { type: 'FeatureCollection', features: [] };
+
+  coordenadas.forEach((d, i) => {
+    const trazo = voronoi.cellPolygon(i);
+    if (trazo) {
+      const respuesta: Feature<Polygon> = {
+        type: 'Feature',
+        properties: datosUnicos[i].properties,
+        geometry: { type: 'Polygon', coordinates: [trazo] },
+      };
+      geojson.features[i] = respuesta;
+    } else {
+      console.log(d);
+    }
+  });
+
   const instanciaMapa = new mapboxgl.Map({
     container: contenedorMapa.value as HTMLDivElement,
     style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
@@ -23,61 +68,46 @@ onMounted(async () => {
     zoom: 4.3,
   });
 
+  // Agregar datos para puntos
   instanciaMapa.on('load', () => {
     instanciaMapa.addSource('municipios', {
       type: 'geojson',
       data: cerebroDatos.geojson,
     });
 
-    const zoomMax = 8;
+    // Agregar datos para voronoi
+    instanciaMapa.addSource('voronoi', {
+      type: 'geojson',
+      data: geojson,
+    });
 
+    // Pintar polígonos
     instanciaMapa.addLayer({
-      id: 'municipios-areas',
-      type: 'heatmap',
-      source: 'municipios',
-      maxzoom: zoomMax,
-      //https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/
+      id: 'voronoi-gononea',
+      type: 'fill',
+      source: 'voronoi',
       paint: {
-        'heatmap-weight': {
+        'fill-color': {
           property: 'indice',
-          type: 'exponential',
           stops: [
-            [1, 0],
-            [100, 1],
+            [0.1, '#c22f20'],
+            [50, '#ff9800'],
+            [100, '#fef6bc'],
           ],
         },
-        'heatmap-intensity': {
-          stops: [
-            [5, 0.1],
-            [zoomMax, 0],
-          ],
-        },
-        'heatmap-color': [
-          'interpolate',
-          ['linear'],
-          ['heatmap-density'],
-          0,
-          'rgba(51,255,51,0)',
-          0.2,
-          'rgb(60,179,113)', //Verde
-          0.6,
-          'rgb(255,255,51)', //Amarillo
-          1,
-          'rgb(255,0,0)', //Rojo
-        ],
-        'heatmap-radius': {
-          stops: [
-            [5, 60],
-            [zoomMax, 10],
-          ],
-        },
-        'heatmap-opacity': {
-          default: 0.8,
-          stops: [
-            [8, 1],
-            [zoomMax, 0],
-          ],
-        },
+
+        'fill-opacity': 0.5,
+      },
+    });
+
+    // Borde de voronoi
+    instanciaMapa.addLayer({
+      id: 'borde',
+      type: 'line',
+      source: 'voronoi',
+      paint: {
+        'line-color': 'rgba(0, 0, 0, 0.3)',
+        'line-width': 1,
       },
     });
 
@@ -85,40 +115,44 @@ onMounted(async () => {
       id: 'municipios-puntos',
       type: 'circle',
       source: 'municipios',
-      minzoom: 7,
+      minzoom: 5,
 
       paint: {
-        'circle-radius': 10,
+        'circle-radius': 3,
         'circle-color': {
           property: 'indice',
           stops: [
-            [0, 'rgb(255, 0, 0)'],
-            [50, 'rgb(255, 223, 0)'],
-            [100, 'rgb(20, 165, 63)'],
+            [3, '#c22f20'],
+            [50, '#ff9800'],
+            [100, '#fef6bc'],
           ],
         },
 
-        'circle-stroke-color': 'white',
+        'circle-stroke-color': 'black',
         'circle-stroke-width': 0,
       },
     });
 
-    instanciaMapa.on('click', 'municipios-puntos', (evento) => {
-      const punto = evento.features?.[0] as Feature<Point>;
-      console.log(punto);
-      if (punto && punto.properties) {
-        const coords = punto.geometry.coordinates as [number, number];
-        const indice = punto.properties.indice.toFixed(2) as number;
+    const leyenda = new mapboxgl.Popup();
 
-        const municipio = punto.properties.mun;
-        const departamento = punto.properties.dep;
+    instanciaMapa.on('click', 'voronoi-gononea', (evento) => {
+      const lugar = evento.features?.[0];
 
-        new mapboxgl.Popup()
+      if (lugar && lugar.properties) {
+        const { lat, lng } = evento.lngLat;
+        const coords: [number, number] = [lng, lat];
+        const indice = lugar.properties.indice.toFixed(2) as number;
+
+        const municipio = lugar.properties.mun;
+        const departamento = lugar.properties.dep;
+
+        leyenda
           .setLngLat(coords)
           .setHTML(
-            `<p class="nombreMunicipio">${municipio} (${departamento})</p>` +
+            `<div id='leyenda'><p class="nombreMunicipio">${municipio} (${departamento})</p>` +
               '<span class="yanaina">Índice de inclusión:</span> ' +
-              indice
+              indice +
+              '</div>'
           )
           .addTo(instanciaMapa);
       }

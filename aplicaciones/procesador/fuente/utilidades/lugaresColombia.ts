@@ -1,4 +1,4 @@
-import { ObjetoDepartamentos, ObjetoMunicipios } from '../../tipos';
+import { ObjetoDepartamentos, ObjetoMunicipios, ObjetoMunicipioCoord } from '../../tipos';
 
 export const departamentos: ObjetoDepartamentos = {
   llaves: ['codigo', 'nombre', 'latitud', 'longitud'],
