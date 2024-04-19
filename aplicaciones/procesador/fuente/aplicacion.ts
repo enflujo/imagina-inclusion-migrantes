@@ -8,6 +8,7 @@ import datosMunicipiosAlgunos from '../datos/municipios.json';
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
 const municipiosBDJuan: FilaMunicipioBDJuan[] = [];
+let cantidadMunFaltantes = 0;
 
 type FilaMunicipioBDJuan = [nombre: string, nombreDepto: string, lat: number, lon: number];
 
@@ -112,7 +113,7 @@ async function inicio() {
     const poblacionT = fila[5];
     mapaPoblacionMunicipios.set(codigo, poblacionT);
   }
-  let i = 0;
+
   function procesarFila(fila: Fila, numeroFila: number) {
     const [
       nombreMun,
@@ -149,8 +150,8 @@ async function inicio() {
     });
 
     if (!munCoordenadas) {
-      i++;
-      // console.log(i, dep[1], ' - ', mun[1]);
+      cantidadMunFaltantes++;
+      // console.log(cantidadMunFaltantes, dep[1], ' - ', mun[1]);
       return;
     }
 
