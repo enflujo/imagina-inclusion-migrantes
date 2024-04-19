@@ -8,3 +8,11 @@ import { writeFileSync } from 'fs';
 export const guardarJSON = (json: any, nombre: string) => {
   writeFileSync(`../www/public/${nombre}.json`, JSON.stringify(json));
 };
+
+export const normalizarTexto = (texto: string): string => {
+  return texto
+    .toLocaleLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '');
+};

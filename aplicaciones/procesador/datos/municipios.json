@@ -5,6 +5,15 @@
       "name": "places",
       "data": [
         {
+          "name": "Boyacá,Sora",
+          "url": "Boyac%C3%A1,Sora",
+          "lat": 5.5668385,
+          "lon": -73.4526753,
+          "meta": { "revision": 3, "created": 1459591182293, "version": 0, "updated": 1459943889110 },
+          "$loki": 870,
+          "id": "boyaca-sora"
+        },
+        {
           "name": "Cauca,Buenos Aires",
           "url": "Cauca,Buenos%20Aires",
           "lat": 2.91667,
@@ -32,7 +41,7 @@
           "id": "norte-de-santander-bucarasica"
         },
         {
-          "name": "Bolivar,El Carmen de Bolívar",
+          "name": "Bolívar,El Carmen de Bolívar",
           "url": "Bolivar,El%20Carmen%20de%20Bol%C3%ADvar",
           "lat": 9.75,
           "lon": -75.16667,
@@ -149,7 +158,7 @@
           "id": "cauca-morales"
         },
         {
-          "name": "Bolivar,Magangué",
+          "name": "Bolívar,Magangué",
           "url": "Bolivar,Magangu%C3%A9",
           "lat": 9.24202,
           "lon": -74.75467,
@@ -266,7 +275,7 @@
           "id": "cordoba-montelibano"
         },
         {
-          "name": "Bolivar,Cantagallo",
+          "name": "Bolívar,Cantagallo",
           "url": "Bolivar,Cantagallo",
           "lat": 7.22919,
           "lon": -74.12969,
@@ -293,7 +302,7 @@
           "id": "antioquia-valdivia"
         },
         {
-          "name": "Meta,Mapiripan",
+          "name": "Meta,Mapiripán",
           "url": "Meta,Mapiripan",
           "lat": 3.09706,
           "lon": -71.94964,
@@ -743,7 +752,7 @@
           "id": "antioquia-rionegro"
         },
         {
-          "name": "Magdalena,Zona Bananera (PRADO – SEVILLA)",
+          "name": "Magdalena,Zona Bananera (PRADO - SEVILLA)",
           "url": "Magdalena,Zona%20Bananera%20(PRADO%20%E2%80%93%20SEVILLA)",
           "lat": 10.76343,
           "lon": -74.13916,
@@ -815,7 +824,7 @@
           "id": "antioquia-carmen-de-viboral"
         },
         {
-          "name": "Bolivar,Arenal",
+          "name": "Bolívar,Arenal",
           "url": "Bolivar,Arenal",
           "lat": 8.34173,
           "lon": -74.10584,
@@ -914,7 +923,7 @@
           "id": "choco-istmina"
         },
         {
-          "name": "Arauca",
+          "name": "Arauca,Arauca",
           "url": "Arauca",
           "lat": 7.08471,
           "lon": -70.75908,
@@ -1229,13 +1238,13 @@
           "id": "norte-de-santander-los-patios"
         },
         {
-          "name": "Antioquia,Don Matías",
-          "url": "Antioquia,Don%20Mat%C3%ADas",
+          "name": "Antioquia,Donmatías",
+          "url": "Antioquia,Donmat%C3%ADas",
           "lat": 6.48569,
           "lon": -75.39496,
           "meta": { "revision": 3, "created": 1459591053520, "version": 0, "updated": 1459943889107 },
           "$loki": 141,
-          "id": "antioquia-don-matias"
+          "id": "antioquia-donmatias"
         },
         {
           "name": "Antioquia,Betulia",
@@ -1526,7 +1535,7 @@
           "id": "cauca-paez-belalcazar"
         },
         {
-          "name": "Bolivar,Morales",
+          "name": "Bolívar,Morales",
           "url": "Bolivar,Morales",
           "lat": 8.2752,
           "lon": -73.86884,
@@ -1544,13 +1553,13 @@
           "id": "choco-alto-baudo-pie-de-pato"
         },
         {
-          "name": "Bolivar,Cartagena",
+          "name": "Bolívar,Cartagena de Indias",
           "url": "Bolivar,Cartagena",
           "lat": 10.39972,
           "lon": -75.51444,
           "meta": { "revision": 3, "created": 1459591053520, "version": 0, "updated": 1459943889107 },
           "$loki": 176,
-          "id": "bolivar-cartagena"
+          "id": "bolivar-cartagena-de-indias"
         },
         {
           "name": "Sucre,Chalán",
@@ -1580,13 +1589,13 @@
           "id": "meta-puerto-gaitan"
         },
         {
-          "name": "Sucre,Sincé",
+          "name": "Sucre,San Luis de Sincé",
           "url": "Sucre,Sinc%C3%A9",
           "lat": 9.24391,
           "lon": -75.14675,
           "meta": { "revision": 3, "created": 1459591053521, "version": 0, "updated": 1459943889107 },
           "$loki": 180,
-          "id": "sucre-since"
+          "id": "sucre-san-luis-de-since"
         },
         {
           "name": "Atlántico,Luruaco",
@@ -2147,13 +2156,13 @@
           "id": "antioquia-san-francisco"
         },
         {
-          "name": "Cauca,Piendamó",
+          "name": "Cauca,Piendamó - Tunía",
           "url": "Cauca,Piendam%C3%B3",
           "lat": 2.70214,
           "lon": -76.59736,
           "meta": { "revision": 3, "created": 1459591053522, "version": 0, "updated": 1459943889107 },
           "$loki": 245,
-          "id": "cauca-piendamo"
+          "id": "cauca-piendamo-tunia"
         },
         {
           "name": "Boyacá",
@@ -2264,7 +2273,7 @@
           "id": "tolima-dolores"
         },
         {
-          "name": "Bolivar,Santa Rosa",
+          "name": "Bolívar,Santa Rosa",
           "url": "Bolivar,Santa%20Rosa",
           "lat": 10.45,
           "lon": -75.33333,
@@ -2273,7 +2282,7 @@
           "id": "bolivar-santa-rosa"
         },
         {
-          "name": "Bolivar,Simití",
+          "name": "Bolívar,Simití",
           "url": "Bolivar,Simit%C3%AD",
           "lat": 7.81632,
           "lon": -73.97922,
@@ -2300,7 +2309,7 @@
           "id": "caqueta-albania"
         },
         {
-          "name": "Bolivar,San Pablo",
+          "name": "Bolívar,San Pablo",
           "url": "Bolivar,San%20Pablo",
           "lat": 7.31272,
           "lon": -74.24468,
@@ -2390,7 +2399,7 @@
           "id": "santander-guaca"
         },
         {
-          "name": "Bolivar,Turbaco",
+          "name": "Bolívar,Turbaco",
           "url": "Bolivar,Turbaco",
           "lat": 10.35,
           "lon": -75.33333,
@@ -2399,7 +2408,7 @@
           "id": "bolivar-turbaco"
         },
         {
-          "name": "Bolivar,San Juan de Nepomuceno",
+          "name": "Bolívar,San Juan de Nepomuceno",
           "url": "Bolivar,San%20Juan%20de%20Nepomuceno",
           "lat": 9.94976,
           "lon": -75.07426,
@@ -2480,13 +2489,13 @@
           "id": "huila-neiva"
         },
         {
-          "name": "Chocó,Atrato (Yuto)",
-          "url": "Choc%C3%B3,Atrato%20(Yuto)",
+          "name": "Chocó,Atrato",
+          "url": "Choc%C3%B3,Atrato",
           "lat": 5.533183,
           "lon": -76.632576,
           "meta": { "revision": 3, "created": 1459591053523, "version": 0, "updated": 1459943889107 },
           "$loki": 284,
-          "id": "choco-atrato-yuto"
+          "id": "choco-atrato"
         },
         {
           "name": "Valle del Cauca,Vijes",
@@ -2534,13 +2543,13 @@
           "id": "narino-ipiales"
         },
         {
-          "name": "Valle del Cauca,Buga",
+          "name": "Valle del Cauca,Guadalajara de Buga",
           "url": "Valle%20del%20Cauca,Buga",
           "lat": 3.90089,
           "lon": -76.29783,
           "meta": { "revision": 3, "created": 1459591053523, "version": 0, "updated": 1459943889107 },
           "$loki": 290,
-          "id": "valle-del-cauca-buga"
+          "id": "valle-del-cauca-guadalajara-de-buga"
         },
         {
           "name": "Antioquia,Angostura",
@@ -3263,7 +3272,7 @@
           "id": "caldas-marquetalia"
         },
         {
-          "name": "Bolivar,Regidor",
+          "name": "Bolívar,Regidor",
           "url": "Bolivar,Regidor",
           "lat": 8.72229,
           "lon": -73.84891,
@@ -3299,7 +3308,7 @@
           "id": "antioquia-copacabana"
         },
         {
-          "name": "Bolivar,María la Baja",
+          "name": "Bolívar,María la Baja",
           "url": "Bolivar,Mar%C3%ADa%20la%20Baja",
           "lat": 10,
           "lon": -75.33333,
@@ -3479,7 +3488,7 @@
           "id": "cundinamarca-simijaca"
         },
         {
-          "name": "Bolivar,Tiquisio (Puerto Rico)",
+          "name": "Bolívar,Tiquisio (Puerto Rico)",
           "url": "Bolivar,Tiquisio%20(Puerto%20Rico)",
           "lat": 8.567651,
           "lon": -74.265052,
@@ -3677,7 +3686,7 @@
           "id": "magdalena-puebloviejo"
         },
         {
-          "name": "Bolivar,Arjona",
+          "name": "Bolívar,Arjona",
           "url": "Bolivar,Arjona",
           "lat": 10.16667,
           "lon": -75.33333,
@@ -3695,7 +3704,7 @@
           "id": "valle-del-cauca-riofrio"
         },
         {
-          "name": "Bolivar,Turbaná",
+          "name": "Bolívar,Turbaná",
           "url": "Bolivar,Turban%C3%A1",
           "lat": 10.25,
           "lon": -75.41667,
@@ -3857,7 +3866,7 @@
           "id": "santander-lebrija"
         },
         {
-          "name": "Bolivar,Villanueva",
+          "name": "Bolívar,Villanueva",
           "url": "Bolivar,Villanueva",
           "lat": 10.45,
           "lon": -75.25,
@@ -4136,13 +4145,13 @@
           "id": "huila-tarqui"
         },
         {
-          "name": "Cundinamarca,San Antonio de Tequendama",
-          "url": "Cundinamarca,San%20Antonio%20de%20Tequendama",
+          "name": "Cundinamarca,San Antonio del Tequendama",
+          "url": "Cundinamarca,San%20Antonio%20del%20Tequendama",
           "lat": 4.61667,
           "lon": -74.35,
           "meta": { "revision": 3, "created": 1459591053527, "version": 0, "updated": 1459943889108 },
           "$loki": 469,
-          "id": "cundinamarca-san-antonio-de-tequendama"
+          "id": "cundinamarca-san-antonio-del-tequendama"
         },
         {
           "name": "Valle del Cauca,Candelaria",
@@ -4343,7 +4352,7 @@
           "id": "antioquia-san-carlos"
         },
         {
-          "name": "Bolivar,Achí",
+          "name": "Bolívar,Achí",
           "url": "Bolivar,Ach%C3%AD",
           "lat": 8.41268,
           "lon": -74.529,
@@ -4433,7 +4442,7 @@
           "id": "tolima-san-luis"
         },
         {
-          "name": "Santander,El Peñon",
+          "name": "Santander,El Peñón",
           "url": "Santander,El%20Pe%C3%B1on",
           "lat": 6.099,
           "lon": -73.92835,
@@ -4748,7 +4757,7 @@
           "id": "choco-medio-atrato"
         },
         {
-          "name": "Bolivar,Cicuco",
+          "name": "Bolívar,Cicuco",
           "url": "Bolivar,Cicuco",
           "lat": 9.23226,
           "lon": -74.69095,
@@ -4901,7 +4910,7 @@
           "id": "sucre-san-juan-de-betulia"
         },
         {
-          "name": "Bolivar,Córdoba",
+          "name": "Bolívar,Córdoba",
           "url": "Bolivar,C%C3%B3rdoba",
           "lat": 9.5,
           "lon": -74.91667,
@@ -4937,7 +4946,7 @@
           "id": "cauca-sotara-paispamba"
         },
         {
-          "name": "Bolivar,San Jacinto",
+          "name": "Bolívar,San Jacinto",
           "url": "Bolivar,San%20Jacinto",
           "lat": 9.83333,
           "lon": -75.08333,
@@ -4973,7 +4982,7 @@
           "id": "santander-surata"
         },
         {
-          "name": "Bolivar,San Martín de Loba",
+          "name": "Bolívar,San Martín de Loba",
           "url": "Bolivar,San%20Mart%C3%ADn%20de%20Loba",
           "lat": 8.88214,
           "lon": -74.00353,
@@ -5054,7 +5063,7 @@
           "id": "caldas-marmato"
         },
         {
-          "name": "Bolivar,Montecristo",
+          "name": "Bolívar,Montecristo",
           "url": "Bolivar,Montecristo",
           "lat": 7.99565,
           "lon": -74.45816,
@@ -5099,7 +5108,7 @@
           "id": "cesar-becerril"
         },
         {
-          "name": "Bolivar,Clemencia",
+          "name": "Bolívar,Clemencia",
           "url": "Bolivar,Clemencia",
           "lat": 10.58333,
           "lon": -75.33333,
@@ -5126,7 +5135,7 @@
           "id": "norte-de-santander-gramalote"
         },
         {
-          "name": "Bolivar,Mahates",
+          "name": "Bolívar,Mahates",
           "url": "Bolivar,Mahates",
           "lat": 10.16667,
           "lon": -75.16667,
@@ -5162,7 +5171,7 @@
           "id": "tolima-mariquita"
         },
         {
-          "name": "Bolivar,Santa Catalina",
+          "name": "Bolívar,Santa Catalina",
           "url": "Bolivar,Santa%20Catalina",
           "lat": 10.60448,
           "lon": -75.29555,
@@ -5207,7 +5216,7 @@
           "id": "antioquia-jardin"
         },
         {
-          "name": "Bolivar,Santa Rosa del Sur",
+          "name": "Bolívar,Santa Rosa del Sur",
           "url": "Bolivar,Santa%20Rosa%20del%20Sur",
           "lat": 7.6976,
           "lon": -74.27588,
@@ -5441,7 +5450,7 @@
           "id": "norte-de-santander-la-playa"
         },
         {
-          "name": "Bolivar,Río Viejo",
+          "name": "Bolívar,Río Viejo",
           "url": "Bolivar,R%C3%ADo%20Viejo",
           "lat": 8.60411,
           "lon": -73.81851,
@@ -5459,7 +5468,7 @@
           "id": "boyaca-san-mateo"
         },
         {
-          "name": "Nariño,Cuaspud (Carlosama)",
+          "name": "Nariño,Cuaspud Carlosama",
           "url": "Nari%C3%B1o,Cuaspud%20(Carlosama)",
           "lat": 0.87981,
           "lon": -77.77851,
@@ -5666,13 +5675,13 @@
           "id": "sucre-coloso-ricaurte"
         },
         {
-          "name": "Caldas,Viterbo",
+          "name": "Caldas,Santa Rosa de Viterbo",
           "url": "Caldas,Viterbo",
           "lat": 5.0451,
           "lon": -75.91924,
           "meta": { "revision": 3, "created": 1459591053533, "version": 0, "updated": 1459943889109 },
           "$loki": 642,
-          "id": "caldas-viterbo"
+          "id": "caldas-santa-rosa-de-viterbo"
         },
         {
           "name": "Boyacá,Chita",
@@ -6188,7 +6197,7 @@
           "id": "caldas-la-merced"
         },
         {
-          "name": "Magdalena,Pijiño",
+          "name": "Magdalena,Pijiño del Carmen",
           "url": "Magdalena,Piji%C3%B1o",
           "lat": 9.53528,
           "lon": -74.11992,
@@ -6728,7 +6737,7 @@
           "id": "cundinamarca-guayabetal"
         },
         {
-          "name": "Boyacá,Guicán",
+          "name": "Boyacá,Güicán de la Sierra",
           "url": "Boyac%C3%A1,Guic%C3%A1n",
           "lat": 6.5368,
           "lon": -72.27308,
@@ -6782,7 +6791,7 @@
           "id": "santander-curiti"
         },
         {
-          "name": "Bolivar,San Jacinto del Cauca",
+          "name": "Bolívar,San Jacinto del Cauca",
           "url": "Bolivar,San%20Jacinto%20del%20Cauca",
           "lat": 8.23729,
           "lon": -74.66782,
@@ -6800,7 +6809,7 @@
           "id": "cundinamarca-soacha-soacha-cundinamarca"
         },
         {
-          "name": "Bolivar,Mompós",
+          "name": "Bolívar,Mompós",
           "url": "Bolivar,Momp%C3%B3s",
           "lat": 9.25,
           "lon": -74.58333,
@@ -6836,7 +6845,7 @@
           "id": "narino-la-tola"
         },
         {
-          "name": "Bolivar,Zambrano",
+          "name": "Bolívar,Zambrano",
           "url": "Bolivar,Zambrano",
           "lat": 9.75,
           "lon": -74.83333,
@@ -7088,7 +7097,7 @@
           "id": "norte-de-santander-cucutilla"
         },
         {
-          "name": "San Andrés y Providencia,San Andrés",
+          "name": "Archipiélago de San Andrés, Providencia y Santa Catalina,San Andrés",
           "url": "San%20Andr%C3%A9s%20y%20Providencia,San%20Andr%C3%A9s",
           "lat": 12.58472,
           "lon": -81.70056,
@@ -7133,7 +7142,7 @@
           "id": "atlantico-palmar-de-varela"
         },
         {
-          "name": "San Andrés,Providencia",
+          "name": "Archipiélago de San Andrés, Providencia y Santa Catalina,Providencia",
           "url": "San%20Andr%C3%A9s,Providencia",
           "lat": 12.58472,
           "lon": -81.70056,
@@ -7358,7 +7367,7 @@
           "id": "huila-palestina"
         },
         {
-          "name": "Bolivar,Barranco de Loba",
+          "name": "Bolívar,Barranco de Loba",
           "url": "Bolivar,Barranco%20de%20Loba",
           "lat": 8.83333,
           "lon": -74.16667,
@@ -7565,7 +7574,7 @@
           "id": "valle-del-cauca-obando"
         },
         {
-          "name": "Bolivar,Norosí",
+          "name": "Bolívar,Norosí",
           "url": "Bolivar,Noros%C3%AD",
           "lat": 8.50638,
           "lon": -74.11562,
@@ -7592,7 +7601,7 @@
           "id": "huila-paicol"
         },
         {
-          "name": "Bolivar,Pinillos",
+          "name": "Bolívar,Pinillos",
           "url": "Bolivar,Pinillos",
           "lat": 8.82373,
           "lon": -74.3811,
@@ -7934,7 +7943,7 @@
           "id": "santander-el-carmen"
         },
         {
-          "name": "Bolivar,San Fernando",
+          "name": "Bolívar,San Fernando",
           "url": "Bolivar,San%20Fernando",
           "lat": 9.07705,
           "lon": -74.41177,
@@ -8096,7 +8105,7 @@
           "id": "narino-roberto-payan-san-jose-rio-piri-y-ispi-roberto-payan-san-jose"
         },
         {
-          "name": "Bolivar,Hatillo de Loba",
+          "name": "Bolívar,Hatillo de Loba",
           "url": "Bolivar,Hatillo%20de%20Loba",
           "lat": 8.95635,
           "lon": -74.0782,
@@ -8258,7 +8267,7 @@
           "id": "antioquia-tamesis"
         },
         {
-          "name": "Bolivar,El Peñon",
+          "name": "Bolívar,El Peñón",
           "url": "Bolivar,El%20Pe%C3%B1on",
           "lat": 8.86545,
           "lon": -73.91146,
@@ -8888,13 +8897,13 @@
           "id": "antioquia-briceno-briceno-antioquia"
         },
         {
-          "name": "Bolivar,Turbaco,Turbaco, Bolivar",
-          "url": "Bolivar,Turbaco,Turbaco%20,%20Bolivar",
+          "name": "Bolívar,Turbaco",
+          "url": "Bolivar,Turbaco",
           "lat": 10.35,
           "lon": -75.33333,
           "meta": { "revision": 6, "created": 1459591182364, "version": 0, "updated": 1459943889110 },
           "$loki": 1006,
-          "id": "bolivar-turbaco-turbaco-bolivar"
+          "id": "bolivar-turbaco"
         },
         {
           "name": "Córdoba,Monteria,Barrio Santa Fe, Monteria, Córdoba",
@@ -9761,13 +9770,13 @@
           "id": "cordoba-monteria-monteria-cordoba-manzana-5-lote-uno-en-villa-cielo-en-la-via-al-corregimiento-el-sabanal"
         },
         {
-          "name": "Bolivar,Cartagena,Cartagena, Bolivar",
-          "url": "Bolivar,Cartagena,Cartagena%20,%20Bolivar",
+          "name": "Bolívar,Cartagena",
+          "url": "Bolivar,Cartagena",
           "lat": 10.39972,
           "lon": -75.51444,
           "meta": { "revision": 6, "created": 1459591182369, "version": 0, "updated": 1459943889110 },
           "$loki": 1105,
-          "id": "bolivar-cartagena-cartagena-bolivar"
+          "id": "bolivar-cartagena"
         },
         {
           "name": "Córdoba,Monteria,Monteria, Córdoba, barrio Villa Cielo",
@@ -10796,13 +10805,13 @@
           "id": "atlantico-barranquilla-barranquilla-atlantico-barrio-los-olivos"
         },
         {
-          "name": "Valle del Cauca,Cartago,Cartago, Valle del Cauca",
-          "url": "Valle%20del%20Cauca,Cartago,Cartago%20,%20Valle%20del%20Cauca",
+          "name": "Valle del Cauca,Cartago",
+          "url": "Valle%20del%20Cauca,Cartago",
           "lat": 4.74639,
           "lon": -75.91167,
           "meta": { "revision": 6, "created": 1459591182375, "version": 0, "updated": 1459943889111 },
           "$loki": 1223,
-          "id": "valle-del-cauca-cartago-cartago-valle-del-cauca"
+          "id": "valle-del-cauca-cartago"
         },
         {
           "name": "Chocó,Carmen del Darién (CURBARADÓ),Carmen del Darién (CURBARADÓ), Chocó",
@@ -12335,13 +12344,13 @@
           "id": "valle-del-cauca-buga-vereda-corazon-buga-valle-del-cauca"
         },
         {
-          "name": "Vaupés,Carurú,Carurú, Vaupés",
-          "url": "Vaup%C3%A9s,Carur%C3%BA,Carur%C3%BA%20,%20Vaup%C3%A9s",
+          "name": "Vaupés,Carurú",
+          "url": "Vaup%C3%A9s,Carur%C3%BA",
           "lat": 1.02081,
           "lon": -71.33788,
           "meta": { "revision": 6, "created": 1459591182387, "version": 0, "updated": 1459943889111 },
           "$loki": 1398,
-          "id": "vaupes-caruru-caruru-vaupes"
+          "id": "vaupes-caruru"
         },
         {
           "name": "La Guajira,Albania,Albania, La Guajira",
@@ -13658,13 +13667,13 @@
           "id": "bolivar-norosi-norosi-bolivar"
         },
         {
-          "name": "Arauca,Puerto Jordan, Arauca, Arauca",
-          "url": "Arauca,Puerto%20Jordan,%20Arauca%20,%20Arauca",
+          "name": "Arauca,Puerto Jordán",
+          "url": "Arauca,Puerto%20Jordan",
           "lat": 6.688218,
           "lon": -71.342284,
           "meta": { "revision": 6, "created": 1459591182398, "version": 0, "updated": 1459943889112 },
           "$loki": 1546,
-          "id": "arauca-puerto-jordan-arauca-arauca"
+          "id": "arauca-puerto-jordan"
         },
         {
           "name": "Magdalena,Santa Marta,Santa Marta, Magdalena, barrio ondas del caribe",
@@ -13865,13 +13874,13 @@
           "id": "bogota-d-c-chapinero-bogota-d-c-bogota-d-c"
         },
         {
-          "name": "Cauca,Totoró,Totoró, Cauca",
-          "url": "Cauca,Totor%C3%B3,Totor%C3%B3%20,%20Cauca",
+          "name": "Cauca,Totoró",
+          "url": "Cauca,Totor%C3%B3",
           "lat": 2.58333,
           "lon": -76.33333,
           "meta": { "revision": 6, "created": 1459591182400, "version": 0, "updated": 1459943889112 },
           "$loki": 1569,
-          "id": "cauca-totoro-totoro-cauca"
+          "id": "cauca-totoro"
         },
         {
           "name": "Bogotá D.C.,Calle 27 sur con carrera primera, Bogotá D.C., Bogotá D.C.",
@@ -14099,7 +14108,7 @@
           "id": "cordoba-monitos-monitos-cordoba"
         },
         {
-          "name": "Sucre,Tolú,Tolú, Sucre, Barrio San Felilpe.",
+          "name": "Sucre,Tolú,Tolú, Sucre, Barrio San Felipe",
           "url": "Sucre,Tol%C3%BA,Tol%C3%BA%20,%20Sucre,%20Barrio%20San%20Felilpe.",
           "lat": 9.52392,
           "lon": -75.58139,
@@ -15017,7 +15026,7 @@
           "id": "tolima-planadas-gaitana-planadas-tolima"
         },
         {
-          "name": "Caldas,Chinchiná,Chinchiná, Caldas",
+          "name": "Caldas,Chinchiná",
           "url": "Caldas,Chinchin%C3%A1,Chinchin%C3%A1%20,%20Caldas",
           "lat": 4.97522,
           "lon": -75.70416,
@@ -15053,7 +15062,7 @@
           "id": "valle-del-cauca-buenaventura-barrio-bellavista-buenaventura-valle-del-cauca"
         },
         {
-          "name": "Antioquia,Tarazá,Tarazá, Antioquia",
+          "name": "Antioquia,Tarazá",
           "url": "Antioquia,Taraz%C3%A1,Taraz%C3%A1%20,%20Antioquia",
           "lat": 7.49302,
           "lon": -75.5049,
@@ -15080,7 +15089,7 @@
           "id": "arauca-tame-sabana-brucelas-tame-arauca"
         },
         {
-          "name": "Antioquia,Burítica,Burítica, Antioquia",
+          "name": "Antioquia,Burítica",
           "url": "Antioquia,Bur%C3%ADtica,Bur%C3%ADtica%20,%20Antioquia",
           "lat": 6.75,
           "lon": -75.91667,
@@ -15089,7 +15098,7 @@
           "id": "antioquia-buritica-buritica-antioquia"
         },
         {
-          "name": "Antioquia,Yondó (Casabe),Yondó (Casabe), Antioquia",
+          "name": "Antioquia,Yondó (Casabe)",
           "url": "Antioquia,Yond%C3%B3%20(Casabe),Yond%C3%B3%20(Casabe)%20,%20Antioquia",
           "lat": 7.00621,
           "lon": -73.90972,
@@ -15107,7 +15116,7 @@
           "id": "antioquia-valdivia-vereda-las-palomas-valdivia-antioquia"
         },
         {
-          "name": "Antioquia,Carepa,Carepa, Antioquia",
+          "name": "Antioquia,Carepa",
           "url": "Antioquia,Carepa,Carepa%20,%20Antioquia",
           "lat": 7.76009,
           "lon": -76.66269,
@@ -15116,7 +15125,7 @@
           "id": "antioquia-carepa-carepa-antioquia"
         },
         {
-          "name": "Bolivar,María la Baja,María la Baja, Bolivar",
+          "name": "Bolívar,María la Baja",
           "url": "Bolivar,Mar%C3%ADa%20la%20Baja,Mar%C3%ADa%20la%20Baja%20,%20Bolivar",
           "lat": 10,
           "lon": -75.33333,
@@ -15125,7 +15134,7 @@
           "id": "bolivar-maria-la-baja-maria-la-baja-bolivar"
         },
         {
-          "name": "Bolivar,San Juan de Nepomuceno,San Juan de Nepomuceno, Bolivar",
+          "name": "Bolívar,San Juan de Nepomuceno",
           "url": "Bolivar,San%20Juan%20de%20Nepomuceno,San%20Juan%20de%20Nepomuceno%20,%20Bolivar",
           "lat": 9.94976,
           "lon": -75.07426,
@@ -15368,22 +15377,22 @@
           "id": "magdalena-santa-marta-santa-marta-magdalena-marquetalia"
         },
         {
-          "name": "Magdalena,Ciénaga,Ciénaga, Magdalena",
-          "url": "Magdalena,Ci%C3%A9naga,Ci%C3%A9naga%20,%20Magdalena",
+          "name": "Magdalena,Ciénaga",
+          "url": "Magdalena,Ci%C3%A9naga",
           "lat": 11.00703,
           "lon": -74.24765,
           "meta": { "revision": 6, "created": 1459591182413, "version": 0, "updated": 1459943889112 },
           "$loki": 1740,
-          "id": "magdalena-cienaga-cienaga-magdalena"
+          "id": "magdalena-cienaga"
         },
         {
-          "name": "Córdoba,Tuchín,Tuchín, Córdoba",
-          "url": "C%C3%B3rdoba,Tuch%C3%ADn,Tuch%C3%ADn%20,%20C%C3%B3rdoba",
+          "name": "Córdoba,Tuchín",
+          "url": "C%C3%B3rdoba,Tuch%C3%ADn",
           "lat": 9.22339,
           "lon": -75.54518,
           "meta": { "revision": 6, "created": 1459591182413, "version": 0, "updated": 1459943889112 },
           "$loki": 1741,
-          "id": "cordoba-tuchin-tuchin-cordoba"
+          "id": "cordoba-tuchin"
         },
         {
           "name": "Arauca,Fundación El Alcaraván, Arauca, Arauca",
@@ -15872,7 +15881,7 @@
           "id": "antioquia-carepa-carepa-antioquia-hospital-de-carepa"
         },
         {
-          "name": "Bolivar,Arroyohondo",
+          "name": "Bolívar,Arroyohondo",
           "url": "Bolivar,Arroyohondo",
           "lat": 10.23583,
           "lon": -75.04218,
@@ -16601,13 +16610,13 @@
           "id": "bogota-d-c-barrio-lucero-alto-localidad-ciudad-bolivar-bogota-d-c-bogota-d-c"
         },
         {
-          "name": "Antioquia,Briceño,Sector del Santuario, Briceño, Antioquia",
-          "url": "Antioquia,Brice%C3%B1o,Sector%20del%20Santuario,%20Brice%C3%B1o%20,%20Antioquia",
-          "lat": 7.05001,
-          "lon": -75.50903,
+          "name": "Antioquia,El Santuario",
+          "url": "Antioquia,El%20Santuario",
+          "lat": 6.1385484,
+          "lon": -75.2696559,
           "meta": { "revision": 6, "created": 1459591182424, "version": 0, "updated": 1459943889113 },
           "$loki": 1879,
-          "id": "antioquia-briceno-sector-del-santuario-briceno-antioquia"
+          "id": "antioquia-el-santuario"
         },
         {
           "name": "La Guajira,Dibulla,Dibulla, La Guajira",
@@ -16700,8 +16709,8 @@
           "id": "cordoba-momil-momil-cordoba"
         },
         {
-          "name": "Bolivar,Arjona,Arjona, Bolivar",
-          "url": "Bolivar,Arjona,Arjona%20,%20Bolivar",
+          "name": "Bolívar,Arjona",
+          "url": "Bolivar,Arjona",
           "lat": 10.16667,
           "lon": -75.33333,
           "meta": { "revision": 6, "created": 1459591182425, "version": 0, "updated": 1459943889113 },
@@ -16916,7 +16925,7 @@
           "id": "cauca-argelia-vereda-la-cumbre-argelia-cauca"
         },
         {
-          "name": "Bolivar,Simití,Simití, Bolivar",
+          "name": "Bolívar,Simití",
           "url": "Bolivar,Simit%C3%AD,Simit%C3%AD%20,%20Bolivar",
           "lat": 7.81632,
           "lon": -73.97922,
@@ -16961,7 +16970,7 @@
           "id": "narino-tumaco-sector-de-cajapi-tumaco-narino"
         },
         {
-          "name": "Bolivar,Turbaco,Barrio Villa Campo, Turbaco, Bolivar",
+          "name": "Bolívar,Turbaco,Barrio Villa Campo",
           "url": "Bolivar,Turbaco,Barrio%20Villa%20Campo,%20Turbaco%20,%20Bolivar",
           "lat": 10.35,
           "lon": -75.33333,
@@ -16988,7 +16997,7 @@
           "id": "valle-del-cauca-la-union-barrio-las-palmas-la-union-valle-del-cauca"
         },
         {
-          "name": "Bolivar,Cartagena,Calle Cubero de Los Niños, La Candelaria, Cartagena, Bolivar",
+          "name": "Bolívar,Cartagena,Calle Cubero de Los Niños, La Candelaria",
           "url": "Bolivar,Cartagena,Calle%20Cubero%20de%20Los%20Ni%C3%B1os,%20La%20Candelaria,%20Cartagena%20,%20Bolivar",
           "lat": 10.39972,
           "lon": -75.51444,
@@ -16997,7 +17006,7 @@
           "id": "bolivar-cartagena-calle-cubero-de-los-ninos-la-candelaria-cartagena-bolivar"
         },
         {
-          "name": "Bolivar,Cartagena,Arjona, Cartagena, Bolivar",
+          "name": "Bolívar,Cartagena,Arjona",
           "url": "Bolivar,Cartagena,Arjona,%20Cartagena%20,%20Bolivar",
           "lat": 10.39972,
           "lon": -75.51444,
@@ -17321,7 +17330,7 @@
           "id": "narino-santa-barbara-iscuande-veredas-juan-ventura-el-salto-manzanares-y-guabina-santa-barbara-iscuande-narino"
         },
         {
-          "name": "Chocó,Unión Panamericana (ÁNIMAS)",
+          "name": "Chocó,Unión Panamericana",
           "url": "Choc%C3%B3,Uni%C3%B3n%20Panamericana%20(%C3%81NIMAS)",
           "lat": 5.278187,
           "lon": -76.615518,
@@ -17330,7 +17339,7 @@
           "id": "choco-union-panamericana-animas"
         },
         {
-          "name": "Bolivar,San Estanislao",
+          "name": "Bolívar,San Estanislao",
           "url": "Bolivar,San%20Estanislao",
           "lon": -75.1566174,
           "meta": { "revision": 7, "created": 1459591182433, "version": 0, "updated": 1459943889113 },
@@ -17384,7 +17393,7 @@
           "lat": 5.746017
         },
         {
-          "name": "Bolivar,Calamar",
+          "name": "Bolívar,Calamar",
           "url": "Bolivar,Calamar",
           "lon": -74.914534,
           "meta": { "revision": 4, "created": 1459591182434, "version": 0, "updated": 1459943889113 },
@@ -17411,7 +17420,7 @@
           "lat": 6.061438
         },
         {
-          "name": "Vaupés,Papunaua",
+          "name": "Vaupés,Papunahua",
           "url": "Vaup%C3%A9s,Papunaua",
           "lon": -70.69739,
           "meta": { "revision": 4, "created": 1459591182434, "version": 0, "updated": 1459943889113 },
@@ -17465,7 +17474,7 @@
           "lat": -0.622646
         },
         {
-          "name": "Bolivar,Talaigua Nuevo",
+          "name": "Bolívar,Talaigua Nuevo",
           "url": "Bolivar,Talaigua%20Nuevo",
           "lon": -74.563702,
           "meta": { "revision": 4, "created": 1459591182435, "version": 0, "updated": 1459943889113 },
@@ -18015,7 +18024,7 @@
         },
         {
           "id": "sucre-toluviejo",
-          "name": "Sucre,Toluviejo",
+          "name": "Sucre,San José de Toluviejo",
           "url": "Sucre%2CToluviejo",
           "lat": 9.45082,
           "lon": -75.43864,
@@ -18113,8 +18122,8 @@
           "$loki": 2067
         },
         {
-          "id": "cauca-sotara",
-          "name": "Cauca,Sotará",
+          "id": "cauca-sotara-paispamba",
+          "name": "Cauca,Sotará Paispamba",
           "url": "Cauca%2CSotar%C3%A1",
           "lat": 2.25,
           "lon": -76.58333,
@@ -19004,9 +19013,9 @@
           "$loki": 2166
         },
         {
-          "id": "narino-santa-cruz",
-          "name": "Nariño,Santa Cruz",
-          "url": "Nari%C3%B1o%2CSanta%20Cruz",
+          "id": "narino-santacruz",
+          "name": "Nariño,Santacruz",
+          "url": "Nari%C3%B1o%2CSantacruz",
           "lat": 1.33333,
           "lon": -77.7,
           "meta": { "revision": 0, "created": 1459950137297, "version": 0 },
@@ -19275,7 +19284,7 @@
         },
         {
           "id": "choco-el-carmen-del-darien",
-          "name": "Chocó,El Carmen del Darién",
+          "name": "Chocó,Carmen del Darién",
           "url": "Choc%C3%B3%2CEl%20Carmen%20del%20Dari%C3%A9n",
           "lat": 7.045692,
           "lon": -76.898668,
@@ -19490,9 +19499,9 @@
           "$loki": 2220
         },
         {
-          "id": "casanare-trinidad-y-san-luis-de-palenque",
-          "name": "Casanare,Trinidad y San Luis de Palenque",
-          "url": "Casanare%2CTrinidad%20y%20San%20Luis%20de%20Palenque",
+          "id": "casanare-san-luis-de-palenque",
+          "name": "Casanare,San Luis de Palenque",
+          "url": "Casanare%2CSan%20Luis%20de%20Palenque",
           "lat": 5.422226,
           "lon": -71.731377,
           "meta": { "revision": 0, "created": 1459951394015, "version": 0 },
@@ -19598,9 +19607,9 @@
           "$loki": 2232
         },
         {
-          "id": "antioquia-carmen-de-viboral-y-san-carlos",
-          "name": "Antioquia,Carmen de Viboral y San Carlos",
-          "url": "Antioquia%2CCarmen%20de%20Viboral%20y%20San%20Carlos",
+          "id": "antioquia-carmen-de-viboral",
+          "name": "Antioquia,Carmen de Viboral",
+          "url": "Antioquia%2CCarmen%20de%20Viboral",
           "lat": 6.089608,
           "lon": -75.34727,
           "meta": { "revision": 0, "created": 1459952668586, "version": 0 },
@@ -21992,8 +22001,8 @@
           "$loki": 2498
         },
         {
-          "id": "san-andres-de-tumaco-narino",
-          "name": "san andrés de tumaco,nariño",
+          "id": "narino-san-andres-de-tumaco",
+          "name": "Nariño,San Andrés de Tumaco",
           "url": "san%20andr%C3%A9s%20de%20tumaco%2Cnari%C3%B1o",
           "lat": 1.79112,
           "lon": -78.79275,
@@ -22128,7 +22137,7 @@
         },
         {
           "id": "inza-cauca",
-          "name": "inzá,cauca",
+          "name": "Cauca,Inzá",
           "url": "inz%C3%A1%2Ccauca",
           "lat": 2.5092,
           "lon": -76.12958,
@@ -22136,8 +22145,8 @@
           "$loki": 2514
         },
         {
-          "id": "samaniego-narino",
-          "name": "samaniego,nariño",
+          "id": "narino-samaniego",
+          "name": "Nariño,Samaniego",
           "url": "samaniego%2Cnari%C3%B1o",
           "lat": 1.41667,
           "lon": -77.66667,
@@ -22146,7 +22155,7 @@
         },
         {
           "id": "maicao-la-guajira",
-          "name": "maicao,la guajira",
+          "name": "La Guajira,Maicao",
           "url": "maicao%2Cla%20guajira",
           "lat": 11.37837,
           "lon": -72.2395,
@@ -22155,7 +22164,7 @@
         },
         {
           "id": "patia-cauca",
-          "name": "patía,cauca",
+          "name": "Cauca,Patía",
           "url": "pat%C3%ADa%2Ccauca",
           "lat": 2.14018,
           "lon": -77.01744,
@@ -22164,7 +22173,7 @@
         },
         {
           "id": "balboa-cauca",
-          "name": "balboa,cauca",
+          "name": "Cauca,Balboa",
           "url": "balboa%2Ccauca",
           "lat": 2.08436,
           "lon": -77.20781,
@@ -22173,7 +22182,7 @@
         },
         {
           "id": "tame-arauca",
-          "name": "tame,arauca",
+          "name": "Arauca,Tame",
           "url": "tame%2Carauca",
           "lat": 6.46065,
           "lon": -71.73618,
@@ -22182,7 +22191,7 @@
         },
         {
           "id": "sandona-narino",
-          "name": "sandoná,nariño",
+          "name": "Nariño,Sandoná",
           "url": "sandon%C3%A1%2Cnari%C3%B1o",
           "lat": 1.30722,
           "lon": -77.48284,
@@ -22191,7 +22200,7 @@
         },
         {
           "id": "caloto-cauca",
-          "name": "caloto,cauca",
+          "name": "Cauca,Caloto",
           "url": "caloto%2Ccauca",
           "lat": 3.0389,
           "lon": -76.36043,
@@ -22200,7 +22209,7 @@
         },
         {
           "id": "el-tarra-norte-de-santander",
-          "name": "el tarra,norte de santander",
+          "name": "Norte de Santander,El Tarra",
           "url": "el%20tarra%2Cnorte%20de%20santander",
           "lat": 8.65445,
           "lon": -73.0531,
@@ -22209,7 +22218,7 @@
         },
         {
           "id": "algeciras-huila",
-          "name": "algeciras,huila",
+          "name": "Huila,Algeciras",
           "url": "algeciras%2Chuila",
           "lat": 2.52791,
           "lon": -75.28198,
@@ -22227,7 +22236,7 @@
         },
         {
           "id": "vistahermosa-meta",
-          "name": "vistahermosa,meta",
+          "name": "Meta,Vistahermosa",
           "url": "vistahermosa%2Cmeta",
           "lat": 2.90407,
           "lon": -73.53212,
@@ -22236,7 +22245,7 @@
         },
         {
           "id": "ibague-tolima",
-          "name": "ibagué,tolima",
+          "name": "Tolima,Ibagué",
           "url": "ibagu%C3%A9%2Ctolima",
           "lat": 4.43889,
           "lon": -75.23222,
@@ -22245,7 +22254,7 @@
         },
         {
           "id": "jambalo-cauca",
-          "name": "jambaló,cauca",
+          "name": "Cauca,Jambaló",
           "url": "jambal%C3%B3%2Ccauca",
           "lat": 2.85065,
           "lon": -76.32506,
@@ -22263,7 +22272,7 @@
         },
         {
           "id": "villa-rica-cauca",
-          "name": "villa rica,cauca",
+          "name": "Cauca,Villa Rica",
           "url": "villa%20rica%2Ccauca",
           "lat": 3.17818,
           "lon": -76.46665,
@@ -22605,7 +22614,7 @@
         },
         {
           "id": "cucunuba-cundinamarca",
-          "name": "cucunubá,cundinamarca",
+          "name": "Cundinamarca,Cucunubá",
           "url": "cucunub%C3%A1%2Ccundinamarca",
           "lat": 5.21626,
           "lon": -73.80756,
@@ -23129,7 +23138,7 @@
         "id": "norte-de-santander-bucarasica"
       },
       {
-        "name": "Bolivar,El Carmen de Bolívar",
+        "name": "Bolívar,El Carmen de Bolívar",
         "url": "Bolivar,El%20Carmen%20de%20Bol%C3%ADvar",
         "lat": 9.75,
         "lon": -75.16667,
@@ -23246,7 +23255,7 @@
         "id": "cauca-morales"
       },
       {
-        "name": "Bolivar,Magangué",
+        "name": "Bolívar,Magangué",
         "url": "Bolivar,Magangu%C3%A9",
         "lat": 9.24202,
         "lon": -74.75467,
@@ -23363,7 +23372,7 @@
         "id": "cordoba-montelibano"
       },
       {
-        "name": "Bolivar,Cantagallo",
+        "name": "Bolívar,Cantagallo",
         "url": "Bolivar,Cantagallo",
         "lat": 7.22919,
         "lon": -74.12969,
@@ -23390,7 +23399,7 @@
         "id": "antioquia-valdivia"
       },
       {
-        "name": "Meta,Mapiripan",
+        "name": "Meta,Mapiripán",
         "url": "Meta,Mapiripan",
         "lat": 3.09706,
         "lon": -71.94964,
@@ -23903,16 +23912,16 @@
         "id": "antioquia-santo-domingo"
       },
       {
-        "name": "Antioquia,Carmen de Viboral",
+        "name": "Antioquia,El Carmen de Viboral",
         "url": "Antioquia,Carmen%20de%20Viboral",
         "lat": 5.9781,
         "lon": -75.26322,
         "meta": { "revision": 3, "created": 1459591053519, "version": 0, "updated": 1459943889106 },
         "$loki": 93,
-        "id": "antioquia-carmen-de-viboral"
+        "id": "antioquia-el-carmen-de-viboral"
       },
       {
-        "name": "Bolivar,Arenal",
+        "name": "Bolívar,Arenal",
         "url": "Bolivar,Arenal",
         "lat": 8.34173,
         "lon": -74.10584,
@@ -24623,7 +24632,7 @@
         "id": "cauca-paez-belalcazar"
       },
       {
-        "name": "Bolivar,Morales",
+        "name": "Bolívar,Morales",
         "url": "Bolivar,Morales",
         "lat": 8.2752,
         "lon": -73.86884,
@@ -24641,7 +24650,7 @@
         "id": "choco-alto-baudo-pie-de-pato"
       },
       {
-        "name": "Bolivar,Cartagena",
+        "name": "Bolívar,Cartagena",
         "url": "Bolivar,Cartagena",
         "lat": 10.39972,
         "lon": -75.51444,
@@ -25253,13 +25262,13 @@
         "id": "cauca-piendamo"
       },
       {
-        "name": "Boyacá",
+        "name": "Boyacá,Boyacá",
         "url": "Boyac%C3%A1",
         "lat": 5.66667,
         "lon": -73,
         "meta": { "revision": 3, "created": 1459591053522, "version": 0, "updated": 1459943889107 },
         "$loki": 246,
-        "id": "boyaca"
+        "id": "boyaca-boyaca"
       },
       {
         "name": "Casanare,Hato Corozal",
@@ -25361,7 +25370,7 @@
         "id": "tolima-dolores"
       },
       {
-        "name": "Bolivar,Santa Rosa",
+        "name": "Bolívar,Santa Rosa",
         "url": "Bolivar,Santa%20Rosa",
         "lat": 10.45,
         "lon": -75.33333,
@@ -25370,7 +25379,7 @@
         "id": "bolivar-santa-rosa"
       },
       {
-        "name": "Bolivar,Simití",
+        "name": "Bolívar,Simití",
         "url": "Bolivar,Simit%C3%AD",
         "lat": 7.81632,
         "lon": -73.97922,
@@ -25397,7 +25406,7 @@
         "id": "caqueta-albania"
       },
       {
-        "name": "Bolivar,San Pablo",
+        "name": "Bolívar,San Pablo",
         "url": "Bolivar,San%20Pablo",
         "lat": 7.31272,
         "lon": -74.24468,
@@ -25487,7 +25496,7 @@
         "id": "santander-guaca"
       },
       {
-        "name": "Bolivar,Turbaco",
+        "name": "Bolívar,Turbaco",
         "url": "Bolivar,Turbaco",
         "lat": 10.35,
         "lon": -75.33333,
@@ -25496,7 +25505,7 @@
         "id": "bolivar-turbaco"
       },
       {
-        "name": "Bolivar,San Juan de Nepomuceno",
+        "name": "Bolívar,San Juan de Nepomuceno",
         "url": "Bolivar,San%20Juan%20de%20Nepomuceno",
         "lat": 9.94976,
         "lon": -75.07426,
@@ -26324,7 +26333,7 @@
         "id": "caldas-chinchina"
       },
       {
-        "name": "Nariño",
+        "name": "Nariño,Nariño",
         "url": "Nari%C3%B1o",
         "lat": 1.5,
         "lon": -78,
@@ -26360,7 +26369,7 @@
         "id": "caldas-marquetalia"
       },
       {
-        "name": "Bolivar,Regidor",
+        "name": "Bolívar,Regidor",
         "url": "Bolivar,Regidor",
         "lat": 8.72229,
         "lon": -73.84891,
@@ -26396,7 +26405,7 @@
         "id": "antioquia-copacabana"
       },
       {
-        "name": "Bolivar,María la Baja",
+        "name": "Bolívar,María la Baja",
         "url": "Bolivar,Mar%C3%ADa%20la%20Baja",
         "lat": 10,
         "lon": -75.33333,
@@ -26576,7 +26585,7 @@
         "id": "cundinamarca-simijaca"
       },
       {
-        "name": "Bolivar,Tiquisio (Puerto Rico)",
+        "name": "Bolívar,Tiquisio (Puerto Rico)",
         "url": "Bolivar,Tiquisio%20(Puerto%20Rico)",
         "lat": 8.567651,
         "lon": -74.265052,
@@ -26774,7 +26783,7 @@
         "id": "magdalena-puebloviejo"
       },
       {
-        "name": "Bolivar,Arjona",
+        "name": "Bolívar,Arjona",
         "url": "Bolivar,Arjona",
         "lat": 10.16667,
         "lon": -75.33333,
@@ -26792,7 +26801,7 @@
         "id": "valle-del-cauca-riofrio"
       },
       {
-        "name": "Bolivar,Turbaná",
+        "name": "Bolívar,Turbaná",
         "url": "Bolivar,Turban%C3%A1",
         "lat": 10.25,
         "lon": -75.41667,
@@ -26954,7 +26963,7 @@
         "id": "santander-lebrija"
       },
       {
-        "name": "Bolivar,Villanueva",
+        "name": "Bolívar,Villanueva",
         "url": "Bolivar,Villanueva",
         "lat": 10.45,
         "lon": -75.25,
@@ -27440,7 +27449,7 @@
         "id": "antioquia-san-carlos"
       },
       {
-        "name": "Bolivar,Achí",
+        "name": "Bolívar,Achí",
         "url": "Bolivar,Ach%C3%AD",
         "lat": 8.41268,
         "lon": -74.529,
@@ -27845,7 +27854,7 @@
         "id": "choco-medio-atrato"
       },
       {
-        "name": "Bolivar,Cicuco",
+        "name": "Bolívar,Cicuco",
         "url": "Bolivar,Cicuco",
         "lat": 9.23226,
         "lon": -74.69095,
@@ -27998,7 +28007,7 @@
         "id": "sucre-san-juan-de-betulia"
       },
       {
-        "name": "Bolivar,Córdoba",
+        "name": "Bolívar,Córdoba",
         "url": "Bolivar,C%C3%B3rdoba",
         "lat": 9.5,
         "lon": -74.91667,
@@ -28025,7 +28034,7 @@
         "id": "norte-de-santander-san-cayetano"
       },
       {
-        "name": "Cauca,Sotara (Paispamba)",
+        "name": "Cauca,Sotará Paispamba",
         "url": "Cauca,Sotara%20(Paispamba)",
         "lat": 2.25462,
         "lon": -76.61086,
@@ -28034,7 +28043,7 @@
         "id": "cauca-sotara-paispamba"
       },
       {
-        "name": "Bolivar,San Jacinto",
+        "name": "Bolívar,San Jacinto",
         "url": "Bolivar,San%20Jacinto",
         "lat": 9.83333,
         "lon": -75.08333,
@@ -28070,7 +28079,7 @@
         "id": "santander-surata"
       },
       {
-        "name": "Bolivar,San Martín de Loba",
+        "name": "Bolívar,San Martín de Loba",
         "url": "Bolivar,San%20Mart%C3%ADn%20de%20Loba",
         "lat": 8.88214,
         "lon": -74.00353,
@@ -28151,7 +28160,7 @@
         "id": "caldas-marmato"
       },
       {
-        "name": "Bolivar,Montecristo",
+        "name": "Bolívar,Montecristo",
         "url": "Bolivar,Montecristo",
         "lat": 7.99565,
         "lon": -74.45816,
@@ -28196,7 +28205,7 @@
         "id": "cesar-becerril"
       },
       {
-        "name": "Bolivar,Clemencia",
+        "name": "Bolívar,Clemencia",
         "url": "Bolivar,Clemencia",
         "lat": 10.58333,
         "lon": -75.33333,
@@ -28223,7 +28232,7 @@
         "id": "norte-de-santander-gramalote"
       },
       {
-        "name": "Bolivar,Mahates",
+        "name": "Bolívar,Mahates",
         "url": "Bolivar,Mahates",
         "lat": 10.16667,
         "lon": -75.16667,
@@ -28250,16 +28259,16 @@
         "id": "huila-saladoblanco"
       },
       {
-        "name": "Tolima,Mariquita",
+        "name": "Tolima,San Sebastián de Mariquita",
         "url": "Tolima,Mariquita",
         "lat": 5.21584,
         "lon": -74.95233,
         "meta": { "revision": 3, "created": 1459591053531, "version": 0, "updated": 1459943889108 },
         "$loki": 585,
-        "id": "tolima-mariquita"
+        "id": "tolima-san-sebastian-de-mariquita"
       },
       {
-        "name": "Bolivar,Santa Catalina",
+        "name": "Bolívar,Santa Catalina",
         "url": "Bolivar,Santa%20Catalina",
         "lat": 10.60448,
         "lon": -75.29555,
@@ -28304,7 +28313,7 @@
         "id": "antioquia-jardin"
       },
       {
-        "name": "Bolivar,Santa Rosa del Sur",
+        "name": "Bolívar,Santa Rosa del Sur",
         "url": "Bolivar,Santa%20Rosa%20del%20Sur",
         "lat": 7.6976,
         "lon": -74.27588,
@@ -28349,8 +28358,8 @@
         "id": "cauca-timbiqui"
       },
       {
-        "name": "Boyacá,Chívor",
-        "url": "Boyac%C3%A1,Ch%C3%ADvor",
+        "name": "Boyacá,Chivor",
+        "url": "Boyac%C3%A1,Chivor",
         "lat": 4.83951,
         "lon": -73.37391,
         "meta": { "revision": 3, "created": 1459591053531, "version": 0, "updated": 1459943889108 },
@@ -28538,7 +28547,7 @@
         "id": "norte-de-santander-la-playa"
       },
       {
-        "name": "Bolivar,Río Viejo",
+        "name": "Bolívar,Río Viejo",
         "url": "Bolivar,R%C3%ADo%20Viejo",
         "lat": 8.60411,
         "lon": -73.81851,
@@ -28718,13 +28727,13 @@
         "id": "santander-betulia"
       },
       {
-        "name": "Cesar,La Paz (Robles)",
-        "url": "Cesar,La%20Paz%20(Robles)",
+        "name": "Cesar,La Paz",
+        "url": "Cesar,La%20Paz",
         "lat": 10.16667,
         "lon": -73.25,
         "meta": { "revision": 3, "created": 1459591053533, "version": 0, "updated": 1459943889109 },
         "$loki": 637,
-        "id": "cesar-la-paz-robles"
+        "id": "cesar-la-paz"
       },
       {
         "name": "Córdoba,Pueblo Nuevo",
@@ -28871,13 +28880,13 @@
         "id": "boyaca-chiquinquira"
       },
       {
-        "name": "Córdoba,Purísima",
+        "name": "Córdoba,Purísima de la Concepción",
         "url": "C%C3%B3rdoba,Pur%C3%ADsima",
         "lat": 9.24955,
         "lon": -75.71181,
         "meta": { "revision": 3, "created": 1459591053534, "version": 0, "updated": 1459943889109 },
         "$loki": 654,
-        "id": "cordoba-purisima"
+        "id": "cordoba-purisima-de-la-concepcion"
       },
       {
         "name": "Sucre,Sampués",
@@ -29186,13 +29195,13 @@
         "id": "atlantico-baranoa"
       },
       {
-        "name": "Nariño,Magüi (Payán)",
-        "url": "Nari%C3%B1o,Mag%C3%BCi%20(Pay%C3%A1n)",
+        "name": "Nariño,Magüi",
+        "url": "Nari%C3%B1o,Mag%C3%BCi%20",
         "lat": 1.91667,
         "lon": -77.83333,
         "meta": { "revision": 3, "created": 1459591182207, "version": 0, "updated": 1459943889109 },
         "$loki": 689,
-        "id": "narino-maguei-payan"
+        "id": "narino-maguei"
       },
       {
         "name": "Antioquia,Maceo",
@@ -29879,7 +29888,7 @@
         "id": "santander-curiti"
       },
       {
-        "name": "Bolivar,San Jacinto del Cauca",
+        "name": "Bolívar,San Jacinto del Cauca",
         "url": "Bolivar,San%20Jacinto%20del%20Cauca",
         "lat": 8.23729,
         "lon": -74.66782,
@@ -29897,13 +29906,13 @@
         "id": "cundinamarca-soacha-soacha-cundinamarca"
       },
       {
-        "name": "Bolivar,Mompós",
+        "name": "Bolívar,Santa Cruz de Mompox",
         "url": "Bolivar,Momp%C3%B3s",
         "lat": 9.25,
         "lon": -74.58333,
         "meta": { "revision": 3, "created": 1459591182224, "version": 0, "updated": 1459943889109 },
         "$loki": 769,
-        "id": "bolivar-mompos"
+        "id": "bolivar-santa-cruz-de-mompox"
       },
       {
         "name": "Cundinamarca,Soacha,Soacha, Cundinamarca, Comuna 4, Barrio Corinto 3 Sector El Paraíso.",
@@ -29933,7 +29942,7 @@
         "id": "narino-la-tola"
       },
       {
-        "name": "Bolivar,Zambrano",
+        "name": "Bolívar,Zambrano",
         "url": "Bolivar,Zambrano",
         "lat": 9.75,
         "lon": -74.83333,
@@ -30203,13 +30212,13 @@
         "id": "antioquia-anza"
       },
       {
-        "name": "Chocó,Cantón de San Pablo",
+        "name": "Chocó,El Cantón de San Pablo",
         "url": "Choc%C3%B3,Cant%C3%B3n%20de%20San%20Pablo",
         "lat": 5.33889,
         "lon": -76.73139,
         "meta": { "revision": 3, "created": 1459591182255, "version": 0, "updated": 1459943889109 },
         "$loki": 803,
-        "id": "choco-canton-de-san-pablo"
+        "id": "choco-el-canton-de-san-pablo"
       },
       {
         "name": "Norte de Santander,Arboledas",
@@ -30455,7 +30464,7 @@
         "id": "huila-palestina"
       },
       {
-        "name": "Bolivar,Barranco de Loba",
+        "name": "Bolívar,Barranco de Loba",
         "url": "Bolivar,Barranco%20de%20Loba",
         "lat": 8.83333,
         "lon": -74.16667,
@@ -30662,7 +30671,7 @@
         "id": "valle-del-cauca-obando"
       },
       {
-        "name": "Bolivar,Norosí",
+        "name": "Bolívar,Norosí",
         "url": "Bolivar,Noros%C3%AD",
         "lat": 8.50638,
         "lon": -74.11562,
@@ -30689,7 +30698,7 @@
         "id": "huila-paicol"
       },
       {
-        "name": "Bolivar,Pinillos",
+        "name": "Bolívar,Pinillos",
         "url": "Bolivar,Pinillos",
         "lat": 8.82373,
         "lon": -74.3811,
@@ -30716,13 +30725,13 @@
         "id": "narino-iles"
       },
       {
-        "name": "Tolima,Armero (Guayabal)",
-        "url": "Tolima,Armero%20(Guayabal)",
+        "name": "Tolima,Armero",
+        "url": "Tolima,Armero",
         "lat": 5.03103,
         "lon": -74.88682,
         "meta": { "revision": 3, "created": 1459591182288, "version": 0, "updated": 1459943889110 },
         "$loki": 860,
-        "id": "tolima-armero-guayabal"
+        "id": "tolima-armero"
       },
       {
         "name": "Valle del Cauca,La Victoria",
@@ -30752,13 +30761,13 @@
         "id": "caqueta-solano-araracuara"
       },
       {
-        "name": "Cundinamarca,Bogotá D.C.",
+        "name": "Bogotá D.C.,Bogotá D.C.",
         "url": "Cundinamarca,Bogot%C3%A1%20D.C.",
         "lat": 4.61667,
         "lon": -74.1,
         "meta": { "revision": 3, "created": 1459591182290, "version": 0, "updated": 1459943889110 },
         "$loki": 864,
-        "id": "cundinamarca-bogota-d-c"
+        "id": "bogota-d-c-bogota-d-c"
       },
       {
         "name": "Cundinamarca,Tabio",
@@ -30805,6 +30814,7 @@
         "$loki": 869,
         "id": "cundinamarca-cota"
       },
+
       {
         "name": "Boyacá,Soracá",
         "url": "Boyac%C3%A1,Sorac%C3%A1",
@@ -30842,13 +30852,13 @@
         "id": "cundinamarca-vergara"
       },
       {
-        "name": "Nariño,Arboleda (Berruecos)",
-        "url": "Nari%C3%B1o,Arboleda%20(Berruecos)",
+        "name": "Nariño,Arboleda",
+        "url": "Nari%C3%B1o,Arboleda",
         "lat": 1.49766,
         "lon": -77.13587,
         "meta": { "revision": 3, "created": 1459591182306, "version": 0, "updated": 1459943889110 },
         "$loki": 874,
-        "id": "narino-arboleda-berruecos"
+        "id": "narino-arboleda"
       },
       {
         "name": "Santander,Galán",
@@ -31031,7 +31041,7 @@
         "id": "santander-el-carmen"
       },
       {
-        "name": "Bolivar,San Fernando",
+        "name": "Bolívar,San Fernando",
         "url": "Bolivar,San%20Fernando",
         "lat": 9.07705,
         "lon": -74.41177,
@@ -31193,7 +31203,7 @@
         "id": "narino-roberto-payan-san-jose-rio-piri-y-ispi-roberto-payan-san-jose"
       },
       {
-        "name": "Bolivar,Hatillo de Loba",
+        "name": "Bolívar,Hatillo de Loba",
         "url": "Bolivar,Hatillo%20de%20Loba",
         "lat": 8.95635,
         "lon": -74.0782,
@@ -31355,7 +31365,7 @@
         "id": "antioquia-tamesis"
       },
       {
-        "name": "Bolivar,El Peñon",
+        "name": "Bolívar,El Peñón",
         "url": "Bolivar,El%20Pe%C3%B1on",
         "lat": 8.86545,
         "lon": -73.91146,
@@ -31409,13 +31419,13 @@
         "id": "boyaca-tota"
       },
       {
-        "name": "Cundinamarca,Ubaté",
+        "name": "Cundinamarca,Villa de San Diego de Ubaté",
         "url": "Cundinamarca,Ubat%C3%A9",
         "lat": 5.30933,
         "lon": -73.81574,
         "meta": { "revision": 3, "created": 1459591182361, "version": 0, "updated": 1459943889110 },
         "$loki": 938,
-        "id": "cundinamarca-ubate"
+        "id": "cundinamarca-villa-de-san-diego-de-ubate"
       },
       {
         "name": "Cundinamarca,Tausa",
@@ -31868,7 +31878,7 @@
         "id": "cordoba-san-antero-playa-blanca-san-antero-cordoba"
       },
       {
-        "name": "Bolivar,El Carmen de Bolívar,Alta Montaña, El Carmen de Bolívar, Bolivar",
+        "name": "Bolívar,El Carmen de Bolívar,Alta Montaña",
         "url": "Bolivar,El%20Carmen%20de%20Bol%C3%ADvar,Alta%20Monta%C3%B1a,%20El%20Carmen%20de%20Bol%C3%ADvar%20,%20Bolivar",
         "lat": 9.75,
         "lon": -75.16667,
@@ -31985,7 +31995,7 @@
         "id": "antioquia-briceno-briceno-antioquia"
       },
       {
-        "name": "Bolivar,Turbaco,Turbaco, Bolivar",
+        "name": "Bolívar,Turbaco",
         "url": "Bolivar,Turbaco,Turbaco%20,%20Bolivar",
         "lat": 10.35,
         "lon": -75.33333,
@@ -32858,13 +32868,13 @@
         "id": "cordoba-monteria-monteria-cordoba-manzana-5-lote-uno-en-villa-cielo-en-la-via-al-corregimiento-el-sabanal"
       },
       {
-        "name": "Bolivar,Cartagena,Cartagena, Bolivar",
+        "name": "Bolívar,Cartagena",
         "url": "Bolivar,Cartagena,Cartagena%20,%20Bolivar",
         "lat": 10.39972,
         "lon": -75.51444,
         "meta": { "revision": 6, "created": 1459591182369, "version": 0, "updated": 1459943889110 },
         "$loki": 1105,
-        "id": "bolivar-cartagena-cartagena-bolivar"
+        "id": "bolivar-cartagena"
       },
       {
         "name": "Córdoba,Monteria,Monteria, Córdoba, barrio Villa Cielo",
@@ -34028,7 +34038,7 @@
         "id": "valle-del-cauca-andalucia-andalucia-valle-del-cauca"
       },
       {
-        "name": "Bogotá D.C.,Ciudad Bolivar, Bogotá D.C., Bogotá D.C.",
+        "name": "Bogotá D.C.,Ciudad Bolívar, Bogotá D.C., Bogotá D.C.",
         "url": "Bogot%C3%A1%20D.C.,Ciudad%20Bolivar,%20Bogot%C3%A1%20D.C.%20,%20Bogot%C3%A1%20D.C.",
         "lat": 4.51037,
         "lon": -74.15188,
@@ -35126,7 +35136,7 @@
         "id": "vichada-cumaribo-cumaribo-vichada"
       },
       {
-        "name": "Putumayo,Orito,Vereda Simon Bolivar, Orito, Putumayo",
+        "name": "Putumayo,Orito,Vereda Simon Bolívar, Orito, Putumayo",
         "url": "Putumayo,Orito,Vereda%20Simon%20Bolivar,%20Orito%20,%20Putumayo",
         "lat": 0.66822,
         "lon": -76.93474,
@@ -35891,7 +35901,7 @@
         "id": "arauca-tame-san-antonio-tame-arauca"
       },
       {
-        "name": "Magdalena,Santa Marta,Santa Marta, Magdalena, aeropuerto Simon Bolivar",
+        "name": "Magdalena,Santa Marta,Santa Marta, Magdalena, aeropuerto Simon Bolívar",
         "url": "Magdalena,Santa%20Marta,Santa%20Marta%20,%20Magdalena,%20aeropuerto%20Simon%20Bolivar",
         "lat": 11.11965,
         "lon": -74.23065,
@@ -36746,22 +36756,22 @@
         "id": "putumayo-valle-del-guamuez-el-tigre-valle-del-guamuez-putumayo"
       },
       {
-        "name": "Bolivar,Norosí,Norosí, Bolivar",
-        "url": "Bolivar,Noros%C3%AD,Noros%C3%AD%20,%20Bolivar",
+        "name": "Bolívar,Norosí",
+        "url": "Bolivar,Noros%C3%AD",
         "lat": 8.50638,
         "lon": -74.11562,
         "meta": { "revision": 6, "created": 1459591182398, "version": 0, "updated": 1459943889112 },
         "$loki": 1545,
-        "id": "bolivar-norosi-norosi-bolivar"
+        "id": "bolivar-norosi"
       },
       {
-        "name": "Arauca,Puerto Jordan, Arauca, Arauca",
+        "name": "Arauca,Puerto Jordán",
         "url": "Arauca,Puerto%20Jordan,%20Arauca%20,%20Arauca",
         "lat": 6.688218,
         "lon": -71.342284,
         "meta": { "revision": 6, "created": 1459591182398, "version": 0, "updated": 1459943889112 },
         "$loki": 1546,
-        "id": "arauca-puerto-jordan-arauca-arauca"
+        "id": "arauca-puerto-jordan"
       },
       {
         "name": "Magdalena,Santa Marta,Santa Marta, Magdalena, barrio ondas del caribe",
@@ -37070,13 +37080,13 @@
         "id": "cordoba-ayapel-ayapel-cordoba"
       },
       {
-        "name": "Cauca,Piendamó,Piendamó, Cauca",
+        "name": "Cauca,Piendamó - Tunía",
         "url": "Cauca,Piendam%C3%B3,Piendam%C3%B3%20,%20Cauca",
         "lat": 2.70214,
         "lon": -76.59736,
         "meta": { "revision": 6, "created": 1459591182401, "version": 0, "updated": 1459943889112 },
         "$loki": 1581,
-        "id": "cauca-piendamo-piendamo-cauca"
+        "id": "cauca-piendamo-tunia"
       },
       {
         "name": "Valle del Cauca,Palmira,Barrio Centenario, Palmira, Valle del Cauca",
@@ -37610,13 +37620,13 @@
         "id": "putumayo-san-miguel-vereda-la-y-san-miguel-putumayo"
       },
       {
-        "name": "Putumayo,Colón,Colón, Putumayo",
-        "url": "Putumayo,Col%C3%B3n,Col%C3%B3n%20,%20Putumayo",
+        "name": "Putumayo,Colón",
+        "url": "Putumayo,Col%C3%B3n",
         "lat": 1.23137,
         "lon": -76.96534,
         "meta": { "revision": 6, "created": 1459591182406, "version": 0, "updated": 1459943889112 },
         "$loki": 1642,
-        "id": "putumayo-colon-colon-putumayo"
+        "id": "putumayo-colon"
       },
       {
         "name": "Putumayo,San Miguel,San Miguel, Putumayo",
@@ -37961,7 +37971,7 @@
         "id": "arauca-arauquita-el-troncal-arauquita-arauca"
       },
       {
-        "name": "Arauca,Tame,Barrio Simon Bolivar, Tame, Arauca",
+        "name": "Arauca,Tame,Barrio Simon Bolívar, Tame, Arauca",
         "url": "Arauca,Tame,Barrio%20Simon%20Bolivar,%20Tame%20,%20Arauca",
         "lat": 6.39833,
         "lon": -71.78389,
@@ -38069,13 +38079,13 @@
         "id": "meta-vista-hermosa-pinalito-vista-hermosa-meta"
       },
       {
-        "name": "Bogotá D.C.,Localidad de Ciuda Bolivar, Bogotá D.C., Bogotá D.C.",
+        "name": "Bogotá D.C.,Localidad de Ciudad Bolívar, Bogotá D.C., Bogotá D.C.",
         "url": "Bogot%C3%A1%20D.C.,Localidad%20de%20Ciuda%20Bolivar,%20Bogot%C3%A1%20D.C.%20,%20Bogot%C3%A1%20D.C.",
         "lat": 4.579488,
         "lon": -74.156349,
         "meta": { "revision": 6, "created": 1459591182410, "version": 0, "updated": 1459943889112 },
         "$loki": 1694,
-        "id": "bogota-d-c-localidad-de-ciuda-bolivar-bogota-d-c-bogota-d-c"
+        "id": "bogota-d-c-localidad-de-ciudad-bolivar-bogota-d-c-bogota-d-c"
       },
       {
         "name": "Putumayo,Puerto Leguízamo,Vereda El Botadero, Puerto Leguízamo, Putumayo",
@@ -38213,22 +38223,22 @@
         "id": "antioquia-carepa-carepa-antioquia"
       },
       {
-        "name": "Bolivar,María la Baja,María la Baja, Bolivar",
-        "url": "Bolivar,Mar%C3%ADa%20la%20Baja,Mar%C3%ADa%20la%20Baja%20,%20Bolivar",
+        "name": "Bolívar,María la Baja",
+        "url": "Bolivar,Mar%C3%ADa%20la%20Baja",
         "lat": 10,
         "lon": -75.33333,
         "meta": { "revision": 6, "created": 1459591182411, "version": 0, "updated": 1459943889112 },
         "$loki": 1710,
-        "id": "bolivar-maria-la-baja-maria-la-baja-bolivar"
+        "id": "bolivar-maria-la-baja"
       },
       {
-        "name": "Bolivar,San Juan de Nepomuceno,San Juan de Nepomuceno, Bolivar",
-        "url": "Bolivar,San%20Juan%20de%20Nepomuceno,San%20Juan%20de%20Nepomuceno%20,%20Bolivar",
+        "name": "Bolívar,San Juan de Nepomuceno",
+        "url": "Bolivar,San%20Juan%20de%20Nepomuceno",
         "lat": 9.94976,
         "lon": -75.07426,
         "meta": { "revision": 6, "created": 1459591182411, "version": 0, "updated": 1459943889112 },
         "$loki": 1711,
-        "id": "bolivar-san-juan-de-nepomuceno-san-juan-de-nepomuceno-bolivar"
+        "id": "bolivar-san-juan-de-nepomuceno"
       },
       {
         "name": "Norte de Santander,Convención,Vereda La Esmeralda, Convención, Norte de Santander",
@@ -38969,7 +38979,7 @@
         "id": "antioquia-carepa-carepa-antioquia-hospital-de-carepa"
       },
       {
-        "name": "Bolivar,Arroyohondo",
+        "name": "Bolívar,Arroyohondo",
         "url": "Bolivar,Arroyohondo",
         "lat": 10.23583,
         "lon": -75.04218,
@@ -39797,13 +39807,13 @@
         "id": "cordoba-momil-momil-cordoba"
       },
       {
-        "name": "Bolivar,Arjona,Arjona, Bolivar",
-        "url": "Bolivar,Arjona,Arjona%20,%20Bolivar",
+        "name": "Bolívar,Arjona",
+        "url": "Bolivar,Arjona",
         "lat": 10.16667,
         "lon": -75.33333,
         "meta": { "revision": 6, "created": 1459591182425, "version": 0, "updated": 1459943889113 },
         "$loki": 1890,
-        "id": "bolivar-arjona-arjona-bolivar"
+        "id": "bolivar-arjona"
       },
       {
         "name": "Cesar,Agustín Codazzi,Agustín Codazzi, Cesar",
@@ -40013,13 +40023,13 @@
         "id": "cauca-argelia-vereda-la-cumbre-argelia-cauca"
       },
       {
-        "name": "Bolivar,Simití,Simití, Bolivar",
-        "url": "Bolivar,Simit%C3%AD,Simit%C3%AD%20,%20Bolivar",
+        "name": "Bolívar,Simití",
+        "url": "Bolivar,Simit%C3%AD",
         "lat": 7.81632,
         "lon": -73.97922,
         "meta": { "revision": 6, "created": 1459591182427, "version": 0, "updated": 1459943889113 },
         "$loki": 1914,
-        "id": "bolivar-simiti-simiti-bolivar"
+        "id": "bolivar-simiti"
       },
       {
         "name": "Boyacá,Campohermoso",
@@ -40418,7 +40428,7 @@
         "id": "narino-santa-barbara-iscuande-veredas-juan-ventura-el-salto-manzanares-y-guabina-santa-barbara-iscuande-narino"
       },
       {
-        "name": "Chocó,Unión Panamericana (ÁNIMAS)",
+        "name": "Chocó,Unión Panamericana",
         "url": "Choc%C3%B3,Uni%C3%B3n%20Panamericana%20(%C3%81NIMAS)",
         "lat": 5.278187,
         "lon": -76.615518,
@@ -40427,7 +40437,7 @@
         "id": "choco-union-panamericana-animas"
       },
       {
-        "name": "Bolivar,San Estanislao",
+        "name": "Bolívar,San Estanislao",
         "url": "Bolivar,San%20Estanislao",
         "lon": -75.1566174,
         "meta": { "revision": 7, "created": 1459591182433, "version": 0, "updated": 1459943889113 },
@@ -40481,7 +40491,7 @@
         "lat": 5.746017
       },
       {
-        "name": "Bolivar,Calamar",
+        "name": "Bolívar,Calamar",
         "url": "Bolivar,Calamar",
         "lon": -74.914534,
         "meta": { "revision": 4, "created": 1459591182434, "version": 0, "updated": 1459943889113 },
@@ -40562,7 +40572,7 @@
         "lat": -0.622646
       },
       {
-        "name": "Bolivar,Talaigua Nuevo",
+        "name": "Bolívar,Talaigua Nuevo",
         "url": "Bolivar,Talaigua%20Nuevo",
         "lon": -74.563702,
         "meta": { "revision": 4, "created": 1459591182435, "version": 0, "updated": 1459943889113 },
@@ -41256,7 +41266,7 @@
       },
       {
         "id": "magdalena-cerro-san-antonio",
-        "name": "Magdalena,Cerro San Antonio",
+        "name": "Magdalena,Cerro de San Antonio",
         "url": "Magdalena%2CCerro%20San%20Antonio",
         "lat": 10.25,
         "lon": -74.83333,
@@ -41453,8 +41463,8 @@
         "$loki": 2094
       },
       {
-        "id": "antioquia-san-vicente",
-        "name": "Antioquia,San Vicente",
+        "id": "antioquia-san-vicente-ferrer",
+        "name": "Antioquia,San Vicente Ferrer",
         "url": "Antioquia%2CSan%20Vicente",
         "lat": 6.33333,
         "lon": -75.33333,
