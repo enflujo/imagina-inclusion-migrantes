@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Lista from '@/componentes/Lista.vue';
 import Mapa from '@/componentes/Mapa.vue';
+import Buscador from '@/componentes/Buscador.vue'
 import Simulacion from '@/componentes/Simulacion/index.vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
 
@@ -9,6 +10,9 @@ const cerebroDatos = usarCerebroDatos();
 
 <template>
   <main id="contenedor">
+    <Suspense>
+      <Buscador />
+    </Suspense>
     <Mapa />
     <Lista />
     <div class="seccionLado">

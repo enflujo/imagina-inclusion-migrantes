@@ -14,3 +14,7 @@ export async function pedirDatos<Respuesta>(url: string, config: RequestInit = {
   const datos = await res.json();
   return datos as Respuesta;
 }
+
+export async function normarlizar(texto: string) {
+  return texto.toLowerCase;
+}
