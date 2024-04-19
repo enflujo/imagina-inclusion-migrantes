@@ -4,8 +4,10 @@ import mapboxgl, { type Map } from 'mapbox-gl';
 import type { Feature, FeatureCollection, GeoJsonProperties, Point, Polygon } from 'geojson';
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
+import * as alquimia from '@enflujo/alquimia';
 import { Delaunay } from 'd3';
-
+import { escalaColores, escalaCoordenadas } from '@enflujo/alquimia';
+//import datosVoronoi from '../../public/voronoi.json';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
@@ -46,7 +48,7 @@ onMounted(async () => {
   const delaunay = Delaunay.from(coordenadas);
   const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
   const geojson: FeatureCollection<Polygon> = { type: 'FeatureCollection', features: [] };
-
+  const obtenerAltura = (valor: number) => alquimia.convertirEscala(valor, 0, 100, 500000, 0);
   coordenadas.forEach((d, i) => {
     const trazo = voronoi.cellPolygon(i);
     if (trazo) {
@@ -55,10 +57,13 @@ onMounted(async () => {
         properties: datosUnicos[i].properties,
         geometry: { type: 'Polygon', coordinates: [trazo] },
       };
+      respuesta.properties.altura = obtenerAltura(respuesta.properties.indice);
       geojson.features[i] = respuesta;
     } else {
       console.log(d);
     }
+
+    // console.log(geojson);
   });
 
   const instanciaMapa = new mapboxgl.Map({
@@ -79,24 +84,35 @@ onMounted(async () => {
     instanciaMapa.addSource('voronoi', {
       type: 'geojson',
       data: geojson,
+      //data: datosVoronoi,
     });
 
     // Pintar polígonos
     instanciaMapa.addLayer({
       id: 'voronoi-gononea',
-      type: 'fill',
+      type: 'fill-extrusion',
       source: 'voronoi',
       paint: {
-        'fill-color': {
+        'fill-extrusion-color': {
           property: 'indice',
           stops: [
             [0.1, '#c22f20'],
             [50, '#ff9800'],
-            [100, '#fef6bc'],
+            [100, '#00ff00'],
           ],
         },
 
-        'fill-opacity': 0.5,
+        'fill-extrusion-opacity': 0.6,
+
+        'fill-extrusion-height': ['get', 'altura'],
+        // {
+        //   property: 'indice',
+        //   stops: [
+        //     [0.1, 0],
+        //     [50, 50],
+        //     [100, 100],
+        //   ],
+        // },
       },
     });
 
@@ -107,7 +123,7 @@ onMounted(async () => {
       source: 'voronoi',
       paint: {
         'line-color': 'rgba(0, 0, 0, 0.3)',
-        'line-width': 1,
+        'line-width': 0,
       },
     });
 
@@ -124,7 +140,7 @@ onMounted(async () => {
           stops: [
             [3, '#c22f20'],
             [50, '#ff9800'],
-            [100, '#fef6bc'],
+            [100, '#00ff00'],
           ],
         },
 
@@ -158,7 +174,6 @@ onMounted(async () => {
       }
     });
   });
-
   mapa.value = instanciaMapa;
 });
 
