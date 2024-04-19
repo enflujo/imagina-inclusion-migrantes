@@ -1,4 +1,3 @@
-import { municipiosCoordenadas } from './fuente/utilidades/lugaresColombia';
 export type Departamento = [codigo: string, nombre: string, latitud: number, longitud: number];
 
 export type Municipio = [
@@ -12,7 +11,7 @@ export type Municipio = [
   codigoCompleto: string,
 ];
 
-export type MunicipioCoordenadas = [nombre: string, codigoDepto: number, latitud: number, longitud: number];
+export type MunicipioCoordenadas = [nombre: string, depto: string, latitud: number, longitud: number];
 
 export type ObjetoDepartamentos = {
   llaves: string[];
