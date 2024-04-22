@@ -4,10 +4,7 @@ import mapboxgl, { type Map } from 'mapbox-gl';
 import type { Feature, FeatureCollection, GeoJsonProperties, Point, Polygon } from 'geojson';
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
-import * as alquimia from '@enflujo/alquimia';
 import { Delaunay } from 'd3';
-import { escalaColores, escalaCoordenadas } from '@enflujo/alquimia';
-//import datosVoronoi from '../../public/voronoi.json';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
@@ -48,7 +45,7 @@ onMounted(async () => {
   const delaunay = Delaunay.from(coordenadas);
   const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
   const geojson: FeatureCollection<Polygon> = { type: 'FeatureCollection', features: [] };
-  // const obtenerAltura = (valor: number) => alquimia.convertirEscala(valor, 0, 100, 500000, 0);
+
   coordenadas.forEach((d, i) => {
     const trazo = voronoi.cellPolygon(i);
     if (trazo) {
@@ -57,8 +54,8 @@ onMounted(async () => {
         properties: datosUnicos[i].properties,
         geometry: { type: 'Polygon', coordinates: [trazo] },
       };
+
       if (!respuesta.properties) return;
-      // respuesta.properties.altura = obtenerAltura(respuesta.properties.indice);
       geojson.features[i] = respuesta;
     } else {
       console.log(d);
@@ -68,8 +65,10 @@ onMounted(async () => {
   const instanciaMapa = new mapboxgl.Map({
     container: contenedorMapa.value as HTMLDivElement,
     style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
-    center: [-71.5810727, 4.116107698],
+    center: [-74.5810727, 4.116107698],
     zoom: 4.3,
+    pitch: 60,
+    bearing: 2,
   });
 
   // Agregar datos para puntos
