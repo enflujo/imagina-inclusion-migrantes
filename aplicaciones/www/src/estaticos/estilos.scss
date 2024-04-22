@@ -34,13 +34,25 @@ main {
 }
 
 .seccionLado {
-  width: 33%;
+  width: 35%;
+  height: var(--minAltoSeccion);
+  border: black solid 2px;
+  padding: 0 1.5em;
+  overflow: auto;
+}
+
+#columnaCentral {
+  display: flex;
+  flex-direction: column;
+  width: 24vw;
   height: var(--minAltoSeccion);
 }
 
 .seccionCentro {
-  width: 30%;
-  height: var(--minAltoSeccion);
+  border: 2px solid black;
+  max-height: 50vh;
+  margin-bottom: 1em;
+  padding: 0 2em;
 }
 
 #contador {

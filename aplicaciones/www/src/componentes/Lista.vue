@@ -87,8 +87,7 @@ function actualizarSeleccionados(id: number) {
 
 <style lang="scss" scoped>
 #contenedorIndice {
-  padding: 0 2em;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #ordenarPor {
@@ -117,6 +116,8 @@ function actualizarSeleccionados(id: number) {
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
+  max-height: 50%;
 }
 
 .lugar {

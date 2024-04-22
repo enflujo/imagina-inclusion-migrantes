@@ -121,7 +121,7 @@ function mostrarInfo() {
   const datosLugar = fuente.value;
   if (!datosLugar) return;
   nombreLugar.value = `${datosLugar.nombre}, ${datosLugar.dep}`;
-  infoPobVen.value = `Según los datos en 2023 había ${datosLugar.pobVenMun.toLocaleString('en-US')} personas venezolanas en ${datosLugar.nombre}, ${datosLugar.dep} (población ${datosLugar.poblacionTotal?.toLocaleString('en-US')}), de las cuales el ${datosLugar.porcentRegularMun.toFixed(2)}% estaban regularizadas.`;
+  infoPobVen.value = `Según los datos, en 2023 había ${datosLugar.pobVenMun.toLocaleString('en-US')} personas venezolanas en ${datosLugar.nombre}, ${datosLugar.dep} (población ${datosLugar.poblacionTotal?.toLocaleString('en-US')}), de las cuales el ${datosLugar.porcentRegularMun.toFixed(2)}% estaban regularizadas.`;
 }
 </script>
 

@@ -6,12 +6,16 @@ import Simulacion from '@/componentes/Simulacion/index.vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
 
 const cerebroDatos = usarCerebroDatos();
+import Comparacion from '@/componentes/Comparacion.vue';
 </script>
 
 <template>
   <main id="contenedor">
     <Mapa />
-    <Lista />
+    <section id="columnaCentral">
+      <Lista />
+      <Comparacion />
+    </section>
     <div class="seccionLado">
       <Simulacion v-for="id in cerebroDatos.lugaresSeleccionados" :id-lugar="id" :key="`simLugar${id}`" />
     </div>

@@ -183,7 +183,7 @@ onUnmounted(() => {
 <template>
   <section class="seccionLado">
     <h2>Mapa de inclusión</h2>
-    <div id="contenedorMapa" ref="contenedorMapa"></div>
+    <div class="seccion" id="contenedorMapa" ref="contenedorMapa"></div>
   </section>
 </template>
 
