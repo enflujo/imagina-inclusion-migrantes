@@ -92,8 +92,8 @@ function actualizarSeleccionados(id: number) {
 
 #ordenarPor {
   display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 1em;
+  justify-content: space-between;
+  margin: 1em 0;
 
   .botonFiltro {
     cursor: pointer;
