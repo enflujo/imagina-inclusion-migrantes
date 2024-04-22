@@ -23,7 +23,7 @@ export default class SimEvent {
     return this.time - simEvent.time;
   }
 
-  isValid(simTime: number, longitudCanvas: number) {
+  isValid(simTime: number, ancho: number, alto: number) {
     // Nota: se usa toFixed(4) para evitar posibles errores de exactitud de floating-point
     let log = '';
     // Note: this check forces only one event at a given instant
@@ -41,20 +41,20 @@ export default class SimEvent {
         'Event time: ' +
         this.time.toFixed(4) +
         ', Fresh time: ' +
-        (simTime + this.b.timeToHitVerticalWall(longitudCanvas)).toFixed(4) +
+        (simTime + this.b.timeToHitVerticalWall(ancho)).toFixed(4) +
         '\n';
       //console.log(log);
-      return this.time.toFixed(4) === (simTime + this.b.timeToHitVerticalWall(longitudCanvas)).toFixed(4);
+      return this.time.toFixed(4) === (simTime + this.b.timeToHitVerticalWall(ancho)).toFixed(4);
     } else if (this.b === null) {
       log += 'Validating vertical wall.\n';
       log +=
         'Event time: ' +
         this.time.toFixed(4) +
         ', Fresh time: ' +
-        (simTime + this.a.timeToHitVerticalWall(longitudCanvas)).toFixed(4) +
+        (simTime + this.a.timeToHitVerticalWall(ancho)).toFixed(4) +
         '\n';
       //console.log(log);
-      return this.time.toFixed(4) === (simTime + this.a.timeToHitHorizontalWall(longitudCanvas)).toFixed(4);
+      return this.time.toFixed(4) === (simTime + this.a.timeToHitHorizontalWall(alto)).toFixed(4);
     } else {
       // partícula-partícula
       log += 'Validating two-particle.\n';

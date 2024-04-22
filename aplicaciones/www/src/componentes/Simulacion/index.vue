@@ -67,7 +67,7 @@ function escalar() {
   let anchoSeccion = contenedor.value?.clientWidth;
   if (!lienzo.value || !anchoSeccion) return;
   lienzo.value.width = anchoSeccion;
-  lienzo.value.height = anchoSeccion;
+  lienzo.value.height = anchoSeccion / 4;
   anchoLienzo.value = anchoSeccion;
 }
 
@@ -85,7 +85,8 @@ function hacerSimulacion(cantidadBolas: number) {
   const bolas = generarBolas(cantidadBolas, cantidadMuros, dimLienzo);
 
   // Crear nueva simulación
-  sim.value = new Sim(bolas, dimLienzo, cantidadMuros);
+  if (!lienzo.value) return;
+  sim.value = new Sim(bolas, lienzo.value.width, lienzo.value.height, cantidadMuros);
   if (!contexto.value) return;
   sim.value.redibujar(contexto.value);
 }
