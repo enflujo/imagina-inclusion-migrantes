@@ -48,7 +48,6 @@ onMounted(async () => {
   datos.value = cerebroDatos.datos;
   contexto.value = lienzo.value.getContext('2d');
   escalar();
-
   iniciarSimulacion();
 });
 
@@ -127,30 +126,30 @@ function mostrarInfo() {
 </script>
 
 <template>
-  <section id="contenedorSimulacion" class="seccionLado" ref="contenedor">
-    <div id="infoSimulacion">
+  <section ref="contenedor">
+    <div class="infoSimulacion">
       <h2>{{ nombreLugar }}</h2>
       <p>{{ infoPobVen }}</p>
     </div>
 
-    <canvas id="lienzoSim" ref="lienzo"></canvas>
+    <canvas class="lienzoSim" ref="lienzo"></canvas>
 
-    <div id="botonesSimulacion">
-      <div id="contador">{{ contador }}</div>
+    <div class="botonesSimulacion">
+      <div class="contador">{{ contador }}</div>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
-#infoSimulacion {
+.infoSimulacion {
   padding: 0 20px;
 }
 
-#lienzoSim {
+.lienzoSim {
   border: 1px solid #7d7979;
 }
 
-#contador {
+.contador {
   border: solid 2px;
   padding: 0.5em;
   width: fit-content;

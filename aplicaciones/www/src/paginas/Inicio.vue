@@ -11,7 +11,9 @@ const cerebroDatos = usarCerebroDatos();
   <main id="contenedor">
     <Mapa />
     <Lista />
-    <Simulacion v-for="id in cerebroDatos.lugaresSeleccionados" :id-lugar="id" :key="`simLugar${id}`" />
+    <div class="seccionLado">
+      <Simulacion v-for="id in cerebroDatos.lugaresSeleccionados" :id-lugar="id" :key="`simLugar${id}`" />
+    </div>
   </main>
 </template>
 
