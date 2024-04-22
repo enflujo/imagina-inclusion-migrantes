@@ -38,7 +38,8 @@ nav {
     border-left: 1px solid;
 
     &.router-link-exact-active {
-      background-color: rgba(225, 118, 118, 0.278);
+      background-color: var(--naranja2);
+      color: var(--blanco);
 
       &:hover {
         opacity: 0.7;

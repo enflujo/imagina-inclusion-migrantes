@@ -8,6 +8,7 @@ import { Delaunay } from 'd3';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
+const contenedorCajaMapa: Ref<HTMLDivElement | null> = ref(null);
 const mapa: Ref<Map | null> = ref(null);
 const cerebroDatos = usarCerebroDatos();
 
@@ -181,14 +182,24 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="seccionLado">
+  <section class="seccionLado" id="contenedorCajaMapa">
     <h2>Mapa de inclusión</h2>
     <div class="seccion" id="contenedorMapa" ref="contenedorMapa"></div>
   </section>
 </template>
 
 <style lang="scss" scoped>
-#contenedorMapa {
-  height: calc(100% - 30px);
+#contenedorCajaMapa {
+  overflow: hidden;
+  padding: 0;
+
+  h2 {
+    z-index: 4;
+    padding: 0 1.5em;
+  }
+
+  #contenedorMapa {
+    height: calc(100% - 30px);
+  }
 }
 </style>
