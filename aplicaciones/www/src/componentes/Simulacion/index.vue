@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch, type Ref, computed } from 'vue';
+import { onMounted, onUnmounted, ref, type Ref, computed } from 'vue';
 import Sim from './Sim';
 import type { DatosInclusion } from 'tipos/compartidos';
 import { usarCerebroDatos } from '@/cerebros/datos';
