@@ -48,7 +48,7 @@ onMounted(async () => {
   const delaunay = Delaunay.from(coordenadas);
   const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
   const geojson: FeatureCollection<Polygon> = { type: 'FeatureCollection', features: [] };
-  const obtenerAltura = (valor: number) => alquimia.convertirEscala(valor, 0, 100, 500000, 0);
+  // const obtenerAltura = (valor: number) => alquimia.convertirEscala(valor, 0, 100, 500000, 0);
   coordenadas.forEach((d, i) => {
     const trazo = voronoi.cellPolygon(i);
     if (trazo) {
@@ -57,13 +57,12 @@ onMounted(async () => {
         properties: datosUnicos[i].properties,
         geometry: { type: 'Polygon', coordinates: [trazo] },
       };
-      respuesta.properties.altura = obtenerAltura(respuesta.properties.indice);
+      if (!respuesta.properties) return;
+      // respuesta.properties.altura = obtenerAltura(respuesta.properties.indice);
       geojson.features[i] = respuesta;
     } else {
       console.log(d);
     }
-
-    // console.log(geojson);
   });
 
   const instanciaMapa = new mapboxgl.Map({
@@ -84,7 +83,6 @@ onMounted(async () => {
     instanciaMapa.addSource('voronoi', {
       type: 'geojson',
       data: geojson,
-      //data: datosVoronoi,
     });
 
     // Pintar polígonos
@@ -104,15 +102,15 @@ onMounted(async () => {
 
         'fill-extrusion-opacity': 0.6,
 
-        'fill-extrusion-height': ['get', 'altura'],
-        // {
-        //   property: 'indice',
-        //   stops: [
-        //     [0.1, 0],
-        //     [50, 50],
-        //     [100, 100],
-        //   ],
-        // },
+        //['get', 'altura'],
+        'fill-extrusion-height': {
+          property: 'indice',
+          stops: [
+            [0, 200000],
+            [50, 10000],
+            [100, 0],
+          ],
+        },
       },
     });
 
@@ -127,27 +125,27 @@ onMounted(async () => {
       },
     });
 
-    instanciaMapa.addLayer({
-      id: 'municipios-puntos',
-      type: 'circle',
-      source: 'municipios',
-      minzoom: 5,
+    // instanciaMapa.addLayer({
+    //   id: 'municipios-puntos',
+    //   type: 'circle',
+    //   source: 'municipios',
+    //   minzoom: 5,
 
-      paint: {
-        'circle-radius': 3,
-        'circle-color': {
-          property: 'indice',
-          stops: [
-            [3, '#c22f20'],
-            [50, '#ff9800'],
-            [100, '#00ff00'],
-          ],
-        },
+    //   paint: {
+    //     'circle-radius': 3,
+    //     'circle-color': {
+    //       property: 'indice',
+    //       stops: [
+    //         [3, '#c22f20'],
+    //         [50, '#ff9800'],
+    //         [100, '#00ff00'],
+    //       ],
+    //     },
 
-        'circle-stroke-color': 'black',
-        'circle-stroke-width': 0,
-      },
-    });
+    //     'circle-stroke-color': 'black',
+    //     'circle-stroke-width': 0,
+    //   },
+    // });
 
     const leyenda = new mapboxgl.Popup();
 
