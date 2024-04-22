@@ -50,6 +50,10 @@ datosMunicipiosAlgunos.collections[0].data.forEach((mun) => {
     lugar = ['Archipiélago de San Andrés, Providencia y Santa Catalina', lugar[2]];
   }
 
+  if (mun.name.includes('Bogotá')) {
+    lugar = ['Bogotá, D.C.', 'Bogotá, D.C.'];
+  }
+
   const lat = mun.lat;
   const lon = mun.lon;
   const nombre = lugar[1] ? lugar[1] : '';
