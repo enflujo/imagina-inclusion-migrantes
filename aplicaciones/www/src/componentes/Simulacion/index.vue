@@ -5,12 +5,17 @@ import type { DatosInclusion } from 'tipos/compartidos';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { generarBolas } from './utilidadesSimulacion';
 
+interface Esquema {
+  idLugar: number;
+}
+const props = defineProps<Esquema>();
+
 const cerebroDatos = usarCerebroDatos();
 const contenedor: Ref<HTMLElement | null> = ref(null);
 const lienzo: Ref<HTMLCanvasElement | null> = ref(null);
 const contexto: Ref<CanvasRenderingContext2D | null> = ref(null);
 const datos: Ref<DatosInclusion[]> = ref([]);
-const fuente = computed(() => datos.value.find((obj) => obj.id === cerebroDatos.lugarSeleccionado));
+const fuente = computed(() => datos.value.find((obj) => obj.id === props.idLugar));
 
 const nombreLugar: Ref<string> = ref('');
 const contador: Ref<string> = ref('');
@@ -32,13 +37,6 @@ const desactivarIntervalo = () => {
   window.clearInterval(intervalo);
   intervalo = 0;
 };
-
-watch(
-  () => cerebroDatos.lugarSeleccionado,
-  () => {
-    iniciarSimulacion();
-  }
-);
 
 onMounted(async () => {
   if (!lienzo.value) return;

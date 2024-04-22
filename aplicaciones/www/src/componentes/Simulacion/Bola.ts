@@ -56,7 +56,8 @@ export default class Bola {
   mover(dt: number) {
     if (this.esMuro) return;
 
-    if (this.activo && this.p.x > 400) {
+    // Por hacer: definir umbral a partir del cual las bolas cambian de color
+    if (this.activo && this.p.x > 100) {
       this.activo = false;
     } else {
     }
