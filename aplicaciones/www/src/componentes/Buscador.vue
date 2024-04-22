@@ -1,48 +1,48 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import type { Ref } from 'vue';
 import fuzzysort from 'fuzzysort';
-import { pedirDatos } from '@/utilidades/ayudas';
-import type { DatosInclusion } from 'tipos/compartidos';
-const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
+import { usarCerebroDatos } from '@/cerebros/datos';
+import { storeToRefs } from 'pinia';
 
 const buscador: Ref<HTMLInputElement | undefined> = ref();
 const sugerencias: Ref<string[]> = ref(['']);
-let fuenteBusqueda: { nombre: string }[];
+const fuenteBusqueda: Ref<{ nombre: string }[]> = ref([]);
+const cerebroDatos = usarCerebroDatos();
+const { datos } = storeToRefs(cerebroDatos);
 
-fuenteBusqueda = datos;
+watch(datos, () => {
+  if (fuenteBusqueda.value.length) return;
 
-llenarBaseLista();
-
-function actualizarSugerencias() {
-  console.log('estoy en el evento onChange');
-}
+  fuenteBusqueda.value = datos.value;
+  llenarBaseLista();
+});
 
 function buscar() {
-  console.log('estoy en el evento onInput', buscador.value?.value);
   const texto = buscador.value?.value;
+
   if (!texto || !texto.length) {
     llenarBaseLista();
     return;
   }
 
-  const busqueda = fuzzysort.go(texto, fuenteBusqueda, { key: 'nombre' });
+  const busqueda = fuzzysort.go(texto, fuenteBusqueda.value, { key: 'nombre' });
 
   if (busqueda.total > 0) {
     sugerencias.value = [];
+
     busqueda.forEach((valor) => {
-      const sugerencia = datos.find((mun) => mun.nombre === valor.obj.nombre);
+      const sugerencia = fuenteBusqueda.value.find((mun) => mun.nombre === valor.obj.nombre);
       if (sugerencia) sugerencias.value.push(sugerencia.nombre);
     });
-    console.log(sugerencias.value);
   }
 }
 
 function llenarBaseLista() {
-  onMounted(() => {
-    datos.forEach((mun) => {
-      sugerencias.value.push(mun.nombre);
-    });
+  sugerencias.value = [];
+
+  fuenteBusqueda.value.forEach((mun) => {
+    sugerencias.value.push(mun.nombre);
   });
 }
 </script>
@@ -57,7 +57,6 @@ function llenarBaseLista() {
       placeholder="Buscar Municipio"
       list="sugerencias"
       @input="buscar"
-      @change="actualizarSugerencias"
     />
 
     <datalist id="sugerencias">

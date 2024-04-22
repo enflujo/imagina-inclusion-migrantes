@@ -10,9 +10,6 @@ const cerebroDatos = usarCerebroDatos();
 
 <template>
   <main id="contenedor">
-    <Suspense>
-      <Buscador />
-    </Suspense>
     <Mapa />
     <Lista />
     <div class="seccionLado">
