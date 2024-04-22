@@ -5,12 +5,17 @@ import type { DatosInclusion } from 'tipos/compartidos';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { generarBolas } from './utilidadesSimulacion';
 
+interface Esquema {
+  idLugar: number;
+}
+const props = defineProps<Esquema>();
+
 const cerebroDatos = usarCerebroDatos();
 const contenedor: Ref<HTMLElement | null> = ref(null);
 const lienzo: Ref<HTMLCanvasElement | null> = ref(null);
 const contexto: Ref<CanvasRenderingContext2D | null> = ref(null);
 const datos: Ref<DatosInclusion[]> = ref([]);
-const fuente = computed(() => datos.value.find((obj) => obj.id === cerebroDatos.lugarSeleccionado));
+const fuente = computed(() => datos.value.find((obj) => obj.id === props.idLugar));
 
 const nombreLugar: Ref<string> = ref('');
 const contador: Ref<string> = ref('');
@@ -33,13 +38,6 @@ const desactivarIntervalo = () => {
   intervalo = 0;
 };
 
-watch(
-  () => cerebroDatos.lugarSeleccionado,
-  () => {
-    iniciarSimulacion();
-  }
-);
-
 onMounted(async () => {
   if (!lienzo.value) return;
 
@@ -50,7 +48,6 @@ onMounted(async () => {
   datos.value = cerebroDatos.datos;
   contexto.value = lienzo.value.getContext('2d');
   escalar();
-
   iniciarSimulacion();
 });
 
@@ -129,30 +126,30 @@ function mostrarInfo() {
 </script>
 
 <template>
-  <section id="contenedorSimulacion" class="seccionLado" ref="contenedor">
-    <div id="infoSimulacion">
+  <section ref="contenedor">
+    <div class="infoSimulacion">
       <h2>{{ nombreLugar }}</h2>
       <p>{{ infoPobVen }}</p>
     </div>
 
-    <canvas id="lienzoSim" ref="lienzo"></canvas>
+    <canvas class="lienzoSim" ref="lienzo"></canvas>
 
-    <div id="botonesSimulacion">
-      <div id="contador">{{ contador }}</div>
+    <div class="botonesSimulacion">
+      <div class="contador">{{ contador }}</div>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
-#infoSimulacion {
+.infoSimulacion {
   padding: 0 20px;
 }
 
-#lienzoSim {
+.lienzoSim {
   border: 1px solid #7d7979;
 }
 
-#contador {
+.contador {
   border: solid 2px;
   padding: 0.5em;
   width: fit-content;

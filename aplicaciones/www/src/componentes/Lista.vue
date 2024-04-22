@@ -29,8 +29,17 @@ function ordenarLista(criterioOrden: OrdenLista) {
   }
 }
 
-function actualizarId(id: number) {
-  cerebroDatos.lugarSeleccionado = id;
+function actualizarSeleccionados(id: number) {
+  const indice = cerebroDatos.lugaresSeleccionados.indexOf(id);
+  if (indice > -1) {
+    cerebroDatos.lugaresSeleccionados.splice(indice, 1);
+  } else {
+    if (cerebroDatos.lugaresSeleccionados.length <= 3) {
+      cerebroDatos.lugaresSeleccionados.push(id);
+    }
+  }
+
+  //actualizarId(id);
 }
 
 // function filtrarLista(
@@ -197,7 +206,7 @@ function actualizarId(id: number) {
         :key="`${elemento.nombre}-${i}`"
         class="lugar"
         :class="`${elemento.id === cerebroDatos.lugarSeleccionado ? ' activo' : ''}`"
-        @click="actualizarId(elemento.id as number)"
+        @click="actualizarSeleccionados(elemento.id as number)"
       >
         <span class="municipio">{{ elemento.nombre }}</span>
         <span class="departamento">, {{ elemento.dep }}</span>

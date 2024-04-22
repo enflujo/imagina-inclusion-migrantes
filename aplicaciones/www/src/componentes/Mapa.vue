@@ -5,7 +5,6 @@ import type { Feature, FeatureCollection, GeoJsonProperties, Point, Polygon } fr
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { Delaunay } from 'd3';
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
@@ -55,6 +54,8 @@ onMounted(async () => {
         properties: datosUnicos[i].properties,
         geometry: { type: 'Polygon', coordinates: [trazo] },
       };
+
+      if (!respuesta.properties) return;
       geojson.features[i] = respuesta;
     } else {
       console.log(d);
@@ -64,8 +65,10 @@ onMounted(async () => {
   const instanciaMapa = new mapboxgl.Map({
     container: contenedorMapa.value as HTMLDivElement,
     style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
-    center: [-71.5810727, 4.116107698],
+    center: [-74.5810727, 4.116107698],
     zoom: 4.3,
+    pitch: 60,
+    bearing: 2,
   });
 
   // Agregar datos para puntos
@@ -84,19 +87,29 @@ onMounted(async () => {
     // Pintar polígonos
     instanciaMapa.addLayer({
       id: 'voronoi-gononea',
-      type: 'fill',
+      type: 'fill-extrusion',
       source: 'voronoi',
       paint: {
-        'fill-color': {
+        'fill-extrusion-color': {
           property: 'indice',
           stops: [
             [0.1, '#c22f20'],
             [50, '#ff9800'],
-            [100, '#fef6bc'],
+            [100, '#00ff00'],
           ],
         },
 
-        'fill-opacity': 0.5,
+        'fill-extrusion-opacity': 0.6,
+
+        //['get', 'altura'],
+        'fill-extrusion-height': {
+          property: 'indice',
+          stops: [
+            [0, 200000],
+            [50, 10000],
+            [100, 0],
+          ],
+        },
       },
     });
 
@@ -107,31 +120,31 @@ onMounted(async () => {
       source: 'voronoi',
       paint: {
         'line-color': 'rgba(0, 0, 0, 0.3)',
-        'line-width': 1,
+        'line-width': 0,
       },
     });
 
-    instanciaMapa.addLayer({
-      id: 'municipios-puntos',
-      type: 'circle',
-      source: 'municipios',
-      minzoom: 5,
+    // instanciaMapa.addLayer({
+    //   id: 'municipios-puntos',
+    //   type: 'circle',
+    //   source: 'municipios',
+    //   minzoom: 5,
 
-      paint: {
-        'circle-radius': 3,
-        'circle-color': {
-          property: 'indice',
-          stops: [
-            [3, '#c22f20'],
-            [50, '#ff9800'],
-            [100, '#fef6bc'],
-          ],
-        },
+    //   paint: {
+    //     'circle-radius': 3,
+    //     'circle-color': {
+    //       property: 'indice',
+    //       stops: [
+    //         [3, '#c22f20'],
+    //         [50, '#ff9800'],
+    //         [100, '#00ff00'],
+    //       ],
+    //     },
 
-        'circle-stroke-color': 'black',
-        'circle-stroke-width': 0,
-      },
-    });
+    //     'circle-stroke-color': 'black',
+    //     'circle-stroke-width': 0,
+    //   },
+    // });
 
     const leyenda = new mapboxgl.Popup();
 
@@ -158,7 +171,6 @@ onMounted(async () => {
       }
     });
   });
-
   mapa.value = instanciaMapa;
 });
 
