@@ -26,7 +26,7 @@ export const usarCerebroDatos = defineStore('datos', {
     datos: [],
     geojson: { type: 'FeatureCollection', features: [] },
     cargados: false,
-    lugaresSeleccionados: [],
+    lugaresSeleccionados: [0],
   }),
 
   getters: {},

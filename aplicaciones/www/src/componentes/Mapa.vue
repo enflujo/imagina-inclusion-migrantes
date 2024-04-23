@@ -105,8 +105,8 @@ onMounted(async () => {
         'fill-extrusion-height': {
           property: 'indice',
           stops: [
-            [0, 200000],
-            [50, 10000],
+            [0, 600000],
+            [50, 30000],
             [100, 0],
           ],
         },
@@ -183,7 +183,7 @@ onUnmounted(() => {
 <template>
   <section class="seccionLado">
     <h2>Mapa de inclusión</h2>
-    <div id="contenedorMapa" ref="contenedorMapa"></div>
+    <div class="seccion" id="contenedorMapa" ref="contenedorMapa"></div>
   </section>
 </template>
 

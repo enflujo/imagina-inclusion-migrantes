@@ -74,7 +74,7 @@ function actualizarSeleccionados(id: number) {
         v-for="(elemento, i) in datos"
         :key="`${elemento.nombre}-${i}`"
         class="lugar"
-        :class="`${elemento.id === cerebroDatos.lugarSeleccionado ? ' activo' : ''}`"
+        :class="`${cerebroDatos.lugaresSeleccionados.includes(elemento.id) ? ' activo' : ''}`"
         @click="actualizarSeleccionados(elemento.id as number)"
       >
         <span class="municipio">{{ elemento.nombre }}</span>
@@ -87,14 +87,13 @@ function actualizarSeleccionados(id: number) {
 
 <style lang="scss" scoped>
 #contenedorIndice {
-  padding: 0 2em;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #ordenarPor {
   display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 1em;
+  justify-content: space-between;
+  margin: 1em 0;
 
   .botonFiltro {
     cursor: pointer;
@@ -117,6 +116,8 @@ function actualizarSeleccionados(id: number) {
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
+  max-height: 50%;
 }
 
 .lugar {

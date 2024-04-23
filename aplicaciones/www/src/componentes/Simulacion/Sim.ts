@@ -9,11 +9,12 @@ export default class Sim {
   tiempo: number;
   bolas: Bola[];
   pq: MinPQ;
-  cl: number;
+  anchoLienzo: number;
+  altoLienzo: number;
   cantidadMuros: number;
   bolasCoronadas: number;
 
-  constructor(bolas: Bola[], cl: number, cantidadMuros: number) {
+  constructor(bolas: Bola[], anchoLienzo: number, altoLienzo: number, cantidadMuros: number) {
     if (bolas == null) {
       throw new Error('Sim constructor requires array of balls');
     }
@@ -26,7 +27,8 @@ export default class Sim {
     this.tiempo = 0;
     this.bolas = bolas;
     this.pq = new MinPQ();
-    this.cl = cl;
+    this.anchoLienzo = anchoLienzo;
+    this.altoLienzo = altoLienzo;
     this.cantidadMuros = cantidadMuros;
     this.bolasCoronadas = 0;
 
@@ -55,12 +57,12 @@ export default class Sim {
       this.pq.insertar(new SimEvent(this.tiempo + dt, bola, this.bolas[i]));
       //console.log('Ball event inserted');
     }
-    dt = bola.timeToHitVerticalWall(this.cl);
+    dt = bola.timeToHitVerticalWall(this.anchoLienzo);
     if (isFinite(dt) && dt > 0) {
       //console.log('Vert event inserted');
       this.pq.insertar(new SimEvent(this.tiempo + dt, null, bola));
     }
-    dt = bola.timeToHitHorizontalWall(this.cl);
+    dt = bola.timeToHitHorizontalWall(this.altoLienzo);
     if (isFinite(dt) && dt > 0) {
       //console.log('Horiz event inserted');
       this.pq.insertar(new SimEvent(this.tiempo + dt, bola, null));
@@ -91,7 +93,7 @@ export default class Sim {
     if (bola == null) {
       return;
     }
-    let dt = bola.timeToHitVerticalWall(this.cl);
+    let dt = bola.timeToHitVerticalWall(this.anchoLienzo);
     if (isFinite(dt) && dt > 0) {
       //console.log('Vert event inserted');
       this.pq.insertar(new SimEvent(this.tiempo + dt, null, bola));
@@ -101,7 +103,7 @@ export default class Sim {
     if (bola == null) {
       return;
     }
-    let dt = bola.timeToHitHorizontalWall(this.cl);
+    let dt = bola.timeToHitHorizontalWall(this.altoLienzo);
     if (isFinite(dt) && dt > 0) {
       //console.log('Horiz event inserted');
       this.pq.insertar(new SimEvent(this.tiempo + dt, bola, null));
@@ -109,9 +111,7 @@ export default class Sim {
   }
 
   redibujar(ctx: CanvasRenderingContext2D) {
-    const cl = this.cl;
-
-    ctx.clearRect(0, 0, cl, cl);
+    ctx.clearRect(0, 0, this.anchoLienzo, this.altoLienzo);
     for (let i = 0; i < this.bolas.length; i++) {
       const bola = this.bolas[i];
       bola.dibujar(ctx);
@@ -138,7 +138,7 @@ export default class Sim {
     let minEvent;
     let inc;
 
-    let counter = 0;
+    //let counter = 0;
     while (!this.pq.isEmpty()) {
       // Check min event time. If outside time window, break.
       // Otherwise, delete it. If not valid, continue.
@@ -150,7 +150,7 @@ export default class Sim {
         break;
       }
       this.pq.delMin();
-      if (!minEvent.isValid(this.tiempo, this.cl)) {
+      if (!minEvent.isValid(this.tiempo, this.anchoLienzo, this.altoLienzo)) {
         simLog += 'Evento inválido: ' + minEvent.type() + '\n';
         continue;
       }
@@ -159,7 +159,7 @@ export default class Sim {
       inc = minEvent.time - this.tiempo;
 
       for (let i = 0; i < this.bolas.length; i++) {
-        this.bolas[i].mover(inc);
+        this.bolas[i].mover(inc, this.anchoLienzo, this.altoLienzo);
       }
       this.tiempo = minEvent.time;
 
@@ -194,7 +194,7 @@ export default class Sim {
 
     inc = end - this.tiempo;
     for (let i = 0; i < this.bolas.length; i++) {
-      this.bolas[i].mover(inc);
+      this.bolas[i].mover(inc, this.anchoLienzo, this.altoLienzo);
     }
     this.tiempo = end;
     //  console.log(this.tiempo);
