@@ -10,6 +10,7 @@ const sugerencias: Ref<string[]> = ref(['']);
 const fuenteBusqueda: Ref<{ nombre: string }[]> = ref([]);
 const cerebroDatos = usarCerebroDatos();
 const { datos } = storeToRefs(cerebroDatos);
+let sugerencia: { nombre: string } | undefined;
 
 watch(datos, () => {
   if (fuenteBusqueda.value.length) return;
@@ -32,10 +33,15 @@ function buscar() {
     sugerencias.value = [];
 
     busqueda.forEach((valor) => {
-      const sugerencia = fuenteBusqueda.value.find((mun) => mun.nombre === valor.obj.nombre);
+      sugerencia = fuenteBusqueda.value.find((mun) => mun.nombre === valor.obj.nombre);
       if (sugerencia) sugerencias.value.push(sugerencia.nombre);
     });
   }
+}
+
+function elegirLugar() {
+  if (!sugerencia) return;
+  cerebroDatos.lugaresSeleccionados.push(sugerencia.id);
 }
 
 function llenarBaseLista() {
@@ -57,6 +63,7 @@ function llenarBaseLista() {
       placeholder="Buscar Municipio"
       list="sugerencias"
       @input="buscar"
+      @change="elegirLugar"
     />
 
     <datalist id="sugerencias">
