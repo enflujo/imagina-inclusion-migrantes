@@ -8,7 +8,7 @@ interface EstructuraDatos {
   datos: DatosInclusion[];
   geojson: FeatureCollection<Point>;
   cargados: boolean;
-  lugaresSeleccionados: number[];
+  lugaresSeleccionados: { id: number; nombre: string }[];
 }
 
 export const useCounterStore = defineStore('counter', () => {
@@ -26,7 +26,7 @@ export const usarCerebroDatos = defineStore('datos', {
     datos: [],
     geojson: { type: 'FeatureCollection', features: [] },
     cargados: false,
-    lugaresSeleccionados: [0],
+    lugaresSeleccionados: [],
   }),
 
   getters: {},

@@ -17,7 +17,11 @@ import Comparacion from '@/componentes/Comparacion.vue';
       <Comparacion />
     </section>
     <div class="seccionLado">
-      <Simulacion v-for="id in cerebroDatos.lugaresSeleccionados" :id-lugar="id" :key="`simLugar${id}`" />
+      <Simulacion
+        v-for="lugar in cerebroDatos.lugaresSeleccionados"
+        :id-lugar="lugar.id"
+        :key="`simLugar${lugar.id}`"
+      />
     </div>
   </main>
 </template>
