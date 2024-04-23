@@ -105,6 +105,7 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
 
 <style lang="scss" scoped>
 #contenedorIndice {
+  max-height: 60vh;
   overflow: hidden;
 }
 
