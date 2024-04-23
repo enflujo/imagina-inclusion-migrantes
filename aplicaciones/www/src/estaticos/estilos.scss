@@ -3,8 +3,7 @@
 html {
   box-sizing: border-box;
   height: 100%;
-  background: linear-gradient(to right, rgba(236, 196, 220, 0.686), rgba(187, 228, 207, 0.68) 100%);
-
+  background: linear-gradient(to right, rgba(255, 249, 169, 0.686), rgba(187, 228, 207, 0.68) 100%);
   font-family: var(--fuenteParrafo);
   font-feature-settings:
     'liga' 1,
@@ -24,7 +23,7 @@ body {
 }
 
 ::selection {
-  background-color: #30cac073;
+  background-color: var(--amarillo);
   color: #130808;
 }
 
@@ -38,6 +37,14 @@ main {
   height: var(--minAltoSeccion);
   border: black solid 2px;
   padding: 0 1.5em;
+  overflow: auto;
+}
+
+#columnaCentral {
+  display: flex;
+  flex-direction: column;
+  width: 24vw;
+  height: var(--minAltoSeccion);
   overflow: auto;
 }
 

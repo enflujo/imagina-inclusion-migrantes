@@ -107,17 +107,23 @@ function actualizarSeleccionados(id: number) {
     }
 
     &.activo {
-      background-color: rgb(147, 185, 143);
+      background-color: var(--naranja2);
     }
   }
 }
 
 .listaLugares {
   list-style: none;
-  margin: 0;
+  margin: 1.5em 0 0 0;
   padding: 0;
-  overflow-y: scroll;
-  max-height: 50%;
+  max-height: 60%;
+  overflow-y: scroll; /* Add the ability to scroll */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .lugar {
@@ -128,7 +134,7 @@ function actualizarSeleccionados(id: number) {
   }
 
   &.activo {
-    background-color: rgb(147, 185, 143);
+    background-color: var(--amarillo);
   }
 }
 
