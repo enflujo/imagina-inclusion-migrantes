@@ -10,7 +10,7 @@ const sugerencias: Ref<string[]> = ref(['']);
 const fuenteBusqueda: Ref<{ nombre: string }[]> = ref([]);
 const cerebroDatos = usarCerebroDatos();
 const { datos } = storeToRefs(cerebroDatos);
-let sugerencia: { nombre: string } | undefined;
+let sugerencia: { id: number; nombre: string } | undefined;
 
 watch(datos, () => {
   if (fuenteBusqueda.value.length) return;
@@ -33,15 +33,19 @@ function buscar() {
     sugerencias.value = [];
 
     busqueda.forEach((valor) => {
-      sugerencia = fuenteBusqueda.value.find((mun) => mun.nombre === valor.obj.nombre);
+      const indiceSugerencia = fuenteBusqueda.value.findIndex((mun) => mun.nombre === valor.obj.nombre);
       if (sugerencia) sugerencias.value.push(sugerencia.nombre);
+      sugerencia = {
+        id: cerebroDatos.lugaresSeleccionados[indiceSugerencia].id,
+        nombre: cerebroDatos.lugaresSeleccionados[indiceSugerencia].nombre,
+      };
     });
   }
 }
 
 function elegirLugar() {
   if (!sugerencia) return;
-  cerebroDatos.lugaresSeleccionados.push(sugerencia.id);
+  cerebroDatos.lugaresSeleccionados.push({ id: sugerencia.id, nombre: sugerencia.nombre });
 }
 
 function llenarBaseLista() {

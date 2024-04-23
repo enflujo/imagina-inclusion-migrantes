@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { usarCerebroDatos } from '@/cerebros/datos';
 import type { DatosInclusion } from 'tipos/compartidos';
-import { onMounted, ref, type Ref } from 'vue';
+import { computed, onMounted, ref, type Ref } from 'vue';
 import Buscador from './Buscador.vue';
 type OrdenLista = 'ascendente' | 'descendente' | 'alfabetico';
 const cerebroDatos = usarCerebroDatos();
 const datos: Ref<DatosInclusion[]> = ref([]);
 const orden: Ref<OrdenLista> = ref('ascendente');
+const lugares = computed(() => cerebroDatos.lugaresSeleccionados);
 
 onMounted(async () => {
   if (!cerebroDatos.cargados) {
@@ -15,6 +16,7 @@ onMounted(async () => {
 
   datos.value = cerebroDatos.datos;
   ordenarLista(orden.value);
+  cerebroDatos.lugaresSeleccionados.push({ id: datos.value[0].id as number, nombre: datos.value[0].nombre });
 });
 
 function ordenarLista(criterioOrden: OrdenLista) {
@@ -30,13 +32,18 @@ function ordenarLista(criterioOrden: OrdenLista) {
   }
 }
 
-function actualizarSeleccionados(id: number) {
-  const indice = cerebroDatos.lugaresSeleccionados.indexOf(id);
+function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
+  const lugaresSeleccionados = cerebroDatos.lugaresSeleccionados;
+  const indice = lugaresSeleccionados.findIndex((obj) => obj.id === datosLugar.id);
+
   if (indice > -1) {
     cerebroDatos.lugaresSeleccionados.splice(indice, 1);
   } else {
-    if (cerebroDatos.lugaresSeleccionados.length <= 3) {
-      cerebroDatos.lugaresSeleccionados.push(id);
+    if (lugaresSeleccionados.length <= 3) {
+      cerebroDatos.lugaresSeleccionados.push({
+        id: datosLugar.id as number,
+        nombre: datosLugar.nombre,
+      });
     }
   }
 }
@@ -69,13 +76,24 @@ function actualizarSeleccionados(id: number) {
       >
     </div>
 
+    <div id="seleccionados" ref="seleccionados">
+      <span
+        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        :key="`lugar${i}`"
+        class="lugarElegido"
+        @click="actualizarSeleccionados(lugar)"
+      >
+        {{ lugar.nombre }}</span
+      >
+    </div>
+
     <ul class="listaLugares">
       <li
         v-for="(elemento, i) in datos"
         :key="`${elemento.nombre}-${i}`"
         class="lugar"
-        :class="`${cerebroDatos.lugaresSeleccionados.includes(elemento.id) ? ' activo' : ''}`"
-        @click="actualizarSeleccionados(elemento.id as number)"
+        :class="`${lugares.length && lugares.find((lugar) => lugar.id === elemento.id) ? ' activo' : ''}`"
+        @click="actualizarSeleccionados(elemento)"
       >
         <span class="municipio">{{ elemento.nombre }}</span>
         <span class="departamento">, {{ elemento.dep }}</span>
@@ -88,6 +106,23 @@ function actualizarSeleccionados(id: number) {
 <style lang="scss" scoped>
 #contenedorIndice {
   overflow: hidden;
+}
+
+#seleccionados {
+  display: flex;
+  align-items: flex-start;
+
+  .lugarElegido {
+    border: black 1px solid;
+    border-radius: 10px;
+    margin: 0 0.5em 0 0;
+    padding: 0.2em 0.3em;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--amarilloClaro);
+    }
+  }
 }
 
 #ordenarPor {
