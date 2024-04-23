@@ -97,7 +97,7 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
       >
         <span class="municipio">{{ elemento.nombre }}</span>
         <span class="departamento">, {{ elemento.dep }}</span>
-        <span class="valor">: {{ elemento.valorRank }}</span>
+        <span class="valor">: {{ elemento.valorIndice.toFixed(2) }}</span>
       </li>
     </ul>
   </section>

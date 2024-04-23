@@ -19,7 +19,9 @@ const fuente = computed(() => datos.value.find((obj) => obj.id === props.idLugar
 
 const nombreLugar: Ref<string> = ref('');
 const contador: Ref<string> = ref('');
+const infoPobTot: Ref<string> = ref('');
 const infoPobVen: Ref<string> = ref('');
+const infoPobReg: Ref<string> = ref('');
 const anchoLienzo: Ref<number> = ref(500);
 
 const ms = 30;
@@ -123,7 +125,9 @@ function mostrarInfo() {
   const datosLugar = fuente.value;
   if (!datosLugar) return;
   nombreLugar.value = `${datosLugar.nombre}, ${datosLugar.dep}`;
-  infoPobVen.value = `Según los datos, en 2023 había ${datosLugar.pobVenMun.toLocaleString('en-US')} personas venezolanas en ${datosLugar.nombre}, ${datosLugar.dep} (población ${datosLugar.poblacionTotal?.toLocaleString('en-US')}), de las cuales el ${datosLugar.porcentRegularMun.toFixed(2)}% estaban regularizadas.`;
+  infoPobTot.value = `Población total: ${datosLugar.poblacionTotal?.toLocaleString('en-US')}`;
+  infoPobVen.value = `Población venezolana: ${datosLugar.pobVenMun.toLocaleString('en-US')}`;
+  infoPobReg.value = `Población regularizada: ${datosLugar.porcentRegularMun.toFixed(2)}%`;
 }
 </script>
 
@@ -131,7 +135,11 @@ function mostrarInfo() {
   <section ref="contenedor">
     <div class="infoSimulacion">
       <h2 @click="quitarLugar($event)">{{ nombreLugar }}</h2>
-      <p>{{ infoPobVen }}</p>
+      <div class="info">
+        <p class="datosLugar">{{ infoPobTot }}</p>
+        <p class="datosLugar">{{ infoPobVen }}</p>
+        <p class="datosLugar">{{ infoPobReg }}</p>
+      </div>
     </div>
 
     <canvas class="lienzoSim" ref="lienzo"></canvas>
@@ -143,6 +151,16 @@ function mostrarInfo() {
 </template>
 
 <style lang="scss" scoped>
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.datosLugar {
+  margin: 0;
+}
+
 .infoSimulacion {
   padding: 0 20px;
 }
