@@ -74,7 +74,7 @@ function actualizarSeleccionados(id: number) {
         v-for="(elemento, i) in datos"
         :key="`${elemento.nombre}-${i}`"
         class="lugar"
-        :class="`${elemento.id === cerebroDatos.lugarSeleccionado ? ' activo' : ''}`"
+        :class="`${cerebroDatos.lugaresSeleccionados.includes(elemento.id) ? ' activo' : ''}`"
         @click="actualizarSeleccionados(elemento.id as number)"
       >
         <span class="municipio">{{ elemento.nombre }}</span>
