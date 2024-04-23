@@ -105,8 +105,8 @@ onMounted(async () => {
         'fill-extrusion-height': {
           property: 'indice',
           stops: [
-            [0, 200000],
-            [50, 10000],
+            [0, 600000],
+            [50, 30000],
             [100, 0],
           ],
         },
