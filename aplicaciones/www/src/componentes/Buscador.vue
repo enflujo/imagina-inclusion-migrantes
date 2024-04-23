@@ -34,11 +34,11 @@ function buscar() {
 
     busqueda.forEach((valor) => {
       const indiceSugerencia = fuenteBusqueda.value.findIndex((mun) => mun.nombre === valor.obj.nombre);
-      if (sugerencia) sugerencias.value.push(sugerencia.nombre);
       sugerencia = {
-        id: cerebroDatos.lugaresSeleccionados[indiceSugerencia].id,
-        nombre: cerebroDatos.lugaresSeleccionados[indiceSugerencia].nombre,
+        id: cerebroDatos.datos[indiceSugerencia].id as number,
+        nombre: cerebroDatos.datos[indiceSugerencia].nombre,
       };
+      if (sugerencia) sugerencias.value.push(sugerencia.nombre);
     });
   }
 }
