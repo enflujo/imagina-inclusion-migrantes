@@ -64,7 +64,7 @@ export default class SimEvent {
         ', Fresh time: ' +
         (simTime + this.a.timeToHit(this.b)).toFixed(4) +
         '\n';
-      //console.log(log);
+      // console.log(log);
       return this.time.toFixed(4) === (simTime + this.a.timeToHit(this.b)).toFixed(4);
     }
   }

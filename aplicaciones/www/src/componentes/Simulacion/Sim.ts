@@ -138,7 +138,7 @@ export default class Sim {
     let minEvent;
     let inc;
 
-    let counter = 0;
+    //let counter = 0;
     while (!this.pq.isEmpty()) {
       // Check min event time. If outside time window, break.
       // Otherwise, delete it. If not valid, continue.
@@ -159,7 +159,7 @@ export default class Sim {
       inc = minEvent.time - this.tiempo;
 
       for (let i = 0; i < this.bolas.length; i++) {
-        this.bolas[i].mover(inc);
+        this.bolas[i].mover(inc, this.anchoLienzo, this.altoLienzo);
       }
       this.tiempo = minEvent.time;
 
@@ -194,7 +194,7 @@ export default class Sim {
 
     inc = end - this.tiempo;
     for (let i = 0; i < this.bolas.length; i++) {
-      this.bolas[i].mover(inc);
+      this.bolas[i].mover(inc, this.anchoLienzo, this.altoLienzo);
     }
     this.tiempo = end;
     //  console.log(this.tiempo);

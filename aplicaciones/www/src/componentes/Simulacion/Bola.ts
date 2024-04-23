@@ -53,11 +53,11 @@ export default class Bola {
   }
 
   // mover/dibujar básico
-  mover(dt: number) {
+  mover(dt: number, anchoLienzo: number, altoLienzo: number) {
     if (this.esMuro) return;
 
     // Por hacer: definir umbral a partir del cual las bolas cambian de color
-    if (this.activo && this.p.x > 500) {
+    if (this.activo && this.p.x > anchoLienzo * 0.7 && this.p.y < altoLienzo) {
       this.activo = false;
     } else {
     }
