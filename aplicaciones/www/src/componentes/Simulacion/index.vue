@@ -108,7 +108,7 @@ function correrSimulacion() {
   // Detener la simulación cuando corone el número de bolas = al índice de inclusión
   if (simulador.bolasCoronadas >= indiceInclusion) {
     desactivarIntervalo();
-    contador.value = `El índice de inclusión en ${datosLugar.nombre} es ${datosLugar.valorIndice.toFixed(2)}`;
+    contador.value = `Índice de inclusión: ${datosLugar.valorIndice.toFixed(2)}`;
   }
 
   simulador.redibujar(contexto.value);
