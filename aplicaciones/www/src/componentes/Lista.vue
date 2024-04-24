@@ -209,13 +209,7 @@ h2 {
   margin: 0;
   padding: 0.3em 0 7em 0;
   max-height: 40vh;
-  overflow-y: scroll; /* Add the ability to scroll */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  .scroll-container::-webkit-scrollbar {
-    display: none;
-  }
+  overflow-y: scroll;
 }
 
 .lugar {
