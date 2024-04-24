@@ -23,7 +23,7 @@ body {
 }
 
 ::selection {
-  background-color: var(--amarillo);
+  background-color: var(--naranja2);
   color: #130808;
 }
 
@@ -36,8 +36,31 @@ main {
   width: 35%;
   height: var(--minAltoSeccion);
   border: black solid 2px;
-  padding: 0 1.5em;
+  background-color: var(--naranja);
+  padding: 0 2em 0 2em;
   overflow: auto;
+
+  .mapboxgl-popup-tip {
+  }
+  .mapboxgl-popup-content {
+    padding: 0.6em 1.2em 0.6em 0.8em;
+
+    #leyenda {
+      font-family: var(--fuenteParrafo);
+      margin: 0;
+      font-size: 1.1em;
+      .nombreMunicipio {
+        font-weight: 600;
+        font-size: 1.1em;
+        margin: 0;
+      }
+      .yanaina {
+        font-weight: 400;
+        font-size: 1.1em;
+        margin: 0;
+      }
+    }
+  }
 }
 
 #columnaCentral {
@@ -50,7 +73,7 @@ main {
 .seccionCentro {
   border: 2px solid black;
   margin-bottom: 1em;
-  padding: 0 2em;
+  padding: 0 1.75em;
 }
 
 #contador {
@@ -62,7 +85,7 @@ main {
 
 #contenedorIntroduccion {
   height: 100vh;
-  background-color: var(--naranja);
+  background-color: var(--naranja2);
   padding-top: 35vh;
 
   #tituloSubtitulo {
@@ -92,4 +115,8 @@ main {
       }
     }
   }
+}
+
+h2 {
+  margin-top: 1em;
 }

@@ -195,7 +195,7 @@ onUnmounted(() => {
 
   h2 {
     z-index: 4;
-    padding: 0 1.5em;
+    padding: 0 1.2em;
   }
 
   #contenedorMapa {
