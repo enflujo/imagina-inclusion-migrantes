@@ -25,6 +25,12 @@ const cerebroDatos = usarCerebroDatos();
       ></span>
       <span
         v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        :key="`diferencia${i}`"
+        class="diferencia"
+        :style="`top:${39 * i}px; left: ${cerebroDatos.datos[lugar.id].valorIndice}; width:  ${cerebroDatos.lugaresSeleccionados.length > 1 ? 20 - 8 : 100}%`"
+      ></span>
+      <span
+        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
         :key="`lugar-barra${i}`"
         class="etiqueta"
         :style="`top:${33 * i}px; left: ${cerebroDatos.datos[lugar.id].valorIndice}%`"
@@ -74,6 +80,13 @@ const cerebroDatos = usarCerebroDatos();
     height: 1em;
     width: 100px;
     background-color: var(--azul);
+    position: absolute;
+  }
+
+  .diferencia {
+    height: 1px;
+    background-color: var(--negro);
+    display: block;
     position: absolute;
   }
 
