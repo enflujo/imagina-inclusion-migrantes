@@ -162,7 +162,7 @@ function mostrarInfo() {
 }
 
 .infoSimulacion {
-  padding: 0 20px;
+  padding: 0 0px;
 }
 
 .lienzoSim {

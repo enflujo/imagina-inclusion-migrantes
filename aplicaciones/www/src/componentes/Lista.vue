@@ -53,26 +53,40 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
   <section id="contenedorIndice" class="seccionCentro">
     <h2>Índice de inclusión</h2>
 
-    <Buscador />
+    <div id="buscadoresBotones">
+      <Buscador />
 
-    <div id="ordenarPor">
+      <div id="ordenarPor">
+        <span
+          class="botonFiltro alfabetico"
+          :class="`${orden === 'alfabetico' ? 'activo' : ''}`"
+          @click="ordenarLista('alfabetico')"
+          title="Alfabético"
+          >Alfabético</span
+        >
+        <span
+          class="botonFiltro ascendente"
+          :class="`${orden === 'ascendente' ? 'activo' : ''}`"
+          @click="ordenarLista('ascendente')"
+          title="Ranking ascendente"
+        ></span>
+        <span
+          class="botonFiltro descendente"
+          :class="`${orden === 'descendente' ? 'activo' : ''}`"
+          @click="ordenarLista('descendente')"
+          title="Ranking descendente"
+        ></span>
+      </div>
+    </div>
+
+    <div id="seleccionados" ref="seleccionados">
       <span
-        class="botonFiltro alfabetico"
-        :class="`${orden === 'alfabetico' ? 'activo' : ''}`"
-        @click="ordenarLista('alfabetico')"
-        >Alfabético</span
+        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        :key="`lugar${i}`"
+        class="lugarElegido"
+        @click="actualizarSeleccionados(lugar)"
       >
-      <span
-        class="botonFiltro ascendente"
-        :class="`${orden === 'ascendente' ? 'activo' : ''}`"
-        @click="ordenarLista('ascendente')"
-        >Ranking ascendente</span
-      >
-      <span
-        class="botonFiltro descendente"
-        :class="`${orden === 'descendente' ? 'activo' : ''}`"
-        @click="ordenarLista('descendente')"
-        >Ranking descendente</span
+        {{ lugar.nombre }}</span
       >
     </div>
 
@@ -104,6 +118,10 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
 </template>
 
 <style lang="scss" scoped>
+h2 {
+  margin-bottom: 0.8em;
+}
+
 #contenedorIndice {
   max-height: 60vh;
   overflow: hidden;
@@ -126,33 +144,80 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
   }
 }
 
-#ordenarPor {
+#buscadoresBotones {
   display: flex;
-  justify-content: space-between;
-  margin: 1em 0;
 
-  .botonFiltro {
-    cursor: pointer;
-    background-color: black;
-    color: white;
-    padding: 5px;
-    transition: opacity 0.25s ease-in-out;
+  #ordenarPor {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 0 10px;
+    align-items: center;
+    gap: 6px;
 
-    &:hover {
-      opacity: 0.6;
+    .botonFiltro {
+      cursor: pointer;
+      background-color: black;
+      color: white;
+
+      transition: opacity 0.25s ease-in-out;
+
+      &:hover {
+        opacity: 0.6;
+      }
     }
 
-    &.activo {
-      background-color: var(--naranja2);
+    .alfabetico {
+      background-image: url(/imgs/boton_alfabetico_2.svg);
+      background-repeat: no-repeat;
+      margin: 0;
+      height: 39px;
+      width: 47px;
+      background-color: transparent;
+      color: transparent;
+      border-radius: 3px;
+
+      &.activo {
+        background-image: url(/imgs/boton_alfabetico.svg);
+      }
+    }
+
+    .ascendente {
+      background-image: url(/imgs/boton_subir.svg);
+      background-repeat: no-repeat;
+      margin: 0;
+      height: 39px;
+      width: 40px;
+      background-color: transparent;
+      color: transparent;
+      border-radius: 3px;
+
+      &.activo {
+        background-image: url(/imgs/boton_subir_2.svg);
+      }
+    }
+
+    .descendente {
+      background-image: url(/imgs/boton_bajar.svg);
+      background-repeat: no-repeat;
+      margin: 0;
+      height: 39px;
+      width: 40px;
+      background-color: transparent;
+      color: transparent;
+      border-radius: 3px;
+
+      &.activo {
+        background-image: url(/imgs/boton_bajar_2.svg);
+      }
     }
   }
 }
 
 .listaLugares {
   list-style: none;
-  margin: 1.5em 0 0 0;
-  padding: 0;
-  max-height: 60%;
+  margin: 1.3em 0 0 0;
+  padding: 0 0 7em 0;
+  max-height: 40vh;
   overflow-y: scroll; /* Add the ability to scroll */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
