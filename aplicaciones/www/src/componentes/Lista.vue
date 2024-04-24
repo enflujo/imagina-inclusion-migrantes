@@ -90,17 +90,6 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
       >
     </div>
 
-    <div id="seleccionados" ref="seleccionados">
-      <span
-        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
-        :key="`lugar${i}`"
-        class="lugarElegido"
-        @click="actualizarSeleccionados(lugar)"
-      >
-        {{ lugar.nombre }}</span
-      >
-    </div>
-
     <ul class="listaLugares">
       <li
         v-for="(elemento, i) in datos"
@@ -125,6 +114,7 @@ h2 {
 #contenedorIndice {
   max-height: 60vh;
   overflow: hidden;
+  background-color: var(--naranja);
 }
 
 #seleccionados {
@@ -134,7 +124,7 @@ h2 {
   .lugarElegido {
     border: black 1px solid;
     border-radius: 10px;
-    margin: 0 0.5em 0 0;
+    margin: 0.5em 0.5em 0.5em 0;
     padding: 0.2em 0.3em;
     cursor: pointer;
 
@@ -146,6 +136,7 @@ h2 {
 
 #buscadoresBotones {
   display: flex;
+  margin-bottom: 0.5em;
 
   #ordenarPor {
     display: flex;
@@ -215,8 +206,8 @@ h2 {
 
 .listaLugares {
   list-style: none;
-  margin: 1.3em 0 0 0;
-  padding: 0 0 7em 0;
+  margin: 0;
+  padding: 0.3em 0 7em 0;
   max-height: 40vh;
   overflow-y: scroll; /* Add the ability to scroll */
   -ms-overflow-style: none; /* IE and Edge */

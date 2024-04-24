@@ -37,7 +37,14 @@ const cerebroDatos = usarCerebroDatos();
 <style lang="scss" scoped>
 #contenedorComp {
   height: 28vh;
-  overflow-y: auto;
+  background-color: var(--naranja);
+  overflow-y: auto; /* Add the ability to scroll */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
 }
 #seleccionadosComp {
   border-top: 2px solid #000000;

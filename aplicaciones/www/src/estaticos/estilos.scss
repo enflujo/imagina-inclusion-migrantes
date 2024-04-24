@@ -23,7 +23,7 @@ body {
 }
 
 ::selection {
-  background-color: var(--amarillo);
+  background-color: var(--naranja2);
   color: #130808;
 }
 
@@ -36,6 +36,7 @@ main {
   width: 35%;
   height: var(--minAltoSeccion);
   border: black solid 2px;
+  background-color: var(--naranja);
   padding: 0 2em 0 2em;
   overflow: auto;
 
@@ -84,7 +85,7 @@ main {
 
 #contenedorIntroduccion {
   height: 100vh;
-  background-color: var(--naranja);
+  background-color: var(--naranja2);
   padding-top: 35vh;
 
   #tituloSubtitulo {
