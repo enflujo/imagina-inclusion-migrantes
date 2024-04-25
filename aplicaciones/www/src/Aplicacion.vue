@@ -33,7 +33,7 @@ nav {
 
   a,
   a:link {
-    color: black;
+    color: var(--negro);
     padding: 0 1rem;
     border-left: 1px solid;
 

@@ -37,7 +37,7 @@ export default class Bola {
     this.v = { x: velX, y: velY };
     this.activo = !esMuro;
     this.m = m !== undefined ? m : Math.ceil(Math.PI * r * r);
-    this.color = color || 'black';
+    this.color = color || '#c22f20';
     this.esMuro = esMuro;
     this.largoMuro = (Math.random() * this.r) / 2;
     this.parabola = 1.1;
@@ -48,6 +48,10 @@ export default class Bola {
     //     this.posX = 250;
     //   }
     // }
+
+    if (esMuro) {
+      this.color = '#c22f20';
+    }
 
     this.corono = false;
   }
@@ -75,7 +79,7 @@ export default class Bola {
 
         this.parabola += 0.01;
       }
-      this.color = 'rgb(4, 149, 168)'; // Color de las bolas cuando pasan al otro lado
+      this.color = '#f7941d'; // Color de las bolas cuando pasan al otro lado
     }
   }
 

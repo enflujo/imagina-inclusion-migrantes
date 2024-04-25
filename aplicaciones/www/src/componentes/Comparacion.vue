@@ -73,7 +73,7 @@ const cerebroDatos = usarCerebroDatos();
     display: block;
     height: 1em;
     width: 100px;
-    background-color: var(--azul);
+    background-color: var(--naranja2);
     position: absolute;
   }
 

@@ -90,7 +90,7 @@ function llenarBaseLista() {
   height: 39px;
   font-family: var(--fuenteParrafo);
   border: 2.5px solid var(--naranja2);
-  color: black;
+  color: var(--negro);
 }
 
 option {

@@ -122,7 +122,7 @@ h2 {
   align-items: flex-start;
 
   .lugarElegido {
-    border: black 1px solid;
+    border: var(--negro) 1px solid;
     border-radius: 10px;
     margin: 0.5em 0.5em 0.5em 0;
     padding: 0.2em 0.3em;
@@ -147,7 +147,7 @@ h2 {
 
     .botonFiltro {
       cursor: pointer;
-      background-color: black;
+      background-color: var(--negro);
       color: white;
 
       transition: opacity 0.25s ease-in-out;
@@ -210,6 +210,7 @@ h2 {
   padding: 0.3em 0 7em 0;
   max-height: 40vh;
   overflow-y: scroll;
+  margin-right: -0.8em;
 }
 
 .lugar {
@@ -220,7 +221,7 @@ h2 {
   }
 
   &.activo {
-    background-color: var(--amarillo);
+    background-color: var(--naranja2);
   }
 }
 

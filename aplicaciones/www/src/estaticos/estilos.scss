@@ -35,7 +35,9 @@ main {
 .seccionLado {
   width: 35%;
   height: var(--minAltoSeccion);
-  border: black solid 2px;
+  border: transparent solid 2px;
+  border-radius: 4px;
+
   background-color: var(--naranja);
   padding: 0 2em 0 2em;
   overflow: auto;
@@ -68,10 +70,13 @@ main {
   flex-direction: column;
   width: 24vw;
   overflow: auto;
+  //color del scroll
+  scrollbar-color: var(--grisOscuro) var(--naranja);
 }
 
 .seccionCentro {
-  border: 2px solid black;
+  border: 2px solid transparent;
+  border-radius: 4px;
   margin-bottom: 1em;
   padding: 0 1.75em;
 }
