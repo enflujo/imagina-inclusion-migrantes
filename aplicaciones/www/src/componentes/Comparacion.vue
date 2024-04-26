@@ -27,8 +27,32 @@ const cerebroDatos = usarCerebroDatos();
         v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
         :key="`diferencia${i}`"
         class="diferencia"
-        :style="`top:${39 * i}px; left: ${cerebroDatos.datos[lugar.id].valorIndice}; width:  ${cerebroDatos.lugaresSeleccionados.length > 1 ? 20 - 8 : 100}%`"
+        :style="`top:${i > 0 ? 33 * i - 10 : 0}px; left: ${cerebroDatos.lugaresSeleccionados.length > 1 && i > 0 ? (cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice < cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice ? cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice : cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice) : 0}%; width:  ${
+          cerebroDatos.lugaresSeleccionados.length > 1 && i > 0
+            ? (cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice >
+              cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice
+                ? cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice -
+                  cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice
+                : cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice -
+                  cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice
+              ).toFixed(2)
+            : 0
+        }%`"
       ></span>
+      <span
+        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        :key="`diferencia-etiqueta${i}`"
+        class="diferencia-etiqueta"
+        :style="`top:${i > 0 ? 33 * i - 10 : 0}px; left: ${cerebroDatos.lugaresSeleccionados.length > 1 && i > 0 ? cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice : 0}%;`"
+        >{{
+          cerebroDatos.lugaresSeleccionados.length > 1 && i > 0
+            ? `dif: ${Math.abs(
+                cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice -
+                  cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice
+              ).toFixed(2)}`
+            : ''
+        }}
+      </span>
       <span
         v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
         :key="`lugar-barra${i}`"
@@ -88,6 +112,13 @@ const cerebroDatos = usarCerebroDatos();
     background-color: var(--negro);
     display: block;
     position: absolute;
+  }
+
+  .diferencia-etiqueta {
+    display: block;
+    position: absolute;
+    font-size: 0.7em;
+    color: grey;
   }
 
   .etiqueta {
