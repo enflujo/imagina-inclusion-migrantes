@@ -126,19 +126,19 @@ const cerebroDatos = usarCerebroDatos();
 
   .diferencia {
     height: 1px;
-    background-color: grey;
+    border-top: 1px var(--naranja2) dashed;
     display: block;
   }
 
   .diferencia-limite {
-    height: 0.7em;
-    border-left: 1px grey solid;
+    height: 0.3em;
+    border-left: 1px var(--naranja2) dashed;
   }
 
   .diferencia-etiqueta {
     display: block;
     font-size: 0.7em;
-    color: grey;
+    color: var(--naranja2);
     margin-inline-start: 0.2em;
   }
 }
