@@ -1,25 +1,36 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import type { Ref } from 'vue';
 import fuzzysort from 'fuzzysort';
 import { usarCerebroDatos } from '@/cerebros/datos';
-import { storeToRefs } from 'pinia';
+import type { DatosBuscador } from 'tipos/compartidos';
 
 const buscador: Ref<HTMLInputElement | undefined> = ref();
-const sugerencias: Ref<string[]> = ref(['']);
-const fuenteBusqueda: Ref<{ nombre: string }[]> = ref([]);
+const sugerencias: Ref<DatosBuscador[]> = ref([]);
+const enFoco: Ref<boolean> = ref(false);
 const cerebroDatos = usarCerebroDatos();
-const { datos } = storeToRefs(cerebroDatos);
-let sugerencia: { id: number; nombre: string; dep: string } | undefined;
 
-watch(datos, () => {
-  if (fuenteBusqueda.value.length) return;
+/**
+ * Eventos
+ */
+const foco = () => (enFoco.value = true);
+const fueraFoco = () => (enFoco.value = false);
+const seleccionar = (lugar: DatosBuscador) => {
+  if (!buscador.value) return;
+  cerebroDatos.seleccionarLugar(lugar);
+  buscador.value.value = lugar.nombre;
+};
 
-  fuenteBusqueda.value = datos.value;
+onMounted(async () => {
+  if (!cerebroDatos.datosBuscador.length) {
+    await cerebroDatos.cargarDatosBuscador();
+  }
+
   llenarBaseLista();
 });
 
 function buscar() {
+  if (!cerebroDatos.datosBuscador.length) return;
   const texto = buscador.value?.value;
 
   if (!texto || !texto.length) {
@@ -27,36 +38,17 @@ function buscar() {
     return;
   }
 
-  const busqueda = fuzzysort.go(texto, fuenteBusqueda.value, { key: 'nombre' });
+  const busqueda = fuzzysort.go(texto, cerebroDatos.datosBuscador, { key: 'nombre' });
 
   if (busqueda.total > 0) {
-    sugerencias.value = [];
-
-    busqueda.forEach((valor) => {
-      const indiceSugerencia = fuenteBusqueda.value.findIndex((mun) => mun.nombre === valor.obj.nombre);
-      sugerencia = {
-        id: cerebroDatos.datos[indiceSugerencia].id as number,
-        nombre: cerebroDatos.datos[indiceSugerencia].nombre,
-        dep: cerebroDatos.datos[indiceSugerencia].dep,
-      };
-      if (sugerencia) sugerencias.value.push(sugerencia.nombre);
-    });
-  }
-}
-
-function elegirLugar() {
-  if (!sugerencia) return;
-  if (cerebroDatos.lugaresSeleccionados.length < 4) {
-    cerebroDatos.lugaresSeleccionados.push({ id: sugerencia.id, nombre: sugerencia.nombre });
+    sugerencias.value = busqueda.map((resultado) => resultado.obj);
+  } else {
+    sugerencias.value = [{ id: -1, nombre: 'Sin resultados' }];
   }
 }
 
 function llenarBaseLista() {
-  sugerencias.value = [];
-
-  fuenteBusqueda.value.forEach((mun) => {
-    sugerencias.value.push(mun.nombre);
-  });
+  sugerencias.value = cerebroDatos.datosBuscador;
 }
 </script>
 
@@ -70,12 +62,20 @@ function llenarBaseLista() {
       placeholder="Buscar Municipio"
       list="sugerencias"
       @input="buscar"
-      @change="elegirLugar"
+      @focusin="foco"
+      @focusout="fueraFoco"
     />
 
-    <datalist id="sugerencias">
-      <option v-for="opcion in sugerencias" :value="opcion"></option>
-    </datalist>
+    <div id="sugerencias" :class="enFoco ? 'visible' : ''">
+      <span
+        class="opcion"
+        v-for="opcion in sugerencias"
+        :key="opcion.nombre"
+        @mousedown="seleccionar(opcion)"
+        :class="cerebroDatos.lugaresSeleccionados.includes(opcion) ? 'esconder' : ''"
+        >{{ opcion.nombre }}</span
+      >
+    </div>
   </div>
 </template>
 
@@ -84,6 +84,7 @@ function llenarBaseLista() {
   width: 60%;
   border-color: transparent;
 }
+
 #buscador {
   padding: 10px;
   width: 100%;
@@ -93,7 +94,38 @@ function llenarBaseLista() {
   color: black;
 }
 
-option {
-  display: block !important;
+#sugerencias {
+  position: absolute;
+  height: 0;
+  width: 400px;
+  overflow: hidden;
+  background-color: #eaeff2f1;
+  font-size: 0.85em;
+  line-height: 1.6;
+  border: none;
+  transition: all 0.15s ease-in;
+  padding: 0;
+  z-index: 99;
+
+  &.visible {
+    height: 42vh;
+    padding: 0.3em 0.5em;
+    border: 2px solid;
+    overflow: auto;
+  }
+
+  .opcion {
+    display: block;
+    cursor: pointer;
+
+    &.esconder {
+      display: none;
+    }
+
+    &:hover {
+      background-color: rgb(39, 62, 88);
+      color: white;
+    }
+  }
 }
 </style>

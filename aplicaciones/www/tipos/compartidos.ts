@@ -1,5 +1,5 @@
 export interface DatosInclusion {
-  id?: number;
+  id: number;
   nombre: string;
   dep: string;
   pobVenMun: number;
@@ -11,4 +11,9 @@ export interface DatosInclusion {
   latitud: number;
   longitud: number;
   poblacionTotal?: number;
+}
+
+export interface DatosBuscador {
+  id: number;
+  nombre: string;
 }

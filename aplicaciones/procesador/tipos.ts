@@ -27,3 +27,37 @@ export type ObjetoMunicipioCoord = {
   llaves: string[];
   datos: MunicipioCoordenadas[];
 };
+
+export type FilaMunicipioBDJuan = [nombre: string, nombreDepto: string, lat: number, lon: number];
+
+export type Fila = [
+  /** Nombre del municipio */
+  municipio: string,
+  /** Código del municipio */
+  codigoMun: number,
+  /** Nombre del departamento */
+  departamento: string,
+  /** Código del departamento */
+  codigoDep: number,
+  /** Número de personas venezolanas por municipio */
+  pobVenMun: number,
+  /** Porcentaje de venezolanxs regularizadxs por municipio */
+  porcentRegularMun: number,
+  /** Porcentaje de venezolanxs afiliadxs por depto */
+  porcentAfiliadDep: number,
+  /** Ranking de inclusión */
+  valorRank: number,
+  /** Índice de inclusión */
+  valorIndice: number,
+  /** Índice de encuestados */
+  indiceEncuestado: number,
+];
+
+export type FilaPoblacion = [
+  codigo: string,
+  departamento: string,
+  municipio: string,
+  poblacionHogares: number,
+  poblacionLEA: number,
+  poblacionTotal: string,
+];

@@ -39,7 +39,7 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
   if (indice > -1) {
     cerebroDatos.lugaresSeleccionados.splice(indice, 1);
   } else {
-    if (lugaresSeleccionados.length <= 3) {
+    if (lugaresSeleccionados.length <= cerebroDatos.limiteLugares - 1) {
       cerebroDatos.lugaresSeleccionados.push({
         id: datosLugar.id as number,
         nombre: datosLugar.nombre,

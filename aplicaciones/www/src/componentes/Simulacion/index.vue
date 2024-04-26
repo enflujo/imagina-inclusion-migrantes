@@ -48,7 +48,6 @@ onMounted(async () => {
   }
 
   datos.value = cerebroDatos.datos;
-
   contexto.value = lienzo.value.getContext('2d');
   escalar();
   iniciarSimulacion();
@@ -134,7 +133,7 @@ function mostrarInfo() {
 <template>
   <section ref="contenedor">
     <div class="infoSimulacion">
-      <h2 @click="quitarLugar($event)">{{ nombreLugar }}</h2>
+      <h2>{{ nombreLugar }}</h2>
       <div class="info">
         <p class="datosLugar">{{ infoPobTot }}</p>
         <p class="datosLugar">{{ infoPobVen }}</p>
