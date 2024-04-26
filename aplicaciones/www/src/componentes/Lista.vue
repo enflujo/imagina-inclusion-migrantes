@@ -221,7 +221,7 @@ h2 {
   }
 
   &.activo {
-    background-color: var(--naranja2);
+    background-color: var(--rosado);
   }
 }
 

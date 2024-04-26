@@ -79,7 +79,7 @@ export default class Bola {
 
         this.parabola += 0.01;
       }
-      this.color = '#f7941d'; // Color de las bolas cuando pasan al otro lado
+      this.color = '#00a753'; // Color de las bolas cuando pasan al otro lado
     }
   }
 

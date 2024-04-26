@@ -23,7 +23,7 @@ body {
 }
 
 ::selection {
-  background-color: var(--naranja2);
+  background-color: var(--amarillo);
   color: #130808;
 }
 
@@ -35,11 +35,10 @@ main {
 .seccionLado {
   width: 35%;
   height: var(--minAltoSeccion);
-  border: transparent solid 2px;
-  border-radius: 4px;
-
+  // border: var(--naranja2) solid 2px;
+  // border-radius: 4px;
   background-color: var(--naranja);
-  padding: 0 2em 0 2em;
+  padding: 0em 2em 0em 2em;
   overflow: auto;
 
   .mapboxgl-popup-tip {
@@ -75,8 +74,8 @@ main {
 }
 
 .seccionCentro {
-  border: 2px solid transparent;
-  border-radius: 4px;
+  // border: 2px solid var(--naranja2);
+  // border-radius: 4px;
   margin-bottom: 1em;
   padding: 0 1.75em;
 }
