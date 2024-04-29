@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type Map } from 'mapbox-gl';
-import type { Feature, FeatureCollection, GeoJsonProperties, Point, Polygon } from 'geojson';
+import type { Feature, FeatureCollection, Polygon } from 'geojson';
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { Delaunay } from 'd3';
+import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
-const contenedorCajaMapa: Ref<HTMLDivElement | null> = ref(null);
 const mapa: Ref<Map | null> = ref(null);
 const cerebroDatos = usarCerebroDatos();
 
@@ -94,15 +94,14 @@ onMounted(async () => {
         'fill-extrusion-color': {
           property: 'indice',
           stops: [
-            [0.1, '#c22f20'],
-            [50, '#ff9800'],
-            [100, '#80ffa1'],
+            [25, colorMax],
+            [50, colorMedio],
+            [100, colorMin],
           ],
         },
 
         'fill-extrusion-opacity': 0.6,
 
-        //['get', 'altura'],
         'fill-extrusion-height': {
           property: 'indice',
           stops: [
@@ -124,28 +123,6 @@ onMounted(async () => {
         'line-width': 0,
       },
     });
-
-    // instanciaMapa.addLayer({
-    //   id: 'municipios-puntos',
-    //   type: 'circle',
-    //   source: 'municipios',
-    //   minzoom: 5,
-
-    //   paint: {
-    //     'circle-radius': 3,
-    //     'circle-color': {
-    //       property: 'indice',
-    //       stops: [
-    //         [3, '#c22f20'],
-    //         [50, '#ff9800'],
-    //         [100, '#00ff00'],
-    //       ],
-    //     },
-
-    //     'circle-stroke-color': 'black',
-    //     'circle-stroke-width': 0,
-    //   },
-    // });
 
     const leyenda = new mapboxgl.Popup();
 
@@ -183,7 +160,7 @@ onUnmounted(() => {
 
 <template>
   <section class="seccionLado" id="contenedorCajaMapa">
-    <h2>Mapa de inclusión</h2>
+    <h2 class="tituloSeccion">Mapa de inclusión</h2>
     <div class="seccion" id="contenedorMapa" ref="contenedorMapa"></div>
   </section>
 </template>
