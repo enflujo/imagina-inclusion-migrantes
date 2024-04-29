@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router';
   <header>
     <nav>
       <RouterLink to="/">Inicio</RouterLink>
-      <RouterLink to="/sobre">Sobre</RouterLink>
+      <RouterLink to="/creditos">Créditos</RouterLink>
     </nav>
   </header>
 
@@ -36,9 +36,10 @@ nav {
     color: var(--negro);
     padding: 0 1rem;
     border-left: 1px solid;
+    text-decoration: none;
 
     &.router-link-exact-active {
-      background-color: var(--rosado);
+      background-color: black;
       color: var(--blanco);
 
       &:hover {
