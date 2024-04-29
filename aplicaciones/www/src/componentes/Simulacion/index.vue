@@ -126,7 +126,7 @@ function mostrarInfo() {
   nombreLugar.value = `${datosLugar.nombre}, ${datosLugar.dep}`;
   infoPobTot.value = `Población total: ${datosLugar.poblacionTotal?.toLocaleString('en-US')}`;
   infoPobVen.value = `Población venezolana: ${datosLugar.pobVenMun.toLocaleString('en-US')}`;
-  infoPobReg.value = `Población regularizada: ${datosLugar.porcentRegularMun.toFixed(2)}%`;
+  infoPobReg.value = `Población venezolana regularizada: ${datosLugar.porcentRegularMun.toFixed(2)}%`;
 }
 </script>
 

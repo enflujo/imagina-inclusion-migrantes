@@ -147,8 +147,8 @@ h2 {
 
     .botonFiltro {
       cursor: pointer;
-      background-color: black;
-      color: white;
+      background-color: var(--negro);
+      color: var(--blanco);
 
       transition: opacity 0.25s ease-in-out;
 
