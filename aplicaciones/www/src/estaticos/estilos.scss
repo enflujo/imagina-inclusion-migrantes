@@ -3,7 +3,7 @@
 html {
   box-sizing: border-box;
   height: 100%;
-  background: linear-gradient(to right, rgba(255, 249, 169, 0.686), rgba(187, 228, 207, 0.68) 100%);
+  background: linear-gradient(to right, rgba(255, 169, 172, 0.379), rgba(208, 238, 223, 0.68) 100%);
   font-family: var(--fuenteParrafo);
   font-feature-settings:
     'liga' 1,
@@ -35,14 +35,10 @@ main {
 .seccionLado {
   width: 35%;
   height: var(--minAltoSeccion);
-  // border: var(--naranja2) solid 2px;
-  // border-radius: 4px;
   background-color: var(--naranja);
   padding: 0em 2em 0em 2em;
   overflow: auto;
 
-  .mapboxgl-popup-tip {
-  }
   .mapboxgl-popup-content {
     padding: 0.6em 1.2em 0.6em 0.8em;
 
@@ -50,11 +46,13 @@ main {
       font-family: var(--fuenteParrafo);
       margin: 0;
       font-size: 1.1em;
+
       .nombreMunicipio {
         font-weight: 600;
         font-size: 1.1em;
         margin: 0;
       }
+
       .yanaina {
         font-weight: 400;
         font-size: 1.1em;
@@ -71,13 +69,6 @@ main {
   overflow: auto;
   //color del scroll
   scrollbar-color: var(--grisOscuro) var(--naranja);
-}
-
-.seccionCentro {
-  border: 2px solid transparent;
-  border-radius: 4px;
-  margin-bottom: 1em;
-  padding: 0 1.75em;
 }
 
 #contador {
@@ -107,12 +98,13 @@ main {
       display: flex;
       flex-direction: column;
       margin: 3vh 10%;
-
       text-align: center;
+
       h3 {
         font-weight: 300;
         font-size: 2em;
       }
+
       h4 {
         margin-top: 0;
         font-weight: 300;
@@ -121,6 +113,10 @@ main {
   }
 }
 
-h2 {
+.tituloSeccion {
   margin-top: 1em;
+}
+
+.centrado {
+  padding: 0 27.52px;
 }

@@ -82,7 +82,6 @@ function llenarBaseLista() {
 <style>
 #contenedorBuscador {
   width: 60%;
-  border-color: transparent;
 }
 
 #buscador {
