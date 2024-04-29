@@ -82,7 +82,6 @@ function llenarBaseLista() {
 <style>
 #contenedorBuscador {
   width: 60%;
-  border-color: transparent;
 }
 
 #buscador {
@@ -90,8 +89,8 @@ function llenarBaseLista() {
   width: 100%;
   height: 39px;
   font-family: var(--fuenteParrafo);
-  border: 2.5px solid var(--naranja2);
-  color: black;
+  border: 1.5px solid var(--negro);
+  color: var(--negro);
 }
 
 #sugerencias {
@@ -99,7 +98,8 @@ function llenarBaseLista() {
   height: 0;
   width: 400px;
   overflow: hidden;
-  background-color: #eaeff2f1;
+  background-color: #fffee6fc;
+
   font-size: 0.85em;
   line-height: 1.6;
   border: none;
@@ -123,8 +123,8 @@ function llenarBaseLista() {
     }
 
     &:hover {
-      background-color: rgb(39, 62, 88);
-      color: white;
+      background-color: rgba(255, 241, 163, 0.5);
+      color: var(--negro);
     }
   }
 }

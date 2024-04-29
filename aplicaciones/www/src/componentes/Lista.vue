@@ -1,13 +1,33 @@
 <script setup lang="ts">
 import { usarCerebroDatos } from '@/cerebros/datos';
-import type { DatosInclusion } from 'tipos/compartidos';
+import type { DatosBuscador, DatosInclusion } from 'tipos/compartidos';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import Buscador from './Buscador.vue';
+import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
+import { escalaColores } from '@/utilidades/ayudas';
+
 type OrdenLista = 'ascendente' | 'descendente' | 'alfabetico';
 const cerebroDatos = usarCerebroDatos();
 const datos: Ref<DatosInclusion[]> = ref([]);
 const orden: Ref<OrdenLista> = ref('ascendente');
+const listaLugares: Ref<HTMLUListElement | null> = ref(null);
+
 const lugares = computed(() => cerebroDatos.lugaresSeleccionados);
+const coloresAltos = escalaColores(20, 50, colorMax, colorMedio, 0.4);
+const coloresBajos = escalaColores(50, 100, colorMedio, colorMin, 0.4);
+
+function color(indice: number) {
+  if (indice >= 50) return coloresBajos(indice);
+  return coloresAltos(indice);
+}
+
+function buscarColor(id: number) {
+  const municipio = cerebroDatos.datos.find((lugar) => lugar.id === id);
+
+  if (municipio) {
+    return color(municipio.valorIndice);
+  }
+}
 
 onMounted(async () => {
   if (!cerebroDatos.cargados) {
@@ -16,7 +36,6 @@ onMounted(async () => {
 
   datos.value = cerebroDatos.datos;
   ordenarLista(orden.value);
-  cerebroDatos.lugaresSeleccionados.push({ id: datos.value[0].id as number, nombre: datos.value[0].nombre });
 });
 
 function ordenarLista(criterioOrden: OrdenLista) {
@@ -47,13 +66,24 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
     }
   }
 }
+
+function previsualizarLugar(lugar: DatosBuscador) {
+  if (!listaLugares.value) return;
+
+  const posY = listaLugares.value.querySelector<HTMLLIElement>(`#mun${lugar.id}`)?.offsetTop;
+
+  listaLugares.value.scrollTo({
+    top: posY,
+    behavior: 'smooth',
+  });
+}
 </script>
 
 <template>
   <section id="contenedorIndice" class="seccionCentro">
-    <h2>Índice de inclusión</h2>
+    <h2 class="tituloSeccion centrado">Índice de inclusión</h2>
 
-    <div id="buscadoresBotones">
+    <div id="buscadoresBotones" class="centrado">
       <Buscador />
 
       <div id="ordenarPor">
@@ -62,8 +92,7 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
           :class="`${orden === 'alfabetico' ? 'activo' : ''}`"
           @click="ordenarLista('alfabetico')"
           title="Alfabético"
-          >Alfabético</span
-        >
+        ></span>
         <span
           class="botonFiltro ascendente"
           :class="`${orden === 'ascendente' ? 'activo' : ''}`"
@@ -79,24 +108,28 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
       </div>
     </div>
 
-    <div id="seleccionados" ref="seleccionados">
+    <div id="seleccionados" ref="seleccionados" class="centrado">
       <span
         v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
         :key="`lugar${i}`"
         class="lugarElegido"
         @click="actualizarSeleccionados(lugar)"
+        :style="`background-color:${buscarColor(lugar.id)}`"
+        @mouseover="previsualizarLugar(lugar)"
       >
         {{ lugar.nombre }}</span
       >
     </div>
 
-    <ul class="listaLugares">
+    <ul class="listaLugares" ref="listaLugares">
       <li
         v-for="(elemento, i) in datos"
         :key="`${elemento.nombre}-${i}`"
+        :id="`mun${elemento.id}`"
         class="lugar"
         :class="`${lugares.length && lugares.find((lugar) => lugar.id === elemento.id) ? ' activo' : ''}`"
         @click="actualizarSeleccionados(elemento)"
+        :style="`background-color:${color(elemento.valorIndice)}`"
       >
         <span class="municipio">{{ elemento.nombre }}</span>
         <span class="departamento">, {{ elemento.dep }}</span>
@@ -147,9 +180,8 @@ h2 {
 
     .botonFiltro {
       cursor: pointer;
-      background-color: black;
-      color: white;
-
+      background-color: var(--negro);
+      color: var(--blanco);
       transition: opacity 0.25s ease-in-out;
 
       &:hover {
@@ -163,8 +195,6 @@ h2 {
       margin: 0;
       height: 39px;
       width: 47px;
-      background-color: transparent;
-      color: transparent;
       border-radius: 3px;
 
       &.activo {
@@ -178,8 +208,6 @@ h2 {
       margin: 0;
       height: 39px;
       width: 40px;
-      background-color: transparent;
-      color: transparent;
       border-radius: 3px;
 
       &.activo {
@@ -193,8 +221,6 @@ h2 {
       margin: 0;
       height: 39px;
       width: 40px;
-      background-color: transparent;
-      color: transparent;
       border-radius: 3px;
 
       &.activo {
@@ -207,20 +233,25 @@ h2 {
 .listaLugares {
   list-style: none;
   margin: 0;
-  padding: 0.3em 0 7em 0;
-  max-height: 40vh;
-  overflow-y: scroll;
+  padding: 0.3em 0 0.5em 0;
+  height: 38vh;
+  overflow-y: auto;
+  position: relative;
 }
 
 .lugar {
   cursor: pointer;
+  padding: 0 1.75em;
 
   &:hover {
-    background-color: rgba(255, 241, 163, 0.5);
+    background-color: rgb(29, 47, 58) !important;
+    color: white;
   }
 
   &.activo {
-    background-color: var(--amarillo);
+    // background-color: var(--negro) !important;
+    // color: white;
+    border: 2px solid;
   }
 }
 

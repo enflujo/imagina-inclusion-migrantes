@@ -10,12 +10,12 @@ const enrutador = createRouter({
       component: Inicio,
     },
     {
-      path: '/sobre',
-      name: 'sobre',
+      path: '/creditos',
+      name: 'creditos',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../paginas/Sobre.vue'),
+      component: () => import('../paginas/Creditos.vue'),
     },
   ],
 });
