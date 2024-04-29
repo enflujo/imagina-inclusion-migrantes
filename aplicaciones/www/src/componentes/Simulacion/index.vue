@@ -131,7 +131,7 @@ function mostrarInfo() {
 </script>
 
 <template>
-  <section ref="contenedor">
+  <section class="cajaSimulacion" ref="contenedor">
     <div class="infoSimulacion">
       <h2>{{ nombreLugar }}</h2>
       <div class="info">
@@ -153,7 +153,15 @@ function mostrarInfo() {
 .info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1em;
+  margin: 0.35em 0 0.75em 0;
+}
+
+.cajaSimulacion {
+  margin-bottom: 1.75em;
+}
+
+h2 {
+  margin-bottom: 0.2em;
 }
 
 .datosLugar {
@@ -165,7 +173,7 @@ function mostrarInfo() {
 }
 
 .lienzoSim {
-  border: 1px solid #7d7979;
+  border: 1px solid var(--negro);
 }
 
 .contador {
@@ -173,5 +181,16 @@ function mostrarInfo() {
   padding: 0.5em;
   width: fit-content;
   margin: 1em auto;
+}
+
+.botonesSimulacion {
+}
+
+// Cambiar estilos según tamaño de pantalla
+@media screen and (min-width: 1600px) {
+  h2 {
+    margin-bottom: 0.2em;
+    padding-right: 8vw;
+  }
 }
 </style>

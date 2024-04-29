@@ -38,6 +38,7 @@ const cerebroDatos = usarCerebroDatos();
 #contenedorComp {
   height: 28vh;
   background-color: var(--naranja);
+
   overflow-y: auto; /* Add the ability to scroll */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -49,7 +50,7 @@ const cerebroDatos = usarCerebroDatos();
 #seleccionadosComp {
   border-top: 2px solid #000000;
   border-left: 2px solid #000000;
-  margin: 0em 0em 1em 5em;
+  margin: 0em 0em 1em 4em;
   position: relative;
   height: 125px;
 
@@ -65,15 +66,18 @@ const cerebroDatos = usarCerebroDatos();
     left: -7em;
     width: 78px;
     font-size: 0.8em;
-    line-height: 0.8em;
+    line-height: 0.9em;
     text-align: right;
+    margin-left: 0.7em;
+    padding-right: 0.5em;
+    // margin-top: -0.2em;
   }
 
   .barra {
     display: block;
     height: 1em;
     width: 100px;
-    background-color: var(--azul);
+    background-color: var(--rosado);
     position: absolute;
   }
 

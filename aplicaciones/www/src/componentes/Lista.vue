@@ -210,6 +210,7 @@ h2 {
   padding: 0.3em 0 7em 0;
   max-height: 40vh;
   overflow-y: scroll;
+  margin-right: -0.8em;
 }
 
 .lugar {
@@ -220,7 +221,7 @@ h2 {
   }
 
   &.activo {
-    background-color: var(--amarillo);
+    background-color: var(--rosado);
   }
 }
 
