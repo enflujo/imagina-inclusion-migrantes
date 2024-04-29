@@ -5,8 +5,9 @@ const cerebroDatos = usarCerebroDatos();
 </script>
 
 <template>
-  <section id="contenedorComp" class="seccionCentro">
+  <section id="contenedorComp" class="centrado">
     <h2>Comparación</h2>
+
     <div id="seleccionadosComp" ref="seleccionadosComp">
       <p id="leyendaY">Índice de inclusión</p>
       <span
@@ -38,15 +39,9 @@ const cerebroDatos = usarCerebroDatos();
 #contenedorComp {
   height: 28vh;
   background-color: var(--naranja);
-
-  overflow-y: auto; /* Add the ability to scroll */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  .scroll-container::-webkit-scrollbar {
-    display: none;
-  }
+  padding-top: 3em;
 }
+
 #seleccionadosComp {
   border-top: 2px solid #000000;
   border-left: 2px solid #000000;
@@ -70,7 +65,6 @@ const cerebroDatos = usarCerebroDatos();
     text-align: right;
     margin-left: 0.7em;
     padding-right: 0.5em;
-    // margin-top: -0.2em;
   }
 
   .barra {
