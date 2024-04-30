@@ -127,18 +127,16 @@ function previsualizarLugar(lugar: DatosBuscador) {
 
     <div id="seleccionados" ref="seleccionados" class="centrado">
       <span
-        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        v-for="i = 0 in 4"
         :key="`lugar${i}`"
-        class="lugarElegido"
-        @click="actualizarSeleccionados(lugar)"
-        :style="`background-color:${buscarColor(lugar.id)}`"
-        @mouseover="previsualizarLugar(lugar)"
+        :class="`${cerebroDatos.lugaresSeleccionados[i - 1] ? 'pildora lugarElegido' : 'pildora'}`"
+        @click="actualizarSeleccionados(cerebroDatos.lugaresSeleccionados[i - 1])"
+        :style="`background-color:${cerebroDatos.lugaresSeleccionados[i - 1] ? buscarColor(cerebroDatos.lugaresSeleccionados[i - 1].id) : 'transparent'}`"
+        @mouseover="previsualizarLugar(cerebroDatos.lugaresSeleccionados[i - 1])"
       >
-        {{ lugar.nombre }}</span
+        {{ cerebroDatos.lugaresSeleccionados[i - 1] ? cerebroDatos.lugaresSeleccionados[i - 1].nombre : '' }}</span
       >
     </div>
-
-    <p class="centrado instrucciones">Elija hasta 4 lugares para comparar</p>
 
     <ul class="listaLugares" ref="listaLugares">
       <li
@@ -195,15 +193,26 @@ h2 {
   display: flex;
   align-items: flex-start;
 
-  .lugarElegido {
-    border: black 1px solid;
+  .pildora {
+    border: black 1px dashed;
     border-radius: 10px;
     margin: 0.5em 0.5em 0.5em 0;
     padding: 0.2em 0.3em;
     cursor: pointer;
+    min-height: 1.5em;
+    min-width: 21%;
+    font-size: 0.9em;
+    text-align: center;
 
     &:hover {
       background-color: var(--amarilloClaro);
+    }
+
+    &.lugarElegido {
+      border: black 1px solid;
+      height: fit-content;
+      width: fit-content;
+      min-width: 22%;
     }
   }
 }
