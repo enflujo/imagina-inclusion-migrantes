@@ -11,10 +11,12 @@ const cerebroDatos = usarCerebroDatos();
 const datos: Ref<DatosInclusion[]> = ref([]);
 const orden: Ref<OrdenLista> = ref('ascendente');
 const listaLugares: Ref<HTMLUListElement | null> = ref(null);
+const avisoInstrucciones: Ref<HTMLDivElement | null> = ref(null);
 
 const lugares = computed(() => cerebroDatos.lugaresSeleccionados);
 const coloresAltos = escalaColores(20, 50, colorMax, colorMedio, 0.4);
 const coloresBajos = escalaColores(50, 100, colorMedio, colorMin, 0.4);
+const esVisible = ref(false);
 
 function color(indice: number) {
   if (indice >= 50) return coloresBajos(indice);
@@ -55,8 +57,13 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
   const lugaresSeleccionados = cerebroDatos.lugaresSeleccionados;
   const indice = lugaresSeleccionados.findIndex((obj) => obj.id === datosLugar.id);
 
+  if (cerebroDatos.lugaresSeleccionados.length >= 4) {
+    esVisible.value = true;
+  }
+
   if (indice > -1) {
     cerebroDatos.lugaresSeleccionados.splice(indice, 1);
+    esVisible.value = false;
   } else {
     if (lugaresSeleccionados.length <= cerebroDatos.limiteLugares - 1) {
       cerebroDatos.lugaresSeleccionados.push({
@@ -80,8 +87,18 @@ function previsualizarLugar(lugar: DatosBuscador) {
 </script>
 
 <template>
-  <section id="contenedorIndice" class="seccionCentro">
+  <section id="contenedorIndice" class="seccionCentro" ref="contenedorIndice">
     <h2 class="tituloSeccion centrado">Índice de inclusión</h2>
+
+    <div
+      class="centrado"
+      id="avisoInstrucciones"
+      ref="avisoInstrucciones"
+      :class="{ visible: esVisible }"
+      @click="esVisible = false"
+    >
+      Puede comparar máximo 4 lugares
+    </div>
 
     <div id="buscadoresBotones" class="centrado">
       <Buscador />
@@ -110,14 +127,14 @@ function previsualizarLugar(lugar: DatosBuscador) {
 
     <div id="seleccionados" ref="seleccionados" class="centrado">
       <span
-        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        v-for="i = 0 in 4"
         :key="`lugar${i}`"
-        class="lugarElegido"
-        @click="actualizarSeleccionados(lugar)"
-        :style="`background-color:${buscarColor(lugar.id)}`"
-        @mouseover="previsualizarLugar(lugar)"
+        :class="`${cerebroDatos.lugaresSeleccionados[i - 1] ? 'pildora lugarElegido' : 'pildora'}`"
+        @click="actualizarSeleccionados(cerebroDatos.lugaresSeleccionados[i - 1])"
+        :style="`background-color:${cerebroDatos.lugaresSeleccionados[i - 1] ? buscarColor(cerebroDatos.lugaresSeleccionados[i - 1].id) : 'transparent'}`"
+        @mouseover="previsualizarLugar(cerebroDatos.lugaresSeleccionados[i - 1])"
       >
-        {{ lugar.nombre }}</span
+        {{ cerebroDatos.lugaresSeleccionados[i - 1] ? cerebroDatos.lugaresSeleccionados[i - 1].nombre : '' }}</span
       >
     </div>
 
@@ -150,19 +167,52 @@ h2 {
   background-color: var(--naranja);
 }
 
+#avisoInstrucciones {
+  display: none;
+  z-index: 99;
+  position: absolute;
+  left: 37%;
+  top: 45vh;
+  background-color: var(--rosado);
+  color: var(--negro);
+  padding: 6em;
+  border: 1px solid black;
+  border-radius: 20px;
+  cursor: pointer;
+
+  &.visible {
+    display: block;
+  }
+}
+
+.instrucciones {
+  text-align: left;
+}
+
 #seleccionados {
   display: flex;
   align-items: flex-start;
 
-  .lugarElegido {
-    border: black 1px solid;
+  .pildora {
+    border: black 1px dashed;
     border-radius: 10px;
     margin: 0.5em 0.5em 0.5em 0;
     padding: 0.2em 0.3em;
     cursor: pointer;
+    min-height: 1.5em;
+    min-width: 21%;
+    font-size: 0.9em;
+    text-align: center;
 
     &:hover {
       background-color: var(--amarilloClaro);
+    }
+
+    &.lugarElegido {
+      border: black 1px solid;
+      height: fit-content;
+      width: fit-content;
+      min-width: 22%;
     }
   }
 }
