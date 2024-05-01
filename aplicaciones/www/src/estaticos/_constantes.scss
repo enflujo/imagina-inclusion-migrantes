@@ -1,8 +1,3 @@
-$corte1: 450px;
-$corte2: 760px;
-$corte3: 1000px;
-$corte4: 1333px;
-
 :root {
   // Fuentes tipográficas hemochas
   --fuenteParrafo: 'Bevellier', 'Helvetica', 'Roboto', 'Arial', 'Tahoma', 'Verdana', sans-serif;
@@ -38,4 +33,9 @@ $corte4: 1333px;
   // Textos
 
   /// Medidas
+  $minCelular: 576px;
+  $minTablet: 768px;
+  $minPantalla: 992px;
+  $minPantallaGrande: 1333px;
+  $minPantallaGigante: 1600px;
 }
