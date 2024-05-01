@@ -1,7 +1,35 @@
 <script setup lang="ts">
+import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
 import { usarCerebroDatos } from '@/cerebros/datos';
+import { escalaColores } from '@/utilidades/ayudas';
+import type { DatosInclusion } from 'tipos/compartidos';
+import { computed } from 'vue';
 
 const cerebroDatos = usarCerebroDatos();
+const espacioY = 30;
+const coloresAltos = escalaColores(20, 50, colorMax, colorMedio, 0.4);
+const coloresBajos = escalaColores(50, 100, colorMedio, colorMin, 0.4);
+
+function color(indice: number) {
+  if (indice >= 50) return coloresBajos(indice);
+  return coloresAltos(indice);
+}
+
+// Lista de lugares
+const lugares = computed(() => {
+  const seleccionados = cerebroDatos.lugaresSeleccionados;
+  const datos = cerebroDatos.datos;
+  const res: DatosInclusion[] = [];
+  seleccionados.forEach((lugarSeleccionado) => {
+    const datosCompletosLugar = datos.find((lugar) => lugar.id === lugarSeleccionado.id);
+    if (datosCompletosLugar) res.push(datosCompletosLugar);
+  });
+
+  return res.sort((a, b) => a.valorIndice - b.valorIndice);
+});
+
+// Hacer otra lista de lugares pero sin contar el primer elemento para generar las barras comparativas.
+const lugaresDif = computed(() => lugares.value.filter((_, i) => i > 0));
 </script>
 
 <template>
@@ -10,59 +38,43 @@ const cerebroDatos = usarCerebroDatos();
 
     <div id="seleccionadosComp" ref="seleccionadosComp">
       <p id="leyendaY">Índice de inclusión</p>
+
       <span
-        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        v-for="(lugar, i) in lugares"
         :key="`lugar-nombre${i}`"
         class="nombreLugar"
-        :style="`top:${33 * i}px`"
+        :style="`top:${espacioY * i}px`"
       >
         {{ lugar.nombre }}</span
       >
+
       <span
-        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        v-for="(lugar, i) in lugares"
         :key="`lugar-barra${i}`"
         class="barra"
-        :style="`top:${33 * i}px; width:${cerebroDatos.datos[lugar.id].valorIndice}%`"
+        :style="`top:${espacioY * i}px;width:${lugar.valorIndice}%;background-color:${color(lugar.valorIndice)}`"
       ></span>
+
       <div
-        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        v-for="(lugar, i) in lugaresDif"
         class="diferencias"
         :key="`diferencias${i}`"
-        :style="`display:${i > 0 ? 'visible' : 'none'};top:${i > 0 ? 33 * i - 15 : 0}px; left: ${cerebroDatos.lugaresSeleccionados.length > 1 && i > 0 ? (cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice < cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice ? cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice : cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice) : 0}%;`"
+        :style="`top:${espacioY * (i + 1) - 15}px;left:${lugares[i].valorIndice}%;width: ${lugar.valorIndice - lugares[i].valorIndice}%`"
       >
-        <span class="diferencia-limite"> </span>
-        <span
-          class="diferencia"
-          :style="`top:${i > 0 ? 33 * i - 10 : 0}px; width:  ${
-            cerebroDatos.lugaresSeleccionados.length > 1 && i > 0
-              ? (cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice >
-                cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice
-                  ? cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice -
-                    cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice
-                  : cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice -
-                    cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice
-                ).toFixed(2)
-              : 0
-          }%`"
-        ></span>
-        <span :key="`diferencia-etiqueta${i}`" class="diferencia-limite"> </span>
+        <span class="diferencia-limite"></span>
+        <span class="diferencia" :style="`top:${espacioY * i - 10}px;`"></span>
+        <span :key="`diferenciaLimiteB${i}`" class="diferencia-limite"></span>
         <span :key="`diferencia-etiqueta${i}`" class="diferencia-etiqueta"
-          >{{
-            cerebroDatos.lugaresSeleccionados.length > 1 && i > 0
-              ? `${Math.abs(
-                  cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i].id].valorIndice -
-                    cerebroDatos.datos[cerebroDatos.lugaresSeleccionados[i - 1].id].valorIndice
-                ).toFixed(2)}`
-              : ''
-          }}
+          >{{ `${Math.abs(lugar.valorRank - lugares[i].valorRank)}` }}
         </span>
       </div>
+
       <span
-        v-for="(lugar, i) in cerebroDatos.lugaresSeleccionados"
+        v-for="(lugar, i) in lugares"
         :key="`lugar-barra${i}`"
         class="etiqueta"
-        :style="`top:${33 * i}px; left: ${cerebroDatos.datos[lugar.id].valorIndice}%`"
-        >{{ cerebroDatos.datos[lugar.id].valorIndice.toFixed(2) }}</span
+        :style="`top:${espacioY * i}px; left: ${lugar.valorIndice}%`"
+        >{{ lugar.valorRank }}</span
       >
     </div>
   </section>
@@ -103,10 +115,9 @@ const cerebroDatos = usarCerebroDatos();
   .barra {
     display: block;
     height: 1em;
-    width: 100px;
-    background-color: var(--rosado);
     position: absolute;
   }
+
   .etiqueta {
     position: absolute;
     margin-left: 0.2em;
@@ -117,27 +128,28 @@ const cerebroDatos = usarCerebroDatos();
   // Diferencias entre dos barras
   .diferencias {
     position: absolute;
-    width: 100%;
     display: flex;
     align-items: center;
   }
 
   .diferencia {
     height: 1px;
-    border-top: 1px var(--naranja2) dashed;
+    border-top: 1px dashed;
     display: block;
+    width: 100%;
   }
 
   .diferencia-limite {
-    height: 0.3em;
-    border-left: 1px var(--naranja2) dashed;
+    height: 0.9em;
+    border-left: 1px dashed;
   }
 
   .diferencia-etiqueta {
     display: block;
     font-size: 0.7em;
-    color: var(--naranja2);
-    margin-inline-start: 0.2em;
+    position: absolute;
+    left: 100%;
+    margin-left: 3px;
   }
 }
 </style>

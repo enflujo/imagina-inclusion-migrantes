@@ -150,7 +150,7 @@ function previsualizarLugar(lugar: DatosBuscador) {
       >
         <span class="municipio">{{ elemento.nombre }}</span>
         <span class="departamento">, {{ elemento.dep }}</span>
-        <span class="valor">: {{ elemento.valorIndice.toFixed(2) }}</span>
+        <span class="valor">: {{ elemento.valorRank }}</span>
       </li>
     </ul>
   </section>
