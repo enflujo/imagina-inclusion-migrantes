@@ -25,7 +25,7 @@
     <h2 class="rol">Desarrolla:</h2>
 
     <a href="https://imagina.uniandes.edu.co/" target="_blank">
-      <img class="logoImagina logoGrande" src="/imgs/Imagina.webp" alt="Logo Centro IMAGINA"
+      <img class="logoImagina logoGrande" src="/imgs/logo_imagina.svg" alt="Logo Centro IMAGINA"
     /></a>
 
     <a href="https://enflujo.com" target="_blank">
@@ -39,13 +39,7 @@
 </template>
 
 <style lang="scss" scoped>
-/// Medidas porque no supe cómo traerlas desde 'constantes.scss'
-$minCelular: 576px;
-$minTablet: 768px;
-$minPantalla: 992px;
-$minPantallaGrande: 1333px;
-$minPantallaGigante: 1600px;
-///
+@import '../estaticos/constantes';
 
 main {
   width: 70vw;
@@ -79,7 +73,6 @@ p {
   &.logoImagina {
     height: auto;
     width: 70vw;
-    mix-blend-mode: multiply;
   }
 
   &.logoEnFlujo {
@@ -124,12 +117,10 @@ p {
 @media screen and (min-width: $minTablet) {
   .logoGrande {
     &.logoImagina {
-      height: auto;
       width: 60vw;
     }
 
     &.logoEnFlujo {
-      height: auto;
       width: 60vw;
     }
   }
@@ -141,6 +132,15 @@ p {
     justify-content: center;
     flex-wrap: unset;
   }
+  .logoGrande {
+    &.logoImagina {
+      width: 40vw;
+    }
+
+    &.logoEnFlujo {
+      width: 40vw;
+    }
+  }
 }
 
 @media screen and (min-width: $minPantallaGigante) {
@@ -150,23 +150,19 @@ p {
   }
   #tituloPagina {
     margin-top: 1em;
-    font-size: 3vw;
+    font-size: 4.5em;
   }
   p {
-    font-size: 1.1vw;
+    font-size: 1.7em;
   }
   .rol {
-    font-size: 1.5vw;
+    font-size: 2.2em;
   }
   .listaAgentes {
     line-height: 1em;
     .textoCreditos {
       padding-bottom: 0.3em;
     }
-  }
-
-  h3 {
-    font-size: 1vw;
   }
 
   li {
@@ -180,13 +176,10 @@ p {
     margin: 2em auto 0 auto;
 
     &.logoImagina {
-      height: auto;
       width: 30vw;
-      mix-blend-mode: multiply;
     }
 
     &.logoEnFlujo {
-      height: auto;
       width: 30vw;
     }
   }
