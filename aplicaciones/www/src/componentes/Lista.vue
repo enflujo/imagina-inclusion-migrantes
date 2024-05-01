@@ -97,7 +97,7 @@ function previsualizarLugar(lugar: DatosBuscador) {
       :class="{ visible: esVisible }"
       @click="esVisible = false"
     >
-      Puede comparar máximo 4 lugares
+      Puede comparar máximo {{ cerebroDatos.limiteLugares }} lugares
     </div>
 
     <div id="buscadoresBotones" class="centrado">
