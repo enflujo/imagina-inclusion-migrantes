@@ -32,7 +32,7 @@
       <img class="logoEnFlujo logoGrande" src="/imgs/enflujo_andes.svg" alt="Logo Laboratorio EnFlujo"
     /></a>
 
-    <div class="voceros">
+    <div class="listaAgentes">
       <ol></ol>
     </div>
   </main>
@@ -107,7 +107,7 @@ p {
     margin-left: 2em;
   }
 
-  .voceros {
+  .listaAgentes {
     line-height: 1em;
     .textoCreditos {
       padding-bottom: 0.3em;
@@ -158,7 +158,7 @@ p {
   .rol {
     font-size: 1.5vw;
   }
-  .voceros {
+  .listaAgentes {
     line-height: 1em;
     .textoCreditos {
       padding-bottom: 0.3em;
