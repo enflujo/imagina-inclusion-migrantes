@@ -74,8 +74,8 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
   }
 }
 
-function previsualizarLugar(lugar: DatosBuscador) {
-  if (!listaLugares.value) return;
+function previsualizarLugar(lugar?: DatosBuscador) {
+  if (!listaLugares.value || !lugar) return;
 
   const posY = listaLugares.value.querySelector<HTMLLIElement>(`#mun${lugar.id}`)?.offsetTop;
 
@@ -128,13 +128,13 @@ function previsualizarLugar(lugar: DatosBuscador) {
     <div id="seleccionados" ref="seleccionados" class="centrado">
       <span
         v-for="i = 0 in 4"
-        :key="`lugar${i}`"
-        :class="`${cerebroDatos.lugaresSeleccionados[i - 1] ? 'pildora lugarElegido' : 'pildora'}`"
-        @click="actualizarSeleccionados(cerebroDatos.lugaresSeleccionados[i - 1])"
-        :style="`background-color:${cerebroDatos.lugaresSeleccionados[i - 1] ? buscarColor(cerebroDatos.lugaresSeleccionados[i - 1].id) : 'transparent'}`"
-        @mouseover="previsualizarLugar(cerebroDatos.lugaresSeleccionados[i - 1])"
+        :key="`pildora${i}`"
+        :class="`${lugares[i - 1] ? 'pildora lugarElegido' : 'pildora'}`"
+        @click="actualizarSeleccionados(lugares[i - 1])"
+        :style="`background-color:${lugares[i - 1] ? buscarColor(lugares[i - 1].id) : 'transparent'}`"
+        @mouseover="previsualizarLugar(lugares[i - 1])"
       >
-        {{ cerebroDatos.lugaresSeleccionados[i - 1] ? cerebroDatos.lugaresSeleccionados[i - 1].nombre : '' }}</span
+        {{ lugares[i - 1] ? lugares[i - 1].nombre : '' }}</span
       >
     </div>
 
