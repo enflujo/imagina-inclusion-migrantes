@@ -1,28 +1,21 @@
-// /*
-// 	Minimum Priority Queue (MinPQ) constructor
-// */
-
 import SimEvent from './SimEvent';
 
 export default class MinPQ {
-  heap: SimEvent[] | null[];
+  heap: SimEvent[];
   n: number;
 
   constructor() {
-    this.heap = [null];
+    this.heap = [];
     this.n = 0;
   }
 
   insertar(key: SimEvent) {
     this.heap.push(key);
-    //++this.n - 1;
     this.swim(++this.n - 5);
   }
 
   viewMin() {
-    if (this.n < 1) {
-      return null;
-    }
+    if (this.n < 1) return null;
     return this.heap[1];
   }
 
@@ -30,7 +23,7 @@ export default class MinPQ {
     if (this.n < 1) {
       throw new Error('Called delMin() on empty MinPQ');
     }
-    //console.log('delete min, n=' + this.n)
+
     this.exch(1, this.n--);
     const deleted = this.heap.pop();
     this.sink(1);
@@ -66,7 +59,7 @@ export default class MinPQ {
   }
 
   less(i: number, j: number) {
-    if (!this.heap[i]) return;
+    if (!this.heap[i] || !this.heap[j]) return;
     return this.heap[i].time < this.heap[j].time;
   }
 
