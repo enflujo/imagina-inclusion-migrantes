@@ -82,6 +82,7 @@ function llenarBaseLista() {
 <style>
 #contenedorBuscador {
   width: 60%;
+  position: relative;
 }
 
 #buscador {
@@ -96,10 +97,9 @@ function llenarBaseLista() {
 #sugerencias {
   position: absolute;
   height: 0;
-  width: 400px;
+  width: 100%;
   overflow: hidden;
   background-color: #fffee6fc;
-
   font-size: 0.85em;
   line-height: 1.6;
   border: none;
