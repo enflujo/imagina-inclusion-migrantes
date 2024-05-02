@@ -25,7 +25,7 @@ const lugares = computed(() => {
     if (datosCompletosLugar) res.push(datosCompletosLugar);
   });
 
-  return res.sort((a, b) => a.valorIndice - b.valorIndice);
+  return res.sort((a, b) => b.valorIndice - a.valorIndice);
 });
 
 // Hacer otra lista de lugares pero sin contar el primer elemento para generar las barras comparativas.
@@ -59,13 +59,13 @@ const lugaresDif = computed(() => lugares.value.filter((_, i) => i > 0));
         v-for="(lugar, i) in lugaresDif"
         class="diferencias"
         :key="`diferencias${i}`"
-        :style="`top:${espacioY * (i + 1) - 15}px;left:${lugares[i].valorIndice}%;width: ${lugar.valorIndice - lugares[i].valorIndice}%`"
+        :style="`top:${espacioY * (i + 1) - 15}px;left:${lugar.valorIndice}%;width: ${lugares[i].valorIndice - lugar.valorIndice}%`"
       >
         <span class="diferencia-limite"></span>
         <span class="diferencia" :style="`top:${espacioY * i - 10}px;`"></span>
         <span :key="`diferenciaLimiteB${i}`" class="diferencia-limite"></span>
         <span :key="`diferencia-etiqueta${i}`" class="diferencia-etiqueta"
-          >{{ `${Math.abs(lugar.valorRank - lugares[i].valorRank)}` }}
+          >{{ `${Math.abs(lugares[i].valorIndice - lugar.valorIndice).toFixed(2)}` }}
         </span>
       </div>
 
@@ -74,7 +74,7 @@ const lugaresDif = computed(() => lugares.value.filter((_, i) => i > 0));
         :key="`lugar-barra${i}`"
         class="etiqueta"
         :style="`top:${espacioY * i}px; left: ${lugar.valorIndice}%`"
-        >{{ lugar.valorRank }}</span
+        >{{ lugar.valorIndice.toFixed(2) }}</span
       >
     </div>
   </section>
@@ -82,9 +82,8 @@ const lugaresDif = computed(() => lugares.value.filter((_, i) => i > 0));
 
 <style lang="scss" scoped>
 #contenedorComp {
-  height: 28vh;
-  background-color: var(--naranja);
-  padding-top: 3em;
+  padding-top: 2em;
+  height: 30%;
 }
 
 #seleccionadosComp {
