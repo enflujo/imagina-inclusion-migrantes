@@ -26,6 +26,12 @@ async function inicio() {
     return 0;
   });
 
+  const maxValorRanking = Math.max(...datosInclusion.map((lugar) => lugar.valorRank));
+  // Invertir sentido del ranking para que 1 sea el "mejor"
+  datosInclusion.forEach((lugar) => {
+    lugar.valorRank = maxValorRanking - lugar.valorRank + 1;
+  });
+
   guardarJSON(datosInclusion, 'inclusion-municipios');
   guardarJSON(datosBuscador, 'buscador');
 
