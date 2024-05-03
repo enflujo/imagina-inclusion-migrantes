@@ -141,7 +141,7 @@ onMounted(async () => {
           .setLngLat(coords)
           .setHTML(
             `<div id='leyenda'><p class="nombreMunicipio">${municipio} (${departamento})</p>` +
-              '<span class="yanaina">Índice de inclusión:</span> ' +
+              '<span class="yanaina">Ranking de inclusión:</span> ' +
               indice +
               '</div>'
           )

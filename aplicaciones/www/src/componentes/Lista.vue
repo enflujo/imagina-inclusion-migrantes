@@ -88,7 +88,7 @@ function previsualizarLugar(lugar?: DatosBuscador) {
 
 <template>
   <section id="contenedorIndice" class="seccionCentro" ref="contenedorIndice">
-    <h2 class="tituloSeccion centrado">Índice de inclusión</h2>
+    <h2 class="tituloSeccion centrado">Ranking de inclusión</h2>
 
     <div
       class="centrado"
@@ -148,9 +148,10 @@ function previsualizarLugar(lugar?: DatosBuscador) {
         @click="actualizarSeleccionados(elemento)"
         :style="`background-color:${color(elemento.valorIndice)}`"
       >
+        <span class="valor">{{ elemento.valorRank }}. </span>
         <span class="municipio">{{ elemento.nombre }}</span>
         <span class="departamento">, {{ elemento.dep }}</span>
-        <span class="valor">: {{ elemento.valorRank }}</span>
+        <span class="valor">: {{ elemento.valorIndice.toFixed(2) }}</span>
       </li>
     </ul>
   </section>
@@ -162,7 +163,6 @@ h2 {
 }
 
 #contenedorIndice {
-  max-height: 60vh;
   overflow: hidden;
   background-color: var(--naranja);
 }
@@ -198,7 +198,6 @@ h2 {
     border-radius: 10px;
     margin: 0.5em 0.5em 0.5em 0;
     padding: 0.2em 0.3em;
-    cursor: pointer;
     min-height: 1.5em;
     min-width: 21%;
     font-size: 0.9em;
@@ -213,6 +212,7 @@ h2 {
       height: fit-content;
       width: fit-content;
       min-width: 22%;
+      cursor: pointer;
     }
   }
 }
