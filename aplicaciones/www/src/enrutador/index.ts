@@ -6,7 +6,7 @@ const enrutador = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'inicio',
       component: Inicio,
     },
     {

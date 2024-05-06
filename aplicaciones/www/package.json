@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@enflujo/alquimia": "^2.0.0",
+    "@unhead/vue": "^1.9.9",
     "d3": "^7.9.0",
     "fuzzysort": "^2.0.4",
     "mapbox-gl": "^3.3.0",
