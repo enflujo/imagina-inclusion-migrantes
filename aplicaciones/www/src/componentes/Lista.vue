@@ -8,7 +8,6 @@ import { escalaColores } from '@/utilidades/ayudas';
 
 type OrdenLista = 'ascendente' | 'descendente' | 'alfabetico';
 const cerebroDatos = usarCerebroDatos();
-const datos: Ref<DatosInclusion[]> = ref([]);
 const orden: Ref<OrdenLista> = ref('ascendente');
 const listaLugares: Ref<HTMLUListElement | null> = ref(null);
 const avisoInstrucciones: Ref<HTMLDivElement | null> = ref(null);
@@ -18,13 +17,18 @@ const coloresAltos = escalaColores(20, 50, colorMax, colorMedio, 0.4);
 const coloresBajos = escalaColores(50, 100, colorMedio, colorMin, 0.4);
 const esVisible = ref(false);
 
+const datos = computed<DatosInclusion[]>(() => {
+  if (orden.value === 'ascendente') return cerebroDatos.datosA;
+  else if (orden.value === 'descendente') return cerebroDatos.datosD;
+  return cerebroDatos.datosABC;
+});
 function color(indice: number) {
   if (indice >= 50) return coloresBajos(indice);
   return coloresAltos(indice);
 }
 
 function buscarColor(id: number) {
-  const municipio = cerebroDatos.datos.find((lugar) => lugar.id === id);
+  const municipio = datos.value.find((lugar) => lugar.id === id);
 
   if (municipio) {
     return color(municipio.valorIndice);
@@ -35,22 +39,10 @@ onMounted(async () => {
   if (!cerebroDatos.cargados) {
     await cerebroDatos.cargarDatos();
   }
-
-  datos.value = cerebroDatos.datos;
-  ordenarLista(orden.value);
 });
 
 function ordenarLista(criterioOrden: OrdenLista) {
   orden.value = criterioOrden;
-  if (criterioOrden === 'ascendente') datos.value.sort((a, b) => a.valorRank - b.valorRank);
-  else if (criterioOrden === 'descendente') datos.value.sort((a, b) => b.valorRank - a.valorRank);
-  else if (criterioOrden === 'alfabetico') {
-    datos.value.sort((a, b) => {
-      if (a.nombre < b.nombre) return -1;
-      if (a.nombre > b.nombre) return 1;
-      return 0;
-    });
-  }
 }
 
 function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {

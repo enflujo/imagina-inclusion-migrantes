@@ -18,7 +18,7 @@ function color(indice: number) {
 // Lista de lugares
 const lugares = computed(() => {
   const seleccionados = cerebroDatos.lugaresSeleccionados;
-  const datos = cerebroDatos.datos;
+  const datos = cerebroDatos.datosA;
   const res: DatosInclusion[] = [];
   seleccionados.forEach((lugarSeleccionado) => {
     const datosCompletosLugar = datos.find((lugar) => lugar.id === lugarSeleccionado.id);

@@ -47,7 +47,7 @@ onMounted(async () => {
     await cerebroDatos.cargarDatos();
   }
 
-  datos.value = cerebroDatos.datos;
+  datos.value = cerebroDatos.datosA;
   contexto.value = lienzo.value.getContext('2d');
   escalar();
   iniciarSimulacion();
