@@ -114,15 +114,15 @@ onMounted(async () => {
     });
 
     // Borde de voronoi
-    instanciaMapa.addLayer({
-      id: 'borde',
-      type: 'line',
-      source: 'voronoi',
-      paint: {
-        'line-color': 'rgba(0, 0, 0, 0.3)',
-        'line-width': 0,
-      },
-    });
+    // instanciaMapa.addLayer({
+    //   id: 'borde',
+    //   type: 'line',
+    //   source: 'voronoi',
+    //   paint: {
+    //     'line-color': 'rgba(0, 0, 0, 0.3)',
+    //     'line-width': 1,
+    //   },
+    // });
 
     const leyenda = new mapboxgl.Popup();
 

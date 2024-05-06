@@ -32,6 +32,12 @@ async function inicio() {
     lugar.valorRank = maxValorRanking - lugar.valorRank + 1;
   });
 
+  datosInclusion.sort((a, b) => {
+    if (a.valorIndice < b.valorIndice) return -1;
+    if (a.valorIndice > b.valorIndice) return 1;
+    return 0;
+  });
+
   guardarJSON(datosInclusion, 'inclusion-municipios');
   guardarJSON(datosBuscador, 'buscador');
 

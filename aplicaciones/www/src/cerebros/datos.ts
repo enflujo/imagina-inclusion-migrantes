@@ -5,7 +5,9 @@ import { pedirDatos } from '@/utilidades/ayudas';
 import type { Feature, FeatureCollection, Point } from 'geojson';
 
 interface EstructuraDatos {
-  datos: DatosInclusion[];
+  datosA: DatosInclusion[];
+  datosD: DatosInclusion[];
+  datosABC: DatosInclusion[];
   datosBuscador: DatosBuscador[];
   geojson: FeatureCollection<Point>;
   cargados: boolean;
@@ -25,7 +27,9 @@ export const useCounterStore = defineStore('counter', () => {
 
 export const usarCerebroDatos = defineStore('datos', {
   state: (): EstructuraDatos => ({
-    datos: [],
+    datosA: [],
+    datosD: [],
+    datosABC: [],
     datosBuscador: [],
     geojson: { type: 'FeatureCollection', features: [] },
     cargados: false,
@@ -59,8 +63,15 @@ export const usarCerebroDatos = defineStore('datos', {
           geometry: { type: 'Point', coordinates: [lugar.longitud, lugar.latitud] },
         });
       });
-
-      this.datos = datos;
+      this.datosA = [...datos];
+      this.datosD = [...datos.reverse()];
+      this.datosABC = [
+        ...datos.sort((a, b) => {
+          if (a.nombre < b.nombre) return -1;
+          if (a.nombre > b.nombre) return 1;
+          return 0;
+        }),
+      ];
       this.geojson.features = lugares;
     },
 
