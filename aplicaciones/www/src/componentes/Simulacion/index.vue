@@ -183,9 +183,6 @@ h2 {
   margin: 1em auto;
 }
 
-.botonesSimulacion {
-}
-
 // Cambiar estilos según tamaño de pantalla
 @media screen and (min-width: 1600px) {
   h2 {

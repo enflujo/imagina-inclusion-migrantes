@@ -1,7 +1,8 @@
-$corte1: 450px;
-$corte2: 760px;
-$corte3: 1000px;
-$corte4: 1333px;
+$minCelular: 576px;
+$minTablet: 768px;
+$minPantalla: 992px;
+$minPantallaGrande: 1333px;
+$minPantallaGigante: 1600px;
 
 :root {
   // Fuentes tipográficas hemochas
@@ -27,15 +28,10 @@ $corte4: 1333px;
   --terracota: #c22f20;
   --blanco: #ffffff;
   --grisClaro: #fafafa;
-
   --grisOscuro: #c0c0ad;
   --verdeLokillo: #3dff40;
-
   --negro: #000100;
 
   // Fondos
   --minAltoSeccion: 90vh;
-  // Textos
-
-  /// Medidas
 }
