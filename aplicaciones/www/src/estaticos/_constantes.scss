@@ -1,8 +1,9 @@
-$minCelular: 576px;
-$minTablet: 768px;
-$minPantalla: 992px;
-$minPantallaGrande: 1333px;
-$minPantallaGigante: 1600px;
+$minCelular: 36em; // 576px;
+$minTablet: 48em; // 768px;
+$minPantalla: 62em; // 992px;
+$minPantallaGrande: 84em; //1344px;
+$minPantallaExtraGrande: 100em; //1600px;
+$minPantallaGigante: 130em; // 2080px;
 
 :root {
   // Fuentes tipográficas hemochas
@@ -33,5 +34,9 @@ $minPantallaGigante: 1600px;
   --negro: #000100;
 
   // Fondos
-  --minAltoSeccion: 90vh;
+  --minAltoSeccion: 75vh;
+
+  @media screen and (min-width: $minTablet) {
+    --minAltoSeccion: 90vh;
+  }
 }

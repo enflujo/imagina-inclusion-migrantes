@@ -47,6 +47,13 @@ useHead({
 </script>
 
 <template>
+  <div id="cajaBotonesCelular">
+    <div id="botonMapa" class="boton">Mapa</div>
+    <div id="botonComparación" class="boton">Comparación</div>
+    <div id="botonRanking" class="boton">Ranking</div>
+    <div id="botonComportamiento" class="boton">Comportamiento</div>
+  </div>
+
   <main id="contenedor">
     <Mapa />
     <section id="columnaCentral">
@@ -64,8 +71,5 @@ useHead({
 </template>
 
 <style lang="scss" scoped>
-#contenedor {
-  display: flex;
-  justify-content: space-around;
-}
+@import '../estaticos/constantes';
 </style>

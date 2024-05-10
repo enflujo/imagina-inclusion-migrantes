@@ -143,7 +143,7 @@ p {
   }
 }
 
-@media screen and (min-width: $minPantallaGigante) {
+@media screen and (min-width: $minPantallaExtraGrande) {
   main {
     width: 50vw;
     margin: 0 auto;
@@ -153,7 +153,7 @@ p {
     font-size: 4.5em;
   }
   p {
-    font-size: 1.7em;
+    font-size: 1.5em;
   }
   .rol {
     font-size: 2.2em;

@@ -166,6 +166,7 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
+@import '../estaticos/constantes';
 #contenedorCajaMapa {
   overflow: hidden;
   padding: 0;
@@ -175,6 +176,12 @@ onUnmounted(() => {
     padding: 0 1.2em;
   }
 
+  #contenedorMapa {
+    height: calc(100%);
+  }
+}
+
+@media screen and (min-width: $minTablet) {
   #contenedorMapa {
     height: calc(100% - 30px);
   }

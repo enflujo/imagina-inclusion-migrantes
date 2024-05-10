@@ -150,6 +150,8 @@ function previsualizarLugar(lugar?: DatosBuscador) {
 </template>
 
 <style lang="scss" scoped>
+@import '../estaticos/constantes';
+
 h2 {
   margin-bottom: 0.8em;
 }
@@ -211,6 +213,10 @@ h2 {
 
 #buscadoresBotones {
   display: flex;
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  right: 0px;
   margin-bottom: 0.5em;
 
   #ordenarPor {
@@ -304,5 +310,15 @@ h2 {
 .valor {
   font-size: 1.2em;
   font-weight: bold;
+}
+
+@media screen and (min-width: $minTablet) {
+  #buscadoresBotones {
+    position: relative;
+    display: flex;
+    top: auto;
+    left: auto;
+    right: auto;
+  }
 }
 </style>

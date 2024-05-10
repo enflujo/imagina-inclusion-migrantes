@@ -32,12 +32,43 @@ main {
   margin: 0 auto;
 }
 
+#cajaBotonesCelular {
+  display: flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 3vh;
+  z-index: 3;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 3vw;
+  font-size: 1em;
+  font-weight: 600;
+
+  .boton {
+    padding: 0.4em 0em;
+    border: 2.2px solid var(--negro);
+    background-color: var(--blanco);
+    cursor: pointer;
+    width: 30vw;
+    text-align: center;
+    border-radius: 4%;
+
+    &.activo {
+      opacity: 1;
+    }
+  }
+}
+
 .seccionLado {
-  width: 35%;
+  width: 95%;
   height: var(--minAltoSeccion);
   background-color: var(--naranja);
-  padding: 0em 2em 0em 2em;
-  overflow: auto;
+  margin-bottom: 2em;
+
+  h2 {
+    display: none;
+  }
 
   .mapboxgl-popup-content {
     padding: 0.6em 1.2em 0.6em 0.8em;
@@ -63,14 +94,11 @@ main {
 }
 
 #columnaCentral {
-  display: flex;
-  flex-direction: column;
-  width: 24vw;
-  height: var(--minAltoSeccion);
-  overflow: auto;
-  background-color: var(--naranja);
-  //color del scroll
-  scrollbar-color: var(--grisOscuro) var(--naranja);
+  display: none;
+
+  h2 {
+    display: block;
+  }
 }
 
 #contador {
@@ -121,4 +149,58 @@ main {
 
 .centrado {
   padding: 0 27.52px;
+}
+
+#contenedor {
+  // display: block;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media screen and (min-width: $minTablet) {
+  .seccionLado {
+    padding: 0em 2em 0em 2em;
+    overflow: auto;
+
+    h2 {
+      display: block;
+    }
+  }
+  #columnaCentral {
+    h2 {
+      display: block;
+    }
+  }
+
+  #cajaBotonesCelular {
+    display: none;
+  }
+
+  #columnaCentral {
+    display: flex;
+    flex-direction: column;
+    width: 24vw;
+    height: var(--minAltoSeccion);
+    overflow: auto;
+    background-color: var(--naranja);
+    //color del scroll
+    scrollbar-color: var(--grisOscuro) var(--naranja);
+  }
+
+  #contenedor {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+  }
+  .seccionLado {
+    width: 35%;
+    margin-bottom: auto;
+
+    .mapboxgl-popup-content {
+      #leyenda {
+        font-size: 1.1em;
+      }
+    }
+  }
 }
