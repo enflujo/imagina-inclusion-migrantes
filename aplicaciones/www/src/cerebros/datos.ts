@@ -81,3 +81,17 @@ export const usarCerebroDatos = defineStore('datos', {
     },
   },
 });
+
+const indicadores = [
+  {
+    nombre: 'Controles prenatales',
+    slug: 'controles-prenatales',
+    pregunta: '¿Cuantas mujeres Venezolanas se hacen 4 controles prenatales durante su embarazo?',
+  },
+];
+
+export const usarCerebroEscalera = defineStore('escaleras', {
+  state: () => ({
+    indicadores,
+  }),
+});

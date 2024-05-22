@@ -19,19 +19,19 @@ onMounted(async () => {
 
   const coordenadas: [lat: number, lon: number][] = [];
 
-  let lonMin = -82.2020433;
-  let lonMax = -66.8;
-  let latMin = -4.2167;
-  let latMax = 12.9365903;
+  const lonMin = -82.2020433;
+  const lonMax = -66.8;
+  const latMin = -4.2167;
+  const latMax = 12.9365903;
 
   // Borrar datos repetidos
-  const datosUnicos: any = cerebroDatos.geojson.features.filter((lugar, indice) => {
+  const datosUnicos: any = cerebroDatos.geojson.features.filter((lugar, i) => {
     return (
-      indice ===
+      i ===
       cerebroDatos.geojson.features.findIndex(
         (registrado) =>
-          lugar.geometry.coordinates[0] === registrado['geometry']['coordinates'][0] &&
-          lugar['geometry']['coordinates'][1] === registrado['geometry']['coordinates'][1]
+          lugar.geometry.coordinates[0] === registrado.geometry.coordinates[0] &&
+          lugar.geometry.coordinates[1] === registrado.geometry.coordinates[1]
       )
     );
   });
@@ -49,6 +49,7 @@ onMounted(async () => {
 
   coordenadas.forEach((d, i) => {
     const trazo = voronoi.cellPolygon(i);
+
     if (trazo) {
       const respuesta: Feature<Polygon> = {
         type: 'Feature',
@@ -112,17 +113,6 @@ onMounted(async () => {
         },
       },
     });
-
-    // Borde de voronoi
-    // instanciaMapa.addLayer({
-    //   id: 'borde',
-    //   type: 'line',
-    //   source: 'voronoi',
-    //   paint: {
-    //     'line-color': 'rgba(0, 0, 0, 0.3)',
-    //     'line-width': 1,
-    //   },
-    // });
 
     const leyenda = new mapboxgl.Popup();
 

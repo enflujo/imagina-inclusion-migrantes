@@ -8,7 +8,7 @@ import { escalaColores } from '@/utilidades/ayudas';
 
 type OrdenLista = 'ascendente' | 'descendente' | 'alfabetico';
 const cerebroDatos = usarCerebroDatos();
-const orden: Ref<OrdenLista> = ref('ascendente');
+const orden: Ref<OrdenLista> = ref('descendente');
 const listaLugares: Ref<HTMLUListElement | null> = ref(null);
 const avisoInstrucciones: Ref<HTMLDivElement | null> = ref(null);
 
@@ -97,10 +97,10 @@ function previsualizarLugar(lugar?: DatosBuscador) {
 
       <div id="ordenarPor">
         <span
-          class="botonFiltro alfabetico"
-          :class="`${orden === 'alfabetico' ? 'activo' : ''}`"
-          @click="ordenarLista('alfabetico')"
-          title="Alfabético"
+          class="botonFiltro descendente"
+          :class="`${orden === 'descendente' ? 'activo' : ''}`"
+          @click="ordenarLista('descendente')"
+          title="Ranking descendente"
         ></span>
         <span
           class="botonFiltro ascendente"
@@ -109,10 +109,10 @@ function previsualizarLugar(lugar?: DatosBuscador) {
           title="Ranking ascendente"
         ></span>
         <span
-          class="botonFiltro descendente"
-          :class="`${orden === 'descendente' ? 'activo' : ''}`"
-          @click="ordenarLista('descendente')"
-          title="Ranking descendente"
+          class="botonFiltro alfabetico"
+          :class="`${orden === 'alfabetico' ? 'activo' : ''}`"
+          @click="ordenarLista('alfabetico')"
+          title="Alfabético"
         ></span>
       </div>
     </div>
