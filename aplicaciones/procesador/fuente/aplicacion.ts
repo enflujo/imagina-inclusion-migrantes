@@ -15,7 +15,7 @@ let cantidadMunFaltantes = 0;
 inicio().catch(console.error);
 
 async function inicio() {
-  preProcesarLugares();
+  await preProcesarLugares();
   await procesarPoblacion();
   const datosInclusion = await procesarInclusion();
   const datosBuscador = procesarDatosBuscador(datosInclusion);
@@ -37,6 +37,10 @@ async function inicio() {
     if (a.valorIndice > b.valorIndice) return 1;
     return 0;
   });
+
+  if (cantidadMunFaltantes) {
+    console.log(cantidadMunFaltantes);
+  }
 
   guardarJSON(datosInclusion, 'inclusion-municipios');
   guardarJSON(datosBuscador, 'buscador');
@@ -133,8 +137,15 @@ async function procesarInclusion(): Promise<DatosInclusion[]> {
     });
 
     if (!munCoordenadas) {
+      console.log(
+        nombreMun,
+        '-',
+        nombreDep,
+        municipiosBDJuan.find((m) => normalizarTexto(m[0]) == normalizarTexto(nombreMun)),
+        normalizarTexto(nombreMun),
+        normalizarTexto(mun[1])
+      );
       cantidadMunFaltantes++;
-      // console.log(cantidadMunFaltantes, dep[1], ' - ', mun[1]);
       return;
     }
 
@@ -155,7 +166,7 @@ async function procesarInclusion(): Promise<DatosInclusion[]> {
   }
 }
 
-function preProcesarLugares() {
+async function preProcesarLugares(): Promise<void> {
   datosMunicipiosAlgunos.collections[0].data.forEach((mun) => {
     let lugar = mun.name.split(',');
 
@@ -173,6 +184,45 @@ function preProcesarLugares() {
     const nombreDepto = lugar[0];
 
     municipiosBDJuan.push([nombre, nombreDepto, lat, lon]);
+  });
+
+  const flujo = await getXlsxStream({
+    filePath: resolve(__dirname, '../datos/municipios_colombia.xlsx'),
+    sheet: 'Sheet2',
+    withHeader: true,
+    ignoreEmpty: true,
+  });
+
+  return new Promise((resolver) => {
+    flujo.on('data', (fila) => {
+      const [nombre, lat, lon, dep] = fila.raw.arr;
+
+      if (dep) {
+        const datosDep = departamentos.datos.find((d) => +d[0] === +dep);
+        if (!datosDep) {
+          console.error('No existe departamento con código', dep);
+        } else {
+          const existe = municipiosBDJuan.find(
+            (m) =>
+              normalizarTexto(m[0]) === normalizarTexto(nombre) &&
+              normalizarTexto(m[1]) === normalizarTexto(datosDep[1])
+          );
+
+          if (existe) {
+          } else {
+            municipiosBDJuan.push([nombre, datosDep[1], lat, lon]);
+          }
+        }
+      } else {
+        console.error('No se encontró departamento', dep);
+      }
+
+      // console.log(nombre, lat, lon, dep);
+    });
+
+    flujo.on('close', () => {
+      resolver();
+    });
   });
 }
 

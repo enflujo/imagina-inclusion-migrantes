@@ -606,7 +606,7 @@ export const municipios: ObjetoMunicipios = {
     ['425', 'Macaravita', '68', '68425'],
     ['425', 'Medio Atrato', '27', '27425'],
     ['426', 'Machetá', '25', '25426'],
-    ['427', 'Magüí', '52', '52427'],
+    ['427', 'Magüí Payán', '52', '52427'],
     ['429', 'Majagual', '70', '70429'],
     ['430', 'Magangué', '13', '13430'],
     ['430', 'Medio Baudó', '27', '27430'],
