@@ -3,12 +3,14 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 const llaves = ['regularizadas', 'afiliadas', 'atendidas', 'embarazadasAtendidas', 'cuatroControles'];
 const totalV = 1468809;
+
 const totalEmbarazadasV = 1350000;
 const datosControlesV = [1233696, 932344, 238296, 25625, 4818];
 const porcentajesV = [83.99, 63.48, 17.65, 1.9, 0.36];
+const nombres = ['Regularizadas', 'Afiliadas', 'Atendidas', 'Embarazadas Atendidas', 'Con 4 controles'];
 
 const totalC = 26316000;
-const totalEmbarazadasC = totalC * 0.02;
+const totalEmbarazadasC = totalC * 0.22;
 const datosControlesC = [
   totalEmbarazadasC,
   totalEmbarazadasC * 0.98,
@@ -58,7 +60,7 @@ function numeroConteo(valor: number) {
 
       <div class="escalon subEscalon" v-for="(escalon, i) in porcentajesC">
         <span class="cubierto" :style="`width:${escalon}%`">
-          <span class="contenido">{{ escalon }}% ({{ numeroConteo(datosControlesC[i]) }})</span>
+          <span class="contenido">{{ nombres[i] }}: {{ escalon }}% ({{ numeroConteo(datosControlesC[i]) }})</span>
         </span>
 
         <span class="vacio" :style="`width:${100 - escalon}%`"></span>
@@ -77,7 +79,7 @@ function numeroConteo(valor: number) {
 
       <div class="escalon subEscalon" v-for="(escalon, i) in porcentajesV">
         <span class="cubierto" :style="`width:${escalon}%`">
-          <span class="contenido">{{ escalon }}% ({{ numeroConteo(datosControlesV[i]) }})</span>
+          <span class="contenido">{{ nombres[i] }}: {{ escalon }}% ({{ numeroConteo(datosControlesV[i]) }})</span>
         </span>
 
         <span class="vacio" :style="`width:${100 - escalon}%`"></span>
