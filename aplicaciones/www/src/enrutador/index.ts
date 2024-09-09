@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Inicio from '../paginas/Inicio.vue';
+import Escaleras from '../paginas/Escaleras.vue';
 
 const enrutador = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const enrutador = createRouter({
     {
       path: '/',
       name: 'inicio',
-      component: Inicio,
+      component: Escaleras,
     },
     {
       path: '/creditos',
@@ -18,9 +18,9 @@ const enrutador = createRouter({
       component: () => import('../paginas/Creditos.vue'),
     },
     {
-      path: '/escaleras',
-      name: 'escaleras',
-      component: () => import('../paginas/Escaleras.vue'),
+      path: '/mapa',
+      name: 'mapa',
+      component: () => import('../paginas/Mapa.vue'),
     },
   ],
 });

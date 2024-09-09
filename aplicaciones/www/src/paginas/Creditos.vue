@@ -2,35 +2,31 @@
   <main class="creditos">
     <h1 id="tituloPagina">Créditos</h1>
 
-    <div class="textoCreditos">
-      <p>
-        Este <span class="negrita">sitio web</span> es Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum
-      </p>
-    </div>
+    <p>
+      Este <span class="negrita">sitio web</span> es Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+      ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+      esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+      officia deserunt mollit anim id est laborum
+    </p>
 
-    <div>
-      <a href="" target="_blank"> <img class="logoGrande" src="" alt="LogoProyectoOrganizaciónPrincipal" /></a>
-    </div>
+    <h2 class="rol">Desarrollo</h2>
 
-    <h2 class="rol">Organiza</h2>
-    <div class="filaLogos"></div>
+    <ul class="logos">
+      <li>
+        <a href="https://imagina.uniandes.edu.co/" target="_blank">
+          <img class="logoImagina" src="/imgs/logo_imagina.svg" alt="Logo Centro Imagina" />
+        </a>
+      </li>
 
-    <h2 class="rol">Lidera</h2>
-    <div class="filaLogos"></div>
+      <li>
+        <a href="https://enflujo.com" target="_blank">
+          <img class="logoEnFlujo" src="/imgs/enflujo_andes.svg" alt="Logo Laboratorio EnFlujo" />
+        </a>
+      </li>
+    </ul>
 
-    <h2 class="rol">Desarrolla:</h2>
-
-    <a href="https://imagina.uniandes.edu.co/" target="_blank">
-      <img class="logoImagina logoGrande" src="/imgs/logo_imagina.svg" alt="Logo Centro IMAGINA"
-    /></a>
-
-    <a href="https://enflujo.com" target="_blank">
-      <img class="logoEnFlujo logoGrande" src="/imgs/enflujo_andes.svg" alt="Logo Laboratorio EnFlujo"
-    /></a>
+    <h2 class="rol">Financiación</h2>
 
     <div class="listaAgentes">
       <ol></ol>
@@ -49,6 +45,7 @@ main {
 p {
   font-size: 1.2em;
 }
+
 .negrita {
   font-weight: 700;
 }
@@ -62,6 +59,17 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.logos {
+  display: flex;
+  list-style: none;
+
+  li {
+    img {
+      height: 70px;
+    }
+  }
 }
 
 .logoGrande {
@@ -158,8 +166,10 @@ p {
   .rol {
     font-size: 2.2em;
   }
+
   .listaAgentes {
     line-height: 1em;
+
     .textoCreditos {
       padding-bottom: 0.3em;
     }
