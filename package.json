@@ -1,6 +1,7 @@
 {
   "name": "imagina-inclusion-migrantes",
-  "version": "0.0.1",
+  "packageManager": "yarn@4.4.1",
+  "version": "0.0.2",
   "private": true,
   "workspaces": [
     "aplicaciones/*"
