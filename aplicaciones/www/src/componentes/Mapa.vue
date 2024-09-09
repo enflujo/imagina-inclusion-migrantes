@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type Map } from 'mapbox-gl';
-import type { Feature, FeatureCollection, Polygon } from 'geojson';
+import type { Feature, FeatureCollection, GeoJsonProperties, Point, Polygon, Position } from 'geojson';
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { Delaunay } from 'd3';
@@ -17,31 +17,28 @@ onMounted(async () => {
     await cerebroDatos.cargarDatos();
   }
 
-  const coordenadas: [lat: number, lon: number][] = [];
-
+  const coordenadas: [x: number, y: number][] = [];
+  const propiedades: GeoJsonProperties = [];
   const lonMin = -82.2020433;
   const lonMax = -66.8;
   const latMin = -4.2167;
   const latMax = 12.9365903;
 
   // Borrar datos repetidos
-  const datosUnicos: any = cerebroDatos.geojson.features.filter((lugar, i) => {
-    return (
+  cerebroDatos.geojson.features.forEach((lugar, i) => {
+    if (
       i ===
       cerebroDatos.geojson.features.findIndex(
         (registrado) =>
           lugar.geometry.coordinates[0] === registrado.geometry.coordinates[0] &&
           lugar.geometry.coordinates[1] === registrado.geometry.coordinates[1]
       )
-    );
+    ) {
+      const [x, y] = lugar.geometry.coordinates;
+      coordenadas.push([x, y]);
+      propiedades[i] = lugar.properties;
+    }
   });
-
-  // Guardar coordenadas de los datos no repetidos
-  for (let i = 0; i < datosUnicos.length; i++) {
-    const coo = datosUnicos[i]['geometry']['coordinates'];
-
-    coordenadas.push(coo);
-  }
 
   const delaunay = Delaunay.from(coordenadas);
   const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
@@ -53,14 +50,15 @@ onMounted(async () => {
     if (trazo) {
       const respuesta: Feature<Polygon> = {
         type: 'Feature',
-        properties: datosUnicos[i].properties,
+        properties: propiedades[i],
         geometry: { type: 'Polygon', coordinates: [trazo] },
       };
 
       if (!respuesta.properties) return;
-      geojson.features[i] = respuesta;
+
+      geojson.features.push(respuesta);
     } else {
-      console.log(d);
+      // console.log(d);
     }
   });
 
