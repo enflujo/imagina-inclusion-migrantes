@@ -399,6 +399,8 @@ $diferencia4: calc($alto4 - $alto5);
     font-size: 3vw;
     color: $colorPositivo;
     position: relative;
+    border-top: 3px solid $colorPositivo;
+    border-bottom: 3px solid $colorPositivo;
 
     &:nth-child(1) {
       border-left: 3px solid $colorPositivo;
@@ -407,9 +409,6 @@ $diferencia4: calc($alto4 - $alto5);
     &:nth-child(9) {
       border-right: 1px solid $colorPositivo;
     }
-
-    border-top: 3px solid $colorPositivo;
-    border-bottom: 3px solid $colorPositivo;
 
     .mensaje {
       font-size: 28px;
