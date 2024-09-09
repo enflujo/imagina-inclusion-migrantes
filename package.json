@@ -16,9 +16,9 @@
     "lint:fix": "prettier --write --list-different ."
   },
   "devDependencies": {
-    "prettier": "^3.2.5"
+    "prettier": "^3.3.3"
   },
   "dependencies": {
-    "@types/node": "^20.12.8"
+    "@types/node": "^22.5.4"
   }
 }
