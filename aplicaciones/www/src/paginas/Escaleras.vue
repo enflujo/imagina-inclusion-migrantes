@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Particula from '@/componentes/Particula';
 import { escalaColores } from '@enflujo/alquimia';
 import { onMounted, onUnmounted, ref, type Ref } from 'vue';
 
@@ -43,6 +44,7 @@ const datosControlesC = [
   totalEmbarazadasC * 0.93,
   totalEmbarazadasC * 0.62,
 ];
+
 const porcentajesC = [100, 98, 93, 62];
 const contador = ref(0);
 const dims = { ancho: 0, alto: 0, izq: 0, der: 0 };
@@ -54,45 +56,7 @@ const grafica = ref();
 const refLienzo: Ref<HTMLCanvasElement | null> = ref(null);
 let particulas: Particula[] = [];
 
-class Particula {
-  x: number;
-  y: number;
-  velocidad: number;
-  limiteX: number;
-  limiteY: number;
-  origenX: number;
-  origenY: number;
-  rebota: boolean;
-
-  constructor(
-    x = 0,
-    y = 0,
-    velocidad = 1,
-    origen: [x: number, y: number],
-    limites: [x: number, y: number],
-    rebota = false
-  ) {
-    this.origenX = origen[0];
-    this.origenY = origen[0];
-    this.x = x;
-    this.y = y;
-    this.velocidad = velocidad;
-    this.limiteX = limites[0];
-    this.limiteY = limites[1];
-    this.rebota = rebota;
-  }
-
-  mover() {
-    this.x += this.velocidad;
-    // this.x = this.limiteX > this.x ? this.x : this.origenX;
-
-    if (this.x > this.limiteX) {
-      const rebote = Math.random() > 0.01 ? this.x - Math.random() * 10 : this.origenX;
-      this.x = this.rebota ? rebote : this.origenX;
-    } else {
-    }
-  }
-}
+console.log(porcentajesC, porcentajesV);
 
 onMounted(() => {
   if (refLienzo.value) {
@@ -116,6 +80,7 @@ function crearParticulas() {
   let xMax = anchoEscalon;
   let y1 = 0;
   let pasan = numeroParticulas;
+
   anchos.forEach(([pEscalera, pDiferencia], i) => {
     if (i > 5) return;
 
@@ -238,18 +203,16 @@ function escalar() {
   <header>
     <h1>Controles prenatales durante el embarazo</h1>
 
-    <p class="pregunta">
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente veritatis repellat molestiae incidunt
+      voluptatem reprehenderit ex, sint architecto vero ut ipsa, nulla sit facere quas dignissimos ea possimus
+      blanditiis suscipit.
+    </p>
+
+    <!-- <p class="pregunta">
       Son <span class="bajo resaltar">pocas</span> las mujeres venezolanas que se realizan los cuatro controles
       prenatales durante su embarazo, apenas un tercio: <span class="bajo resaltar">{{ porcentajesV[3] }}%</span>
     </p>
-
-    <!-- <p>
-      <span class="alto resaltar">La mayoría</span> de las que sí utilizan el sistema de salud, se realizan los 4
-      controles prenatales: <span class="resaltar">{{ numeroConteo(datosControlesV[3]) }}</span> de
-      <span class="resaltar">{{ numeroConteo(datosControlesV[2]) }}</span> o el
-      <span class="resaltar alto">{{ ((datosControlesV[3] / datosControlesV[2]) * 100).toFixed(2) }}%</span> de las
-      mujeres que son atendidas al menos en una oportunidad dentro del sistema de salud.
-    </p> -->
 
     <p>
       <span class="resaltar bajo">Uno de los mayores problema</span> es la afiliación, tan solo la mitad de las mujeres
@@ -260,7 +223,7 @@ function escalar() {
       <span class="resaltar bajo">Se debe mejorar</span> el uso del sistema para así mejorar el número de mujeres
       embarazadas que se realicen los 4 controles: actualmente, sólo el
       <span class="resaltar bajo">{{ porcentajesV[2] }}%</span>
-    </p>
+    </p> -->
   </header>
 
   <div id="grafica" ref="grafica">
