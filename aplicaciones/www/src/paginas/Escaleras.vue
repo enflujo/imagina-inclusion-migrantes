@@ -30,6 +30,11 @@ const diferenciasPorcentajeV = diferenciasV.map((valor) => +((valor / totalEmbar
 const saltosDiferencias: number[] = [];
 const porcentajesV = datosControlesV.map((valor) => +((valor / totalEmbarazadasV) * 100).toFixed(2));
 const anchos = porcentajesV.map((valor, i) => [100 * (valor / 100), 100 * (diferenciasPorcentajeV[i] / 100)]);
+const datosCol = [100, 100, 100, 100, 77.01]; // estos son los últimos datos que mandó Arturo
+/** 
+ * Según el Plan Decenal de Salud el 95 % de las mujeres gestantes debe tener cuatro o más controles prenatales.
+Según la meta de los Objetivos de Desarrollo Sostenible (ODS), para el 2030, el 93 % de las gestantes debe tener cuatro o más controles prenatales
+ */
 
 anchos.forEach((valores, i) => {
   const anterior = i === 0 ? 0 : anchos[i - 1][1];
