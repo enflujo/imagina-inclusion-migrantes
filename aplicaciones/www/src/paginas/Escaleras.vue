@@ -4,31 +4,14 @@ import { escalaColores } from '@enflujo/alquimia';
 import { onMounted, onUnmounted, ref, type Ref } from 'vue';
 
 let reloj = 0;
-const llaves = ['regularizadas', 'afiliadas', 'atendidas', 'cuatroControles'];
-const totalV = 1468809;
-// $colorPositivo: rgb(13, 141, 130);
-// $colorPositivo2: rgb(13, 141, 130);
-// $colorNegativo: rgb(210, 87, 87);
-/**
- * $anchoEscalon: calc(90vw / 5);
-  $alto2: calc($altoTotal * 0.8265);
-  $diferencia1: calc($altoTotal - $alto2);
-  $alto3: calc($altoTotal * 0.5207);
-  $diferencia2: calc($alto2 - $alto3);
-  $alto4: calc($altoTotal * 0.3789);
-  $diferencia3: calc($alto3 - $alto4);
-  $alto5: calc($altoTotal * 0.3426);
-  $diferencia4: calc($alto4 - $alto5);
- */
-
+const llaves = ['embarazadas', 'regularizadas', 'afiliadas', 'cuatroControles'];
 const color = escalaColores(0, 100, '#963c3c', '#5a997e');
 
-const totalEmbarazadasV = 76599;
-const datosControlesV = [63306, 39883, 28246, 26243];
-const diferenciasV = datosControlesV.map((valor) => totalEmbarazadasV - valor);
-const diferenciasPorcentajeV = diferenciasV.map((valor) => +((valor / totalEmbarazadasV) * 100).toFixed(2));
+const datosControlesV = [76599, 63306, 39883, 26243];
+const diferenciasV = datosControlesV.map((valor) => datosControlesV[0] - valor);
+const diferenciasPorcentajeV = diferenciasV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2));
 const saltosDiferencias: number[] = [];
-const porcentajesV = datosControlesV.map((valor) => +((valor / totalEmbarazadasV) * 100).toFixed(2));
+const porcentajesV = datosControlesV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2));
 const anchos = porcentajesV.map((valor, i) => [100 * (valor / 100), 100 * (diferenciasPorcentajeV[i] / 100)]);
 /** 
  * Según el Plan Decenal de Salud el 95 % de las mujeres gestantes debe tener cuatro o más controles prenatales.
@@ -42,159 +25,67 @@ anchos.forEach((valores, i) => {
   saltosDiferencias.push(+(valores[1] - anterior).toFixed(2));
 });
 
-const totalEmbarazadasC = 623715;
 const datosControlesC = [623715, 623715, 623715, 480334];
-const porcentajesC = datosControlesC.map((valor) => +((valor / totalEmbarazadasC) * 100).toFixed(2));
+const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2));
 const pasoX = 105 / (datosControlesC.length + 1);
-
-// const pasoX: Ref<number> = ref(0);
-
-// console.log(porcentajesC);
-
-// function escalar() {
-//   pasoX.value = datosControlesC
-// }
 </script>
 
 <template>
-  <!-- <nav id="navegacionInterna">
-    <ul>
-      <li><a class="enlace">Antes del estatuto temporal de permanencia</a></li>
-    </ul>
-  </nav> -->
-  <header>
-    <h1>Controles prenatales durante el embarazo</h1>
+  <div id="escalera">
+    <div id="info">
+      <section>
+        <h1>Controles prenatales durante el embarazo</h1>
 
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente veritatis repellat molestiae incidunt
-      voluptatem reprehenderit ex, sint architecto vero ut ipsa, nulla sit facere quas dignissimos ea possimus
-      blanditiis suscipit.
-    </p>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente veritatis repellat molestiae incidunt
+          voluptatem reprehenderit ex, sint architecto vero ut ipsa, nulla sit facere quas dignissimos ea possimus
+          blanditiis suscipit.
+        </p>
+      </section>
 
-    <!-- <p class="pregunta">
-      Son <span class="bajo resaltar">pocas</span> las mujeres venezolanas que se realizan los cuatro controles
-      prenatales durante su embarazo, apenas un tercio: <span class="bajo resaltar">{{ porcentajesV[3] }}%</span>
-    </p>
+      <section>
+        <h2>Sección 2</h2>
 
-    <p>
-      <span class="resaltar bajo">Uno de los mayores problema</span> es la afiliación, tan solo la mitad de las mujeres
-      embarazadas está afiliada al sistema de salud: <span class="resaltar bajo">{{ porcentajesV[1] }}%</span>
-    </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
+          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
+          saepe tempora velit maxime veritatis!
+        </p>
 
-    <p>
-      <span class="resaltar bajo">Se debe mejorar</span> el uso del sistema para así mejorar el número de mujeres
-      embarazadas que se realicen los 4 controles: actualmente, sólo el
-      <span class="resaltar bajo">{{ porcentajesV[2] }}%</span>
-    </p> -->
-  </header>
-
-  <div id="grafica" ref="grafica">
-    <span id="umbralDecenal" :style="`bottom:${umbralPlanDecenal}%`"></span>
-
-    <div class="seccionEscalones">
-      <span :style="`left: 0%; top: ${0}%; width: ${pasoX}%;height:100%`" class="escalonColombiana"> </span>
-      <span
-        v-for="(valor, i) in porcentajesC"
-        :ref="`porcentajeCol${i}`"
-        :style="`left: ${(i + 1) * pasoX}%; top: ${100 - valor}%; width: ${pasoX}%;height: ${valor}%`"
-        class="escalonColombiana"
-      >
-      </span>
-
-      <span :style="`left: 0%; top: ${0}%; width: ${pasoX}%;height:100%`" class="escalonVenezolana"> </span>
-
-      <span
-        v-for="(valor, i) in porcentajesV"
-        :ref="`porcentajeCol${i}`"
-        :style="`left: ${(i + 1) * pasoX}%; top: ${100 - valor}%; width: ${pasoX}%;height: ${valor}%`"
-        class="escalonVenezolana"
-      >
-      </span>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
+          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
+        </p>
+      </section>
     </div>
 
-    <!-- <span class="escalon escalon1" :style="`color:${color(100)}`"
-      >100% <span class="mensaje">Mujeres Venezolanas embarazadas</span></span
-    >
-    <span class="diferencia diferencia1">
-      <span class="porcentaje"><span class="abajo">&#11183;</span>{{ saltosDiferencias[0] }}%</span>
-    </span>
-    <span
-      class="escalon escalon2"
-      :style="`font-size:${3 * (porcentajesV[0] / 100)}vw; color:${color(porcentajesV[0])}`"
-    >
-      {{ porcentajesV[0] }}%
-      <span class="mensaje">Regularizadas</span>
-    </span>
-    <span class="diferencia diferencia2">
-      <span class="porcentaje"><span class="abajo">&#11183;</span>{{ saltosDiferencias[1] }}%</span>
-    </span>
-    <span
-      class="escalon escalon3"
-      :style="`font-size:${3 * (porcentajesV[1] / 100)}vw; color:${color(porcentajesV[1])}`"
-      >{{ porcentajesV[1] }}%
-      <span class="mensaje">Afiliadas al sistema de salud</span>
-    </span>
-    <span class="diferencia diferencia3">
-      <span class="porcentaje"><span class="abajo">&#11183;</span>{{ saltosDiferencias[2] }}%</span>
-    </span>
-    <span
-      class="escalon escalon4"
-      :style="`font-size:${3 * (porcentajesV[2] / 100)}vw; color:${color(porcentajesV[2])}`"
-      >{{ porcentajesV[2] }}%
-      <span class="mensaje">Atendidas dentro del sistema de salud</span>
-    </span>
-    <span class="diferencia diferencia4">
-      <span class="porcentaje"><span class="abajo">&#11183;</span>{{ saltosDiferencias[3] }}%</span>
-    </span>
-    <span
-      class="escalon escalon5"
-      :style="`font-size:${3 * (porcentajesV[3] / 100)}vw; color:${color(porcentajesV[3])}`"
-      >{{ porcentajesV[3] }}%
-      <span class="mensaje">Hicieron sus 4 controles prenatales</span>
-    </span> -->
+    <div id="contenedorGrafica">
+      <div id="grafica" ref="grafica">
+        <span id="umbralDecenal" :style="`bottom:${umbralPlanDecenal}%`"></span>
 
-    <!-- <canvas id="lienzo" ref="refLienzo"></canvas> -->
+        <div class="seccionEscalones">
+          <span :style="`left: 0%; top: ${0}%; width: ${pasoX}%;height:100%`" class="escalonColombiana"> </span>
+          <span
+            v-for="(valor, i) in porcentajesC"
+            :ref="`porcentajeCol${i}`"
+            :style="`left: ${(i + 1) * pasoX}%; top: ${100 - valor}%; width: ${pasoX}%;height: ${valor}%`"
+            class="escalonColombiana"
+          >
+          </span>
+
+          <span :style="`left: 0%; top: ${0}%; width: ${pasoX}%;height:100%`" class="escalonVenezolana"> </span>
+
+          <span
+            v-for="(valor, i) in porcentajesV"
+            :ref="`porcentajeCol${i}`"
+            :style="`left: ${(i + 1) * pasoX}%; top: ${100 - valor}%; width: ${pasoX}%;height: ${valor}%`"
+            class="escalonVenezolana"
+          >
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- <div class="columnas">
-    <section id="areaColombianas" class="columna">
-      <h2>Colombianas</h2>
-
-      <div class="total escalon">
-        <p>
-          En el año 2024, hay un total de <span class="conteo">{{ numeroConteo(totalEmbarazadasC) }}</span> mujeres
-          embarazadas en Colombia.
-        </p>
-      </div>
-
-      <div class="escalon subEscalon" v-for="(escalon, i) in porcentajesC">
-        <span class="cubierto" :style="`width:${escalon}%`">
-          <span class="contenido">{{ nombres[i] }}: {{ escalon }}% ({{ numeroConteo(datosControlesC[i]) }})</span>
-        </span>
-
-        <span class="vacio" :style="`width:${100 - escalon}%`"></span>
-      </div>
-    </section>
-
-    <section id="areaVenezolanas" class="columna">
-      <h2>Venezolanas</h2>
-
-      <div class="total escalon">
-        <p>
-          En el año 2024, hay un total de <span class="conteo">{{ numeroConteo(totalEmbarazadasV) }}</span> mujeres
-          venezolanas embarazadas en Colombia.
-        </p>
-      </div>
-
-      <div class="escalon subEscalon" v-for="(escalon, i) in porcentajesV">
-        <span class="cubierto" :style="`width:${escalon}%`">
-          <span class="contenido">{{ nombres[i] }}: {{ escalon }}% ({{ numeroConteo(datosControlesV[i]) }})</span>
-        </span>
-
-        <span class="vacio" :style="`width:${100 - escalon}%`"></span>
-      </div>
-    </section>
-  </div> -->
 </template>
 
 <style lang="scss">
@@ -218,6 +109,25 @@ $alto4: calc($altoTotal * 0.3789);
 $diferencia3: calc($alto3 - $alto4);
 $alto5: calc($altoTotal * 0.3426);
 $diferencia4: calc($alto4 - $alto5);
+
+#escalera {
+  display: flex;
+
+  #info {
+    width: 30%;
+    border-right: 1px dotted;
+    font-size: 1.3em;
+    padding-right: 1em;
+
+    section {
+      min-height: 100vh;
+    }
+  }
+
+  #contenedorGrafica {
+    width: 70%;
+  }
+}
 
 #umbralDecenal {
   position: absolute;
@@ -259,7 +169,8 @@ $diferencia4: calc($alto4 - $alto5);
   margin: 0 auto;
   background-color: rgba(245, 245, 245, 0.534);
   display: flex;
-  position: relative;
+  position: sticky;
+  top: 100px;
   padding-left: 5%;
 
   #lienzo {
