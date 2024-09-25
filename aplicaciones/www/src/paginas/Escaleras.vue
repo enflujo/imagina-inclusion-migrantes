@@ -1,11 +1,23 @@
 <script setup lang="ts">
 import Particula from '@/componentes/Particula';
 import { escalaColores } from '@enflujo/alquimia';
-import { onMounted, onUnmounted, ref, type Ref } from 'vue';
+import { onMounted, onUnmounted, ref, useTemplateRef, type Ref, type ShallowRef } from 'vue';
+
+const info: Ref<HTMLDivElement | null> = ref(null);
+
+const seccionInfo: Ref<Ref<HTMLElement>[]> = ref([]);
+const seccionesInfo = ['infoEmbarazadas', 'infoRegularizadas', 'infoAfiliadas', 'infoControles'];
 
 let reloj = 0;
 const llaves = ['embarazadas', 'regularizadas', 'afiliadas', 'cuatroControles'];
 const color = escalaColores(0, 100, '#963c3c', '#5a997e');
+
+const titulosEscalones = [
+  'Mujeres Embarazadas',
+  'Regularizadas',
+  'Afiliadas al sistema de salud',
+  'Con 4 controles prenatales',
+];
 
 const datosControlesV = [76599, 63306, 39883, 26243];
 const diferenciasV = datosControlesV.map((valor) => datosControlesV[0] - valor);
@@ -28,23 +40,68 @@ anchos.forEach((valores, i) => {
 const datosControlesC = [623715, 623715, 623715, 480334];
 const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2));
 const pasoX = 105 / (datosControlesC.length + 1);
+
+function irASeccion(i: number) {
+  if (!info.value) return;
+  const elemento = document.getElementById(seccionesInfo[i]);
+  if (!elemento) return;
+
+  elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 </script>
 
 <template>
   <div id="escalera">
-    <div id="info">
-      <section>
-        <h1>Controles prenatales durante el embarazo</h1>
+    <div id="info" ref="info">
+      <section id="infoEmbarazadas" ref="seccionInfo">
+        <h1>
+          ¿Porqué es importante para el país que las mujeres tengan mínimo 4 controles prenatales durante su embarazo?
+        </h1>
 
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente veritatis repellat molestiae incidunt
-          voluptatem reprehenderit ex, sint architecto vero ut ipsa, nulla sit facere quas dignissimos ea possimus
-          blanditiis suscipit.
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
+          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
+          saepe tempora velit maxime veritatis!
+        </p>
+
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
+          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
         </p>
       </section>
 
-      <section>
-        <h2>Sección 2</h2>
+      <section id="infoRegularizadas" ref="seccionInfo">
+        <h2>Regularizadas</h2>
+
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
+          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
+          saepe tempora velit maxime veritatis!
+        </p>
+
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
+          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
+        </p>
+      </section>
+
+      <section id="infoAfiliadas" ref="seccionInfo">
+        <h2>Afiliadas al sistema de salud</h2>
+
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
+          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
+          saepe tempora velit maxime veritatis!
+        </p>
+
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
+          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
+        </p>
+      </section>
+
+      <section id="infoControles" ref="seccionInfo">
+        <h2>Con 4 controles prenatales</h2>
 
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
@@ -63,7 +120,23 @@ const pasoX = 105 / (datosControlesC.length + 1);
       <div id="grafica" ref="grafica">
         <span id="umbralDecenal" :style="`bottom:${umbralPlanDecenal}%`"></span>
 
-        <div class="seccionEscalones">
+        <div v-for="i in 4" :ref="`escalon${i}`" class="escalon" @mouseenter="irASeccion(i - 1)">
+          <h3>{{ titulosEscalones[i - 1] }}</h3>
+
+          <div class="comparacion">
+            <div class="columna colombianas">
+              <span>Colombianas</span>
+              <span>{{ porcentajesC[i - 1] }}%</span>
+            </div>
+
+            <div class="columna venezolanas">
+              <span>Venezolanas</span>
+              <span>{{ porcentajesV[i - 1] }}%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="seccionEscalones">
           <span :style="`left: 0%; top: ${0}%; width: ${pasoX}%;height:100%`" class="escalonColombiana"> </span>
           <span
             v-for="(valor, i) in porcentajesC"
@@ -82,7 +155,7 @@ const pasoX = 105 / (datosControlesC.length + 1);
             class="escalonVenezolana"
           >
           </span>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -127,6 +200,21 @@ $diferencia4: calc($alto4 - $alto5);
   #contenedorGrafica {
     width: 70%;
   }
+
+  .escalon {
+    width: calc(100% / 4);
+    text-align: center;
+  }
+
+  .comparacion {
+    display: flex;
+    justify-content: space-evenly;
+
+    .columna {
+      width: 40%;
+      background-color: red;
+    }
+  }
 }
 
 #umbralDecenal {
@@ -165,43 +253,43 @@ $diferencia4: calc($alto4 - $alto5);
 }
 
 #grafica {
-  height: 500px;
-  margin: 0 auto;
-  background-color: rgba(245, 245, 245, 0.534);
+  // height: 500px;
+  // margin: 0 auto;
+  // background-color: rgba(245, 245, 245, 0.534);
   display: flex;
   position: sticky;
   top: 100px;
-  padding-left: 5%;
+  // padding-left: 5%;
 
   #lienzo {
     position: absolute;
     left: 5%;
   }
 
-  .escalon {
-    font-size: 3vw;
-    color: $colorPositivo;
-    position: relative;
-    border-top: 3px solid $colorPositivo;
-    border-bottom: 3px solid $colorPositivo;
+  // .escalon {
+  //   font-size: 3vw;
+  //   color: $colorPositivo;
+  //   position: relative;
+  //   border-top: 3px solid $colorPositivo;
+  //   border-bottom: 3px solid $colorPositivo;
 
-    &:nth-child(1) {
-      border-left: 3px solid $colorPositivo;
-    }
+  //   &:nth-child(1) {
+  //     border-left: 3px solid $colorPositivo;
+  //   }
 
-    &:nth-child(9) {
-      border-right: 1px solid $colorPositivo;
-    }
+  //   &:nth-child(9) {
+  //     border-right: 1px solid $colorPositivo;
+  //   }
 
-    .mensaje {
-      font-size: 28px;
-      position: absolute;
-      left: 0;
-      bottom: 0px;
-      width: 90%;
-      vertical-align: top;
-    }
-  }
+  //   .mensaje {
+  //     font-size: 28px;
+  //     position: absolute;
+  //     left: 0;
+  //     bottom: 0px;
+  //     width: 90%;
+  //     vertical-align: top;
+  //   }
+  // }
 
   .diferencia {
     border-style: solid;
