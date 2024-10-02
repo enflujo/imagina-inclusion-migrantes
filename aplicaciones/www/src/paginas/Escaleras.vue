@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import Montes from '@/componentes/Montes.vue';
 import Particula from '@/componentes/Particula';
+import type { PasosEscalera } from '@/tipos';
 import { escalaColores } from '@enflujo/alquimia';
 import { onMounted, onUnmounted, ref, useTemplateRef, type Ref, type ShallowRef } from 'vue';
 
@@ -19,11 +21,13 @@ const titulosEscalones = [
   'Con 4 controles prenatales',
 ];
 
-const datosControlesV = [76599, 63306, 39883, 26243];
-const diferenciasV = datosControlesV.map((valor) => datosControlesV[0] - valor);
-const diferenciasPorcentajeV = diferenciasV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2));
+const datosControlesV: PasosEscalera = [76599, 63306, 39883, 26243];
+const diferenciasV = datosControlesV.map((valor) => datosControlesV[0] - valor) as PasosEscalera;
+const diferenciasPorcentajeV = diferenciasV.map(
+  (valor) => +((valor / datosControlesV[0]) * 100).toFixed(2)
+) as PasosEscalera;
 const saltosDiferencias: number[] = [];
-const porcentajesV = datosControlesV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2));
+const porcentajesV = datosControlesV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2)) as PasosEscalera;
 const anchos = porcentajesV.map((valor, i) => [100 * (valor / 100), 100 * (diferenciasPorcentajeV[i] / 100)]);
 /** 
  * Según el Plan Decenal de Salud el 95 % de las mujeres gestantes debe tener cuatro o más controles prenatales.
@@ -37,8 +41,8 @@ anchos.forEach((valores, i) => {
   saltosDiferencias.push(+(valores[1] - anterior).toFixed(2));
 });
 
-const datosControlesC = [623715, 623715, 623715, 480334];
-const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2));
+const datosControlesC: PasosEscalera = [623715, 623715, 623715, 503715];
+const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2)) as PasosEscalera;
 const pasoX = 105 / (datosControlesC.length + 1);
 
 function irASeccion(i: number) {
@@ -118,7 +122,8 @@ function irASeccion(i: number) {
 
     <div id="contenedorGrafica">
       <div id="grafica" ref="grafica">
-        <span id="umbralDecenal" :style="`bottom:${umbralPlanDecenal}%`"></span>
+        <Montes :porcentaje-v="porcentajesV" :porcentajes-c="porcentajesC" :irASeccion="irASeccion" />
+        <!-- <span id="umbralDecenal" :style="`bottom:${umbralPlanDecenal}%`"></span>
 
         <div v-for="i in 4" :ref="`escalon${i}`" class="escalon" @mouseenter="irASeccion(i - 1)">
           <h3>{{ titulosEscalones[i - 1] }}</h3>
@@ -134,27 +139,6 @@ function irASeccion(i: number) {
               <span>{{ porcentajesV[i - 1] }}%</span>
             </div>
           </div>
-        </div>
-
-        <!-- <div class="seccionEscalones">
-          <span :style="`left: 0%; top: ${0}%; width: ${pasoX}%;height:100%`" class="escalonColombiana"> </span>
-          <span
-            v-for="(valor, i) in porcentajesC"
-            :ref="`porcentajeCol${i}`"
-            :style="`left: ${(i + 1) * pasoX}%; top: ${100 - valor}%; width: ${pasoX}%;height: ${valor}%`"
-            class="escalonColombiana"
-          >
-          </span>
-
-          <span :style="`left: 0%; top: ${0}%; width: ${pasoX}%;height:100%`" class="escalonVenezolana"> </span>
-
-          <span
-            v-for="(valor, i) in porcentajesV"
-            :ref="`porcentajeCol${i}`"
-            :style="`left: ${(i + 1) * pasoX}%; top: ${100 - valor}%; width: ${pasoX}%;height: ${valor}%`"
-            class="escalonVenezolana"
-          >
-          </span>
         </div> -->
       </div>
     </div>

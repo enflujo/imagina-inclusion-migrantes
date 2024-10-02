@@ -1,6 +1,6 @@
 {
   "name": "imagina-inclusion-migrantes",
-  "packageManager": "yarn@4.4.1",
+  "packageManager": "yarn@4.5.0",
   "version": "0.0.2",
   "private": true,
   "workspaces": [
@@ -19,6 +19,6 @@
     "prettier": "^3.3.3"
   },
   "dependencies": {
-    "@types/node": "^22.6.1"
+    "@types/node": "^22.7.4"
   }
 }
