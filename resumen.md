@@ -23,3 +23,7 @@ La historia
 - ~~¿uso del sistema de salud? dato mugroso~~
 - afiliación -> 4 controles
 - conclusión
+
+Hay desconexión entre la metáfora y las datos en cada sección
+
+esto es lo que pasa con embarazadas pero aplica para todo tipo de población y enfermedades.
