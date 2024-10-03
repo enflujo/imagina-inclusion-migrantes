@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
 import Particula from '@/componentes/Particula';
 import type { PasosEscalera } from '@/tipos';
@@ -56,11 +57,16 @@ function irASeccion(i: number) {
 
 <template>
   <div id="escalera">
+    <!-- <h1>
+      ¿Porqué es importante para el país que las mujeres tengan mínimo 4 controles prenatales durante su embarazo?
+    </h1> -->
     <div id="info" ref="info">
+      <section>
+        <h2>La migración de Venezolanas y Venezolanos a Colombia</h2>
+        <LineaTiempo />
+      </section>
       <section id="infoEmbarazadas" ref="seccionInfo">
-        <h1>
-          ¿Porqué es importante para el país que las mujeres tengan mínimo 4 controles prenatales durante su embarazo?
-        </h1>
+        <h2>Introducción</h2>
 
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
@@ -122,7 +128,7 @@ function irASeccion(i: number) {
 
     <div id="contenedorGrafica">
       <div id="grafica" ref="grafica">
-        <Montes :porcentaje-v="porcentajesV" :porcentajes-c="porcentajesC" :irASeccion="irASeccion" />
+        <Montes :porcentajes-v="porcentajesV" :porcentajes-c="porcentajesC" :irASeccion="irASeccion" />
         <!-- <span id="umbralDecenal" :style="`bottom:${umbralPlanDecenal}%`"></span>
 
         <div v-for="i in 4" :ref="`escalon${i}`" class="escalon" @mouseenter="irASeccion(i - 1)">
@@ -178,6 +184,7 @@ $diferencia4: calc($alto4 - $alto5);
 
     section {
       min-height: 100vh;
+      padding-top: 1em;
     }
   }
 
