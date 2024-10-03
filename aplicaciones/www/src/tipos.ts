@@ -10,3 +10,15 @@ export interface DimsGraficaMonte {
   anchoSeccion: number;
   centroMonte: number;
 }
+
+export type MomentoLinea = {
+  año: number;
+  numero: number;
+  texto: string;
+  clase?: string;
+};
+
+export interface Cita {
+  tipo: 'positivo' | 'negativo';
+  texto: string;
+}

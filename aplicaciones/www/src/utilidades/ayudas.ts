@@ -37,3 +37,14 @@ export const escalaColores = (valorMin: number, valorMax: number, color1: string
     return `rgba(${r},${g},${b}, ${opacidad})`;
   };
 };
+
+export const formatoNumero = new Intl.NumberFormat('es-CO');
+
+export function truncarTexto(texto: string, maximo = 11) {
+  const partes = texto.split(' ');
+  if (partes.length > maximo) {
+    return `${partes.slice(0, maximo).join(' ')} ...`;
+  }
+
+  return texto;
+}
