@@ -28,10 +28,10 @@ const dims = ref({
 const posY = (valor: number) => convertirEscala(valor, 0, 100, 10, dims.value.piso);
 
 const nombresSecciones = [
-  'Embarazadas',
+  'Mujeres Embarazadas',
   'Regularizadas',
   'Afiliadas al sistema de salud',
-  'Con 4 o más controles prenatales',
+  'Con 4 controles prenatales',
 ];
 const margenX = 100;
 
@@ -126,7 +126,7 @@ function escalar() {
 
     <g style="transform: translate(0, 0)">
       <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Colombianas</text>
-      <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesC" :linea="lineaV" :pos-y="posY" />
+      <!-- <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesC" :linea="lineaV" :pos-y="posY" /> -->
       <path v-if="lineaC.length" class="lineaRecorrido" :d="lineaC" fill="url(#color)"></path>
     </g>
   </svg>
@@ -136,6 +136,18 @@ function escalar() {
 .montes {
   // border: 1px solid;
   height: 50vh;
+}
+
+.lineaRecorrido {
+  stroke: rgba(33, 24, 33, 0.5);
+  stroke-width: 0.5;
+  height: 150px;
+  background: linear-gradient(to right, rgb(244, 126, 130), rgb(162, 232, 197) 100%);
+  // fill: rgb(183, 0, 255);
+}
+
+.nombreGrupo {
+  font-size: 0.85em;
 }
 
 .areaEscalon {

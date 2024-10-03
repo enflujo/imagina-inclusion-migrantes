@@ -21,21 +21,9 @@ defineProps<Esquema>();
   </g>
 </template>
 
-<style lang="scss">
-.lineaRecorrido {
-  stroke: rgb(33, 24, 33);
-  stroke-width: 0.5;
-  height: 150px;
-  background: linear-gradient(to right, rgb(244, 126, 130), rgb(162, 232, 197) 100%);
-  // fill: rgb(183, 0, 255);
-}
-
-.nombreGrupo {
-  font-size: 0.85em;
-}
-
+<style lang="scss" scoped>
 .porcentaje {
-  stroke: black;
+  stroke: rgba(236, 13, 13, 0.507);
   stroke-width: 1;
   stroke-dasharray: 5;
 }

@@ -1,26 +1,21 @@
 <script setup lang="ts">
+import citas from '@/cerebros/citas';
+import BotonesCitas from '@/componentes/BotonesCitas.vue';
 import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
-import Particula from '@/componentes/Particula';
-import type { PasosEscalera } from '@/tipos';
+import type { Cita, PasosEscalera } from '@/tipos';
 import { escalaColores } from '@enflujo/alquimia';
-import { onMounted, onUnmounted, ref, useTemplateRef, type Ref, type ShallowRef } from 'vue';
+import { ref, type Ref } from 'vue';
 
 const info: Ref<HTMLDivElement | null> = ref(null);
 
 const seccionInfo: Ref<Ref<HTMLElement>[]> = ref([]);
 const seccionesInfo = ['infoEmbarazadas', 'infoRegularizadas', 'infoAfiliadas', 'infoControles'];
-
-let reloj = 0;
-const llaves = ['embarazadas', 'regularizadas', 'afiliadas', 'cuatroControles'];
+const tipoCita = ref('');
+const citaVisible = ref(false);
+const textoCita = ref('');
+const recursoVisible = ref(false);
 const color = escalaColores(0, 100, '#963c3c', '#5a997e');
-
-const titulosEscalones = [
-  'Mujeres Embarazadas',
-  'Regularizadas',
-  'Afiliadas al sistema de salud',
-  'Con 4 controles prenatales',
-];
 
 const datosControlesV: PasosEscalera = [76599, 63306, 39883, 26243];
 const diferenciasV = datosControlesV.map((valor) => datosControlesV[0] - valor) as PasosEscalera;
@@ -52,6 +47,28 @@ function irASeccion(i: number) {
   if (!elemento) return;
 
   elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function mostrarCita(cita: Cita) {
+  tipoCita.value = cita.tipo;
+  citaVisible.value = true;
+  textoCita.value = cita.texto;
+
+  console.log(cita);
+}
+
+function esconderCita() {
+  citaVisible.value = false;
+  textoCita.value = '';
+}
+
+function mostrarRecurso(ruta: string) {
+  recursoVisible.value = true;
+}
+
+function esconderRecurso() {
+  recursoVisible.value = false;
+  textoCita.value = '';
 }
 </script>
 
@@ -93,6 +110,8 @@ function irASeccion(i: number) {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
           reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
         </p>
+
+        <BotonesCitas :citas="citas.regularizadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
       </section>
 
       <section id="infoAfiliadas" ref="seccionInfo">
@@ -108,6 +127,13 @@ function irASeccion(i: number) {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
           reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
         </p>
+
+        <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+
+        <div class="botonRecurso" @mouseenter="mostrarRecurso('demo-afiliacion.jpg')" @mouseleave="esconderRecurso">
+          <span class="iconoRecurso" :style="{ backgroundImage: `url(/imgs/grafica.svg)` }"></span>
+          <span class="fragmentoRecurso">Venezuelan Population Sizes (all genders)</span>
+        </div>
       </section>
 
       <section id="infoControles" ref="seccionInfo">
@@ -123,29 +149,24 @@ function irASeccion(i: number) {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
           reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
         </p>
+
+        <BotonesCitas :citas="citas.controles" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
       </section>
     </div>
 
     <div id="contenedorGrafica">
+      <div ref="contenedorCita" :class="`contenedorCita ${tipoCita}${citaVisible ? ' visible' : ''}`">
+        <p class="textoCita">
+          {{ `"${textoCita}"` }}
+        </p>
+      </div>
+
+      <div ref="contenedorRecurso" :class="`contenedorRecurso${recursoVisible ? ' visible' : ''}`">
+        <img class="imgRecurso" src="/imgs/demo-afiliacion.jpg" />
+      </div>
+
       <div id="grafica" ref="grafica">
         <Montes :porcentajes-v="porcentajesV" :porcentajes-c="porcentajesC" :irASeccion="irASeccion" />
-        <!-- <span id="umbralDecenal" :style="`bottom:${umbralPlanDecenal}%`"></span>
-
-        <div v-for="i in 4" :ref="`escalon${i}`" class="escalon" @mouseenter="irASeccion(i - 1)">
-          <h3>{{ titulosEscalones[i - 1] }}</h3>
-
-          <div class="comparacion">
-            <div class="columna colombianas">
-              <span>Colombianas</span>
-              <span>{{ porcentajesC[i - 1] }}%</span>
-            </div>
-
-            <div class="columna venezolanas">
-              <span>Venezolanas</span>
-              <span>{{ porcentajesV[i - 1] }}%</span>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -154,6 +175,21 @@ function irASeccion(i: number) {
 <style lang="scss">
 #aplicacion {
   padding-bottom: 10em;
+}
+
+.botonRecurso {
+  display: flex;
+  align-items: center;
+  line-height: 2;
+  cursor: pointer;
+}
+
+.iconoRecurso {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 </style>
 
@@ -172,6 +208,58 @@ $alto4: calc($altoTotal * 0.3789);
 $diferencia3: calc($alto3 - $alto4);
 $alto5: calc($altoTotal * 0.3426);
 $diferencia4: calc($alto4 - $alto5);
+
+.contenedorCita {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100vh;
+  background-color: rgba(49, 109, 62, 0.76);
+  z-index: 9;
+  color: white;
+  font-size: 2em;
+  padding: 2em;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  &.visible {
+    display: flex;
+  }
+
+  &.negativo {
+    background-color: rgba(109, 49, 49, 0.76);
+  }
+
+  .textoCita {
+    width: 70%;
+    font-style: italic;
+  }
+}
+
+.contenedorRecurso {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100vh;
+  background-color: rgba(22, 24, 22, 0.76);
+  z-index: 9;
+  color: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  &.visible {
+    display: flex;
+  }
+
+  .imgRecurso {
+    width: 60%;
+    height: auto;
+  }
+}
 
 #escalera {
   display: flex;
