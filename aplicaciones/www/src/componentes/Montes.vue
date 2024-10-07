@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import type { PasosEscalera } from '@/tipos';
 import { convertirEscala } from '@enflujo/alquimia';
-import { computed, onMounted, onUnmounted, ref, type Ref } from 'vue';
+import { onMounted, onUnmounted, ref, type Ref } from 'vue';
 import InfoMonte from './InfoMonte.vue';
 
 interface Esquema {
-  porcentajesC: PasosEscalera;
-  porcentajesV: PasosEscalera;
   irASeccion: (i: number) => void;
 }
 
-const props = defineProps<Esquema>();
+defineProps<Esquema>();
 const grafica: Ref<(HTMLElement & SVGElement) | undefined> = ref();
 const lineaV = ref('');
 const lineaC = ref('');
@@ -27,6 +25,20 @@ const dims = ref({
 });
 const posY = (valor: number) => convertirEscala(valor, 0, 100, 10, dims.value.piso);
 
+const datosControlesV: PasosEscalera = [76599, 63306, 39883, 26243];
+const porcentajesV = datosControlesV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2)) as PasosEscalera;
+
+/** 
+ * Según el Plan Decenal de Salud el 95 % de las mujeres gestantes debe tener cuatro o más controles prenatales.
+Según la meta de los Objetivos de Desarrollo Sostenible (ODS), para el 2030, el 93 % de las gestantes debe tener cuatro o más controles prenatales
+ */
+const umbralPlanDecenal = 95;
+const umbralODS = 93;
+
+const datosControlesC: PasosEscalera = [623715, 623715, 623715, 503715];
+const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2)) as PasosEscalera;
+const porcentajesIdeal = [100, 100, 100, umbralPlanDecenal];
+
 const nombresSecciones = [
   'Mujeres Embarazadas',
   'Regularizadas',
@@ -36,7 +48,7 @@ const nombresSecciones = [
 const margenX = 100;
 
 onMounted(() => {
-  numeroSecciones.value = props.porcentajesV.length;
+  numeroSecciones.value = porcentajesV.length;
   escalar();
   window.addEventListener('resize', escalar);
 });
@@ -93,8 +105,8 @@ function escalar() {
       centroMonte: anchoSeccion / 2,
     };
 
-    lineaV.value = pintarLinea(props.porcentajesV);
-    lineaC.value = pintarLinea(props.porcentajesC);
+    lineaV.value = pintarLinea(porcentajesV);
+    lineaC.value = pintarLinea(porcentajesC);
   }
 }
 </script>

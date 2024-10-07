@@ -56,6 +56,12 @@ export const datosLinea: MomentoLinea[] = [
     texto: 'en promedio, 50,000 Venezolanos transitan entre Colombia y Venezuela.',
     clase: 'extremo',
   },
+  {
+    año: 2023,
+    numero: 2781980,
+    texto:
+      'hay 2,293,006 regularizados incluyendo 384,312 personas en proceso de obtener su Estado Temporal de Protección y 1,908,694 tienen su permiso Estatuto Temporal de Protección (PPT). 488,974 siguen en estado de irregulares.',
+  },
 ];
 
 export const fechaInicial = datosLinea[0].año;

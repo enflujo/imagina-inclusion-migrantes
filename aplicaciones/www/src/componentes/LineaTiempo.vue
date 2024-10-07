@@ -15,8 +15,8 @@ const infoY = ref(0);
 const textoInfo = ref('');
 const textoAño = ref('');
 const textoNumero = ref('');
-const posY = (valor: number) => convertirEscala(valor, numeroMin, numeroMax, dims.value.techo, dims.value.piso);
-const posX = (valor: number) => convertirEscala(valor, fechaInicial, fechaFinal, margenX, dims.value.ancho);
+const posX = (valor: number) =>
+  convertirEscala(valor, fechaInicial, fechaFinal, margenX, dims.value.ancho - margenX - 100);
 const radio = (valor: number) => convertirEscala(valor, numeroMin, numeroMax, 5, 25);
 
 onMounted(() => {
@@ -72,11 +72,12 @@ console.log(datosLinea);
 </script>
 
 <template>
+  <h2></h2>
   <svg class="lineaTiempo" ref="grafica" @mousemove="actualizarPosicion">
     <g
       v-for="punto in datosLinea"
       class="punto"
-      :style="{ transform: `translate(${posX(punto.año)}px, ${posY(punto.numero)}px)` }"
+      :style="{ transform: `translate(${posX(punto.año)}px, ${dims.piso}px)` }"
       @mouseenter="mostrarInfo(punto)"
       @mouseleave="esconderInfo"
     >
@@ -95,7 +96,7 @@ console.log(datosLinea);
 
 <style lang="scss" scoped>
 .lineaTiempo {
-  height: 35vh;
+  height: 200px;
 }
 
 .punto {
@@ -135,7 +136,7 @@ console.log(datosLinea);
   border: 1px solid;
   background-color: rgba(241, 235, 235, 0.9);
   position: absolute;
-  transform: translate(15px, -30%);
+  transform: translate(-70%, 15px);
   display: none;
   font-size: 0.75em;
   padding: 0.5em;

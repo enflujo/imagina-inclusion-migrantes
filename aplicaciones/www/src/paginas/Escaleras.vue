@@ -4,42 +4,15 @@ import BotonesCitas from '@/componentes/BotonesCitas.vue';
 import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
 import type { Cita, PasosEscalera } from '@/tipos';
-import { escalaColores } from '@enflujo/alquimia';
 import { ref, type Ref } from 'vue';
 
 const info: Ref<HTMLDivElement | null> = ref(null);
-
 const seccionInfo: Ref<Ref<HTMLElement>[]> = ref([]);
 const seccionesInfo = ['infoEmbarazadas', 'infoRegularizadas', 'infoAfiliadas', 'infoControles'];
 const tipoCita = ref('');
 const citaVisible = ref(false);
 const textoCita = ref('');
 const recursoVisible = ref(false);
-const color = escalaColores(0, 100, '#963c3c', '#5a997e');
-
-const datosControlesV: PasosEscalera = [76599, 63306, 39883, 26243];
-const diferenciasV = datosControlesV.map((valor) => datosControlesV[0] - valor) as PasosEscalera;
-const diferenciasPorcentajeV = diferenciasV.map(
-  (valor) => +((valor / datosControlesV[0]) * 100).toFixed(2)
-) as PasosEscalera;
-const saltosDiferencias: number[] = [];
-const porcentajesV = datosControlesV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2)) as PasosEscalera;
-const anchos = porcentajesV.map((valor, i) => [100 * (valor / 100), 100 * (diferenciasPorcentajeV[i] / 100)]);
-/** 
- * Según el Plan Decenal de Salud el 95 % de las mujeres gestantes debe tener cuatro o más controles prenatales.
-Según la meta de los Objetivos de Desarrollo Sostenible (ODS), para el 2030, el 93 % de las gestantes debe tener cuatro o más controles prenatales
- */
-const umbralPlanDecenal = 95;
-const umbralODS = 93;
-
-anchos.forEach((valores, i) => {
-  const anterior = i === 0 ? 0 : anchos[i - 1][1];
-  saltosDiferencias.push(+(valores[1] - anterior).toFixed(2));
-});
-
-const datosControlesC: PasosEscalera = [623715, 623715, 623715, 503715];
-const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2)) as PasosEscalera;
-const pasoX = 105 / (datosControlesC.length + 1);
 
 function irASeccion(i: number) {
   if (!info.value) return;
@@ -79,11 +52,23 @@ function esconderRecurso() {
     </h1> -->
     <div id="info" ref="info">
       <section>
-        <h2>La migración de Venezolanas y Venezolanos a Colombia</h2>
-        <LineaTiempo />
-      </section>
-      <section id="infoEmbarazadas" ref="seccionInfo">
         <h2>Introducción</h2>
+
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique odit voluptas magnam fugit officiis nihil
+          fugiat laboriosam architecto dignissimos ex corporis eveniet quo, unde reprehenderit. Voluptas amet tenetur
+          officia earum.
+        </p>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis eum omnis ab delectus maiores ea quis
+          explicabo earum voluptatibus nihil, ut ducimus iste vitae eligendi culpa aliquam nobis? Voluptatum,
+          voluptates?
+        </p>
+      </section>
+
+      <section id="infoEmbarazadas" ref="seccionInfo">
+        <h2>Total de la población</h2>
 
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
@@ -155,6 +140,7 @@ function esconderRecurso() {
     </div>
 
     <div id="contenedorGrafica">
+      <LineaTiempo />
       <div ref="contenedorCita" :class="`contenedorCita ${tipoCita}${citaVisible ? ' visible' : ''}`">
         <p class="textoCita">
           {{ `"${textoCita}"` }}
@@ -166,7 +152,7 @@ function esconderRecurso() {
       </div>
 
       <div id="grafica" ref="grafica">
-        <Montes :porcentajes-v="porcentajesV" :porcentajes-c="porcentajesC" :irASeccion="irASeccion" />
+        <Montes :irASeccion="irASeccion" />
       </div>
     </div>
   </div>

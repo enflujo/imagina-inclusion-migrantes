@@ -1,7 +1,7 @@
 import type { Cita } from '@/tipos';
 
-const citas: { embarazadas: Cita[]; regularizadas: Cita[]; afiliadas: Cita[]; controles: Cita[] } = {
-  embarazadas: [],
+const citas: { totalPoblacion: Cita[]; regularizadas: Cita[]; afiliadas: Cita[]; utilizacion: Cita[] } = {
+  totalPoblacion: [],
   regularizadas: [
     {
       tipo: 'positivo',
@@ -30,7 +30,7 @@ const citas: { embarazadas: Cita[]; regularizadas: Cita[]; afiliadas: Cita[]; co
       texto: 'Por ahora no me he enfermado, pero, por ejemplo, para sacarme la muela me tocó pagar',
     },
   ],
-  controles: [
+  utilizacion: [
     {
       tipo: 'positivo',
       texto:
