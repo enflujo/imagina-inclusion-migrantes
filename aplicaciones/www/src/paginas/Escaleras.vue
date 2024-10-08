@@ -3,7 +3,7 @@ import citas from '@/cerebros/citas';
 import BotonesCitas from '@/componentes/BotonesCitas.vue';
 import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
-import type { Cita, PasosEscalera } from '@/tipos';
+import type { Cita } from '@/tipos';
 import { ref, type Ref } from 'vue';
 
 const info: Ref<HTMLDivElement | null> = ref(null);
@@ -135,7 +135,7 @@ function esconderRecurso() {
           reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
         </p>
 
-        <BotonesCitas :citas="citas.controles" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        <BotonesCitas :citas="citas.utilizacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
       </section>
     </div>
 

@@ -22,3 +22,5 @@ export interface Cita {
   tipo: 'positivo' | 'negativo';
   texto: string;
 }
+
+export type PuntoSimple = [x: number, y: number];
