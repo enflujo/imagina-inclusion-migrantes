@@ -14,6 +14,7 @@ const grafica: Ref<(HTMLElement & SVGElement) | undefined> = ref();
 const lineaV = ref('');
 const lineaC = ref('');
 const numeroSecciones = ref(0);
+const margenX = 100;
 const dims = ref({
   anchoTotal: 0,
   altoTotal: 0,
@@ -24,6 +25,10 @@ const dims = ref({
   anchoSeccion: 0,
   centroMonte: 0,
 });
+const mujeres: Particula[] = [];
+const mujer = ref();
+let particula: Particula;
+
 const posY = (valor: number) => convertirEscala(valor, 0, 100, 10, dims.value.piso);
 
 const datosControlesV: PasosEscalera = [76599, 63306, 39883, 26243];
@@ -46,7 +51,6 @@ const nombresSecciones = [
   'Afiliadas al sistema de salud',
   'Con 4 controles prenatales',
 ];
-const margenX = 100;
 
 onMounted(() => {
   numeroSecciones.value = porcentajesV.length;
@@ -124,17 +128,16 @@ function escalar() {
     if (venezolanas) {
       lineaV.value = venezolanas.linea;
 
-      if (!particula)
+      if (!particula) {
         particula = new Particula(margenX, piso, 4, [margenX, piso], [ancho - margenX, piso], venezolanas.datos);
-      else particula.actualizarPosiciones(margenX, piso, [margenX, piso], [ancho - margenX, piso]);
+      } else {
+        particula.actualizarPosiciones(margenX, piso, [margenX, piso], [ancho - margenX, piso]);
+      }
     }
 
     lineaC.value = colombianas ? colombianas.linea : '';
   }
 }
-
-const mujer = ref();
-let particula: Particula;
 
 function animar() {
   if (!mujer.value) return;
@@ -224,6 +227,4 @@ function animar() {
     }
   }
 }
-
-//rgba(255, 169, 172, 0.379), rgba(208, 238, 223, 0.68)
 </style>
