@@ -80,6 +80,8 @@ function esconderRecurso() {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
           reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
         </p>
+
+        <BotonesCitas :citas="citas.totalPoblacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
       </section>
 
       <section id="infoRegularizadas" ref="seccionInfo">
@@ -122,7 +124,7 @@ function esconderRecurso() {
       </section>
 
       <section id="infoControles" ref="seccionInfo">
-        <h2>Con 4 controles prenatales</h2>
+        <h2>Utilización</h2>
 
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
