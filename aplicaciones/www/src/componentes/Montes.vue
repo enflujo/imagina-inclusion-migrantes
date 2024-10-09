@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { PasosEscalera } from '@/tipos';
+import type { PasosEscalera, PuntoSimple } from '@/tipos';
 import { convertirEscala } from '@enflujo/alquimia';
-import { onMounted, onUnmounted, ref, type Ref } from 'vue';
+import { onMounted, onUnmounted, onUpdated, ref, useTemplateRef, type Ref, type ShallowRef } from 'vue';
 import InfoMonte from './InfoMonte.vue';
 import Particula from './Particula';
+import { numeroAleatorio } from '@/utilidades/ayudas';
 
 interface Esquema {
   irASeccion: (i: number) => void;
@@ -25,16 +26,18 @@ const dims = ref({
   anchoSeccion: 0,
   centroMonte: 0,
 });
-const mujeres: Particula[] = [];
-const mujer = ref();
-let particula: Particula;
+const particulas: Ref<Particula[]> = ref([]);
+const mujeres = useTemplateRef<HTMLSpanElement[]>('mujeres');
 
 const posY = (valor: number) => convertirEscala(valor, 0, 100, 10, dims.value.piso);
-
 const datosControlesV: PasosEscalera = [76599, 63306, 39883, 26243];
 const porcentajesV = datosControlesV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2)) as PasosEscalera;
+const bloqueosV = porcentajesV.map((p) => 100 - Math.floor(p));
+const numParticulasVen = 100;
+const numParticulasCo = 100;
+// console.log(porcentajesV, bloqueosV);
 let reloj = 0;
-/** 
+/**
  * Según el Plan Decenal de Salud el 95 % de las mujeres gestantes debe tener cuatro o más controles prenatales.
 Según la meta de los Objetivos de Desarrollo Sostenible (ODS), para el 2030, el 93 % de las gestantes debe tener cuatro o más controles prenatales
  */
@@ -55,6 +58,7 @@ const nombresSecciones = [
 onMounted(() => {
   numeroSecciones.value = porcentajesV.length;
   escalar();
+
   reloj = requestAnimationFrame(animar);
   window.addEventListener('resize', escalar);
 });
@@ -125,87 +129,141 @@ function escalar() {
     const venezolanas = construirLinea(porcentajesV);
     const colombianas = construirLinea(porcentajesC);
 
-    if (venezolanas) {
+    if (venezolanas && colombianas) {
       lineaV.value = venezolanas.linea;
+      lineaC.value = colombianas ? colombianas.linea : '';
+      const personajes: Particula[] = [];
+      const limites: PuntoSimple = [ancho - margenX, piso];
+      let iBloqueos = 0;
 
-      if (!particula) {
-        particula = new Particula(margenX, piso, 4, [margenX, piso], [ancho - margenX, piso], venezolanas.datos);
-      } else {
-        particula.actualizarPosiciones(margenX, piso, [margenX, piso], [ancho - margenX, piso]);
+      for (let i = 0; i < numParticulasVen; i++) {
+        if (i >= bloqueosV[iBloqueos]) {
+          iBloqueos++;
+        }
+
+        // console.log(i, iBloqueos, [anchoSeccion * iBloqueos, piso]);
+
+        personajes.push(
+          new Particula(
+            'venezolana',
+            numeroAleatorio(-margenX, margenX),
+            piso,
+            numeroAleatorio(1, 4),
+            [margenX, piso],
+            limites, //[anchoSeccion * iBloqueos + margenX, piso],
+            venezolanas.datos
+          )
+        );
       }
-    }
 
-    lineaC.value = colombianas ? colombianas.linea : '';
+      for (let i = 0; i < numParticulasCo; i++) {
+        personajes.push(
+          new Particula(
+            'colombiana',
+            numeroAleatorio(-margenX, margenX),
+            piso,
+            numeroAleatorio(1, 4),
+            [margenX, margenY],
+            [ancho - margenX, margenY],
+            colombianas.datos
+          )
+        );
+      }
+
+      particulas.value = personajes;
+    }
   }
 }
-
 function animar() {
-  if (!mujer.value) return;
+  if (!mujeres.value) return;
 
-  Object.assign(mujer.value.style, {
-    left: `${particula.x}px`,
-    top: `${particula.y}px`,
-    transform: `translate(10px, -30px) rotate(${particula.angulo}rad)`,
+  mujeres.value.forEach((mujer, i) => {
+    const particula = particulas.value[i];
+    const desplazar = particula.tipo === 'venezolana' ? 'translate(10px, -30px)' : 'translateY(-10px)';
+
+    Object.assign(mujer.style, {
+      left: `${particula.x}px`,
+      top: `${particula.y}px`,
+      transform: `${desplazar} rotate(${particula.angulo}rad)`,
+    });
+    particula.mover();
   });
 
-  particula.mover();
   reloj = requestAnimationFrame(animar);
 }
 </script>
 
 <template>
-  <svg class="montes" ref="grafica">
-    <defs>
-      <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="30%" stop-color="rgb(244, 126, 130)" />
-        <stop offset="100%" stop-color="rgb(162, 232, 197)" />
-      </linearGradient>
-    </defs>
+  <div id="contenedor">
+    <svg class="montes" ref="grafica">
+      <defs>
+        <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="30%" stop-color="rgb(244, 126, 130)" />
+          <stop offset="100%" stop-color="rgb(162, 232, 197)" />
+        </linearGradient>
+      </defs>
 
-    <g
-      v-for="i in numeroSecciones"
-      class="areaEscalon"
-      :style="{ transform: `translate(${margenX + dims.anchoSeccion * (i - 1)}px, 0)` }"
-      @click="irASeccion(i - 1)"
-    >
-      <rect class="zona" :x="0" y="0" :width="`${dims.anchoSeccion}px`" height="100%" />
-      <text x="10px" y="20px">{{ nombresSecciones[i - 1] }}</text>
-    </g>
+      <g
+        v-for="i in numeroSecciones"
+        class="areaEscalon"
+        :style="{ transform: `translate(${margenX + dims.anchoSeccion * (i - 1)}px, 0)` }"
+        @click="irASeccion(i - 1)"
+      >
+        <rect class="zona" :x="0" y="0" :width="`${dims.anchoSeccion}px`" height="100%" />
+        <text x="10px" y="20px">{{ nombresSecciones[i - 1] }}</text>
+      </g>
 
-    <g style="transform: translate(10px, -20px)">
-      <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Venezolanas</text>
-      <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesV" :linea="lineaV" :pos-y="posY" />
-      <path v-if="lineaV.length" class="lineaRecorrido" :d="lineaV" fill="url(#color)"></path>
-    </g>
+      <g style="transform: translate(10px, -20px)">
+        <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Venezolanas</text>
+        <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesV" :linea="lineaV" :pos-y="posY" />
+        <path v-if="lineaV.length" class="lineaRecorrido" :d="lineaV" fill="url(#color)"></path>
+      </g>
 
-    <g style="transform: translate(0, 0)">
-      <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Colombianas</text>
-      <!-- <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesC" :linea="lineaV" :pos-y="posY" /> -->
-      <path v-if="lineaC.length" class="lineaRecorrido" :d="lineaC" fill="url(#color)"></path>
-    </g>
-  </svg>
-  <span id="mujer" ref="mujer"></span>
+      <g style="transform: translate(0, 0)">
+        <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Colombianas</text>
+        <!-- <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesC" :linea="lineaV" :pos-y="posY" /> -->
+        <path v-if="lineaC.length" class="lineaRecorrido" :d="lineaC" fill="url(#color)"></path>
+      </g>
+    </svg>
+
+    <div id="contenedorAnim">
+      <span v-for="(_, i) in particulas" ref="mujeres" :key="`particula${i}`" class="mujer"></span>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+#contenedor {
+  position: sticky;
+  top: 100px;
+}
+
+#contenedorAnim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f0f8ff3b;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .montes {
-  // border: 1px solid;
   height: 50vh;
 }
-#mujer {
+.mujer {
   width: 4px;
   height: 10px;
   display: inline-block;
   background-color: green;
   position: absolute;
-  // transform: translateY(-100%);
 }
+
 .lineaRecorrido {
   stroke: rgba(33, 24, 33, 0.5);
   stroke-width: 0.5;
   height: 150px;
   background: linear-gradient(to right, rgb(244, 126, 130), rgb(162, 232, 197) 100%);
-  // fill: rgb(183, 0, 255);
 }
 
 .nombreGrupo {

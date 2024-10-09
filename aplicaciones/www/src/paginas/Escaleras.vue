@@ -26,8 +26,6 @@ function mostrarCita(cita: Cita) {
   tipoCita.value = cita.tipo;
   citaVisible.value = true;
   textoCita.value = cita.texto;
-
-  console.log(cita);
 }
 
 function esconderCita() {
@@ -153,9 +151,9 @@ function esconderRecurso() {
         <img class="imgRecurso" src="/imgs/demo-afiliacion.jpg" />
       </div>
 
-      <div id="grafica" ref="grafica">
-        <Montes :irASeccion="irASeccion" />
-      </div>
+      <!-- <div id="grafica" ref="grafica"> -->
+      <Montes :irASeccion="irASeccion" />
+      <!-- </div> -->
     </div>
   </div>
 </template>

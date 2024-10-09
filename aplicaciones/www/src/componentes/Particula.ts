@@ -26,6 +26,7 @@ export const convertirEscala = (
 };
 
 export default class Particula {
+  tipo: 'venezolana' | 'colombiana';
   x: number;
   y: number;
   piso: number;
@@ -40,6 +41,7 @@ export default class Particula {
   angulo: number;
 
   constructor(
+    tipo: 'venezolana' | 'colombiana',
     x = 0,
     y = 0,
     velocidad = 1,
@@ -59,6 +61,7 @@ export default class Particula {
     this.rebota = rebota;
     this.datos = datos;
     this.angulo = 0;
+    this.tipo = tipo;
   }
 
   mover() {
@@ -76,13 +79,15 @@ export default class Particula {
     }
 
     if (this.x > this.limiteX) {
-      const rebote = Math.random() > 0.01 ? this.x - Math.random() * 10 : this.origenX;
-      this.x = this.rebota ? rebote : this.origenX;
+      // const rebote = Math.random() > 0.01 ? this.x - Math.random() * 10 : this.origenX;
+      this.x = this.origenX;
+      this.angulo = 0;
     } else {
     }
 
     const velocidadMin = 0.0001;
     const velocidadMax = 1;
+
     if (this.angulo !== 0) {
       let velocidad = 0;
       if (this.angulo < 0) {
@@ -106,5 +111,15 @@ export default class Particula {
     this.origenY = origen[0];
     this.limiteX = limites[0];
     this.limiteY = limites[1];
+    if (this.tipo === 'venezolana') {
+      const ajusteX = 10;
+      const ajusteY = -30;
+      this.x += ajusteX;
+      this.y += ajusteY;
+      this.origenX += ajusteX;
+      this.origenY += ajusteY;
+      this.limiteX += ajusteX;
+      this.limiteY += ajusteY;
+    }
   }
 }

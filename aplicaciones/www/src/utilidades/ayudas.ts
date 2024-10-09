@@ -48,3 +48,7 @@ export function truncarTexto(texto: string, maximo = 11) {
 
   return texto;
 }
+
+export function numeroAleatorio(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

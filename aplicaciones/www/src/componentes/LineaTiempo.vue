@@ -67,8 +67,6 @@ function actualizarPosicion(evento: MouseEventInit) {
     infoY.value = clientY;
   }
 }
-
-console.log(datosLinea);
 </script>
 
 <template>
