@@ -51,23 +51,37 @@ function esconderRecurso() {
     </h1> -->
     <div id="info" ref="info">
       <section>
-        <h2>Introducción</h2>
+        <h2>
+          Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia
+        </h2>
 
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique odit voluptas magnam fugit officiis nihil
-          fugiat laboriosam architecto dignissimos ex corporis eveniet quo, unde reprehenderit. Voluptas amet tenetur
-          officia earum.
+          Desde el 2008 Venezuela atraviesa una crisis política, social y económica, que ha crecido con los años y ha
+          desencadenado una crisis migratoria y humanitaria en la región. Desde el 2014 el aumento de migrantes en
+          Colombia ha crecido drásticamente. Actualmente, el país acoge a unos 2,8 millones de migrantes venezolanos
+          (OIM, 2024), siendo el país latinoamericano con más migrantes de esta nacionalidad.
         </p>
 
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis eum omnis ab delectus maiores ea quis
-          explicabo earum voluptatibus nihil, ut ducimus iste vitae eligendi culpa aliquam nobis? Voluptatum,
-          voluptates?
+          Con esta situación en mente, la Universidad de los Andes, Brandeis University y Boston College, con el apoyo
+          de ELRHA, realizaron la investigación “Fortalecimiento del sistema de salud para reducir la morbilidad y
+          mortalidad de mujeres y niños migrantes venezolanos en Colombia”, con el objetivo de determinar el impacto del
+          “Permiso de Protección Temporal” (PPT), otorgado a través del “Estatuto de Protección Temporal para Migrantes
+          Venezolanos” ETPMV en la afiliación al sistema de salud, el acceso a los servicios y, finalmente, la
+          morbilidad y mortalidad de mujeres venezolanas y sus hijos.
+        </p>
+
+        <p>
+          Dado que cerca del 80% de los migrantes ha obtenido o está en proceso de obtener el (PPT), este mecanismo de
+          regularización migratoria debería ser un conducto efectivo para permitir la inscripción en al sistema de salud
+          y, por ende, tener un gran potencial para mejorar el acceso a servicios de prevención, atención y salud de
+          mujeres migrantes. No obstante, la evidencia muestra que existen barreras importantes que limitan el impacto
+          de la política de regularización sobre la salud.
         </p>
       </section>
 
       <section id="infoEmbarazadas" ref="seccionInfo">
-        <h2>Total de la población</h2>
+        <h2>Población Migrante</h2>
 
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
@@ -84,18 +98,23 @@ function esconderRecurso() {
       </section>
 
       <section id="infoRegularizadas" ref="seccionInfo">
-        <h2>Regularizadas</h2>
+        <h2>Regularización</h2>
 
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
-          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
-          saepe tempora velit maxime veritatis!
+          Para documentar los cambios tras la implementación del ETPMV, este estudio utiliza los datos administrativos
+          del sistema de salud colombiano y la información recogida a través de encuestas telefónicas a mujeres
+          migrantes venezolanas. Adicionalmente, para identificar y entender las barreras que limitan el impacto del
+          ETPMV sobre el acceso a servicios y la salud, se realizaron entrevistas a mujeres migrantes y actores clave.
+          También, se entrevistaron a representantes de organizaciones del Grupo Interagencial de Flujos Migratorios
+          Mixtos (GIFMM) para entender y triangular toda la evidencia recogida.
         </p>
 
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
-          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
+          En primer lugar, los resultados muestran que el número de migrantes regularizados (afiliados al sistema de
+          salud) en los últimos años han aumentado notablemente, un resultado positivo del ETPMV.
         </p>
+
+        <p>*AGREGAR GRÁFICAS</p>
 
         <BotonesCitas :citas="citas.regularizadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
       </section>
@@ -141,6 +160,7 @@ function esconderRecurso() {
     </div>
 
     <div id="contenedorGrafica">
+      <h3 id="tituloGrafMigrantes" class="tituloGrafica">Migrantes venezolanos en Colombia desde 2008</h3>
       <LineaTiempo />
       <div ref="contenedorCita" :class="`contenedorCita ${tipoCita}${citaVisible ? ' visible' : ''}`">
         <p class="textoCita">
@@ -152,9 +172,11 @@ function esconderRecurso() {
         <img class="imgRecurso" :src="`${baseUrl}/imgs/demo-afiliacion.jpg`" />
       </div>
 
-      <!-- <div id="grafica" ref="grafica"> -->
-      <Montes :irASeccion="irASeccion" />
-      <!-- </div> -->
+      <h3 class="tituloGrafica">Situación de las mujeres venezolanas embarazadas en el sistema de salud colombiano</h3>
+
+      <div id="grafica" ref="grafica">
+        <Montes :irASeccion="irASeccion" />
+      </div>
     </div>
   </div>
 </template>
@@ -316,6 +338,11 @@ $diferencia4: calc($alto4 - $alto5);
 
 .resaltar {
   font-weight: bold;
+}
+
+.tituloGrafica {
+  position: sticky;
+  margin: 1em;
 }
 
 #grafica {

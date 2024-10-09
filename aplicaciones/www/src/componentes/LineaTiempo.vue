@@ -94,7 +94,7 @@ function actualizarPosicion(evento: MouseEventInit) {
 
 <style lang="scss" scoped>
 .lineaTiempo {
-  height: 200px;
+  height: 150px;
 }
 
 .punto {
