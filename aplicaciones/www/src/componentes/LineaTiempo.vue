@@ -132,8 +132,8 @@ function actualizarPosicion(evento: MouseEventInit) {
   min-height: 100px;
   border: 1px solid;
   background-color: rgba(241, 235, 235, 0.9);
-  position: absolute;
-  transform: translate(-70%, 15px);
+  position: fixed;
+  transform: translate(10px, -50%);
   display: none;
   font-size: 0.75em;
   padding: 0.5em;
