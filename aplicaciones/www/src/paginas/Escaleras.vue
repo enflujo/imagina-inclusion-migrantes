@@ -119,8 +119,9 @@ function esconderRecurso() {
         </p>
 
         <Mapa />
-
-        <BotonesCitas :citas="citas.regularizadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.regularizadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        </div>
       </section>
 
       <section id="infoAfiliadas" ref="seccionInfo">
@@ -138,11 +139,8 @@ function esconderRecurso() {
         <h3 class="tituloGrafica">Mujeres migrantes venezolanas en Colombia que usan los servicios de salud</h3>
         <img class="imagenGrafica" src="/imgs/migrantes_venezolanas_15_44 años_usan_servicios_medicos.png" />
 
-        <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
-
-        <div class="botonRecurso" @mouseenter="mostrarRecurso('demo-afiliacion.jpg')" @mouseleave="esconderRecurso">
-          <span class="iconoRecurso" :style="{ backgroundImage: `url(${baseUrl}/imgs/grafica.svg)` }"></span>
-          <span class="fragmentoRecurso">Venezuelan Population Sizes (all genders)</span>
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
         </div>
       </section>
 
@@ -170,8 +168,9 @@ function esconderRecurso() {
           con niños y adolescentes que rápidamente necesitaban servicios de salud como vacunas o chequeos pediátricos de
           crecimiento y desarrollo.
         </p>
-
-        <BotonesCitas :citas="citas.utilizacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.utilizacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        </div>
       </section>
     </div>
 
@@ -198,9 +197,11 @@ function esconderRecurso() {
 
 .botonRecurso {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   line-height: 2;
   cursor: pointer;
+  width: 30%;
+  margin: 0 1em 0.7em 0;
 }
 
 .iconoRecurso {
@@ -278,6 +279,13 @@ $diferencia4: calc($alto4 - $alto5);
     width: 60%;
     height: auto;
   }
+}
+
+.contenedorBurbujas {
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 #escalera {
