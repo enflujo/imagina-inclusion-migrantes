@@ -34,5 +34,6 @@ jobs:
           server: ${{ secrets.DOMINIO_IMAGINA }}
           username: ${{ secrets.USUARIO_IMAGINA }}
           password: ${{ secrets.CLAVE_IMAGINA }}
+          protocol: ftps
           local-dir: './aplicaciones/www/publico/'
           server-dir: '/srv/www/wordpress/especiales/rompiendo-barreras/'
