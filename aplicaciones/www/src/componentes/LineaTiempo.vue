@@ -174,9 +174,10 @@ function actualizarPosicion(evento: MouseEventInit) {
   position: fixed;
   transform: translate(10px, -50%);
   display: none;
-  font-size: 0.75em;
+  font-size: 0.85em;
   padding: 0.5em;
   z-index: 999;
+  pointer-events: none;
 
   &.visible {
     display: block;

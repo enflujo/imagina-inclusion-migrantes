@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PasosEscalera, PuntoSimple } from '@/tipos';
 import { convertirEscala } from '@enflujo/alquimia';
-import { onMounted, onUnmounted, onUpdated, ref, useTemplateRef, type Ref, type ShallowRef } from 'vue';
+import { onMounted, onUnmounted, ref, useTemplateRef, type Ref } from 'vue';
 import InfoMonte from './InfoMonte.vue';
 import Particula from './Particula';
 import { numeroAleatorio } from '@/utilidades/ayudas';
