@@ -4,6 +4,7 @@ import BotonesCitas from '@/componentes/BotonesCitas.vue';
 import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
 import type { Cita } from '@/tipos';
+import { baseUrl } from '@/utilidades/ayudas';
 import { ref, type Ref } from 'vue';
 
 const info: Ref<HTMLDivElement | null> = ref(null);
@@ -116,7 +117,7 @@ function esconderRecurso() {
         <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
 
         <div class="botonRecurso" @mouseenter="mostrarRecurso('demo-afiliacion.jpg')" @mouseleave="esconderRecurso">
-          <span class="iconoRecurso" :style="{ backgroundImage: `url(/imgs/grafica.svg)` }"></span>
+          <span class="iconoRecurso" :style="{ backgroundImage: `url(${baseUrl}/imgs/grafica.svg)` }"></span>
           <span class="fragmentoRecurso">Venezuelan Population Sizes (all genders)</span>
         </div>
       </section>
@@ -148,7 +149,7 @@ function esconderRecurso() {
       </div>
 
       <div ref="contenedorRecurso" :class="`contenedorRecurso${recursoVisible ? ' visible' : ''}`">
-        <img class="imgRecurso" src="/imgs/demo-afiliacion.jpg" />
+        <img class="imgRecurso" :src="`${baseUrl}/imgs/demo-afiliacion.jpg`" />
       </div>
 
       <!-- <div id="grafica" ref="grafica"> -->

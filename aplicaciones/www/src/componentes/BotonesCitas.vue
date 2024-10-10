@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Cita } from '@/tipos';
-import { truncarTexto } from '@/utilidades/ayudas';
+import { baseUrl, truncarTexto } from '@/utilidades/ayudas';
 
 interface Esquema {
   mostrarCita: (cita: Cita) => void;
@@ -13,7 +13,7 @@ defineProps<Esquema>();
 
 <template>
   <div class="botonRecurso" v-for="cita in citas" @mouseenter="mostrarCita(cita)" @mouseleave="esconderCita">
-    <span class="iconoRecurso" :style="{ backgroundImage: `url(/imgs/burbuja.svg)` }"></span>
+    <span class="iconoRecurso" :style="{ backgroundImage: `url(${baseUrl}/imgs/burbuja.svg)` }"></span>
     <span class="fragmentoCita">{{ truncarTexto(cita.texto) }}</span>
     <span :class="`tipo ${cita.tipo}`"></span>
   </div>

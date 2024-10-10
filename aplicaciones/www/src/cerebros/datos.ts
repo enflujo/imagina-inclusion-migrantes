@@ -47,7 +47,7 @@ export const usarCerebroDatos = defineStore('datos', {
     },
 
     async cargarDatos() {
-      const datos = await pedirDatos<DatosInclusion[]>('/inclusion-municipios.json');
+      const datos = await pedirDatos<DatosInclusion[]>(`${import.meta.env.BASE_URL}/inclusion-municipios.json`);
       const lugares: Feature<Point>[] = [];
 
       datos.forEach((lugar) => {
@@ -76,7 +76,7 @@ export const usarCerebroDatos = defineStore('datos', {
     },
 
     async cargarDatosBuscador() {
-      const datos = await pedirDatos<DatosBuscador[]>('/buscador.json');
+      const datos = await pedirDatos<DatosBuscador[]>(`${import.meta.env.BASE_URL}/buscador.json`);
       this.datosBuscador = datos;
     },
   },

@@ -1,5 +1,6 @@
 import { convertirEscala, hexARGB } from '@enflujo/alquimia';
 
+export const baseUrl = import.meta.env.BASE_URL;
 /**
  * Permite definir el los tipos (Typescript) al pedir los datos
  *
