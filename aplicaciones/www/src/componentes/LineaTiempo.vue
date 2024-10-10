@@ -70,7 +70,6 @@ function actualizarPosicion(evento: MouseEventInit) {
 </script>
 
 <template>
-  <h2></h2>
   <svg class="lineaTiempo" ref="grafica" @mousemove="actualizarPosicion">
     <g
       v-for="punto in datosLinea"
@@ -94,7 +93,7 @@ function actualizarPosicion(evento: MouseEventInit) {
 
 <style lang="scss" scoped>
 .lineaTiempo {
-  height: 200px;
+  height: 150px;
 }
 
 .punto {

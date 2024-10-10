@@ -6,6 +6,7 @@ import Montes from '@/componentes/Montes.vue';
 import type { Cita } from '@/tipos';
 import { baseUrl } from '@/utilidades/ayudas';
 import { ref, type Ref } from 'vue';
+import Mapa from './Mapa.vue';
 
 const info: Ref<HTMLDivElement | null> = ref(null);
 const seccionInfo: Ref<Ref<HTMLElement>[]> = ref([]);
@@ -51,57 +52,80 @@ function esconderRecurso() {
     </h1> -->
     <div id="info" ref="info">
       <section>
-        <h2>Introducción</h2>
+        <h2>
+          Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia
+        </h2>
 
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique odit voluptas magnam fugit officiis nihil
-          fugiat laboriosam architecto dignissimos ex corporis eveniet quo, unde reprehenderit. Voluptas amet tenetur
-          officia earum.
+          Desde el 2008 Venezuela atraviesa una crisis política, social y económica, que ha crecido con los años y ha
+          desencadenado una crisis migratoria y humanitaria en la región. Desde el 2014 el aumento de migrantes en
+          Colombia ha crecido drásticamente. Actualmente, el país acoge a unos 2,8 millones de migrantes venezolanos
+          (OIM, 2024), siendo el país latinoamericano con más migrantes de esta nacionalidad.
+        </p>
+
+        <div id="contenedorGraficaMig">
+          <h3 id="tituloGrafMigrantes" class="tituloGrafica">Migrantes venezolanos en Colombia desde 2008</h3>
+          <LineaTiempo />
+        </div>
+
+        <p>
+          Con esta situación en mente, la Universidad de los Andes, Brandeis University y Boston College, con el apoyo
+          de ELRHA, realizaron la investigación “Fortalecimiento del sistema de salud para reducir la morbilidad y
+          mortalidad de mujeres y niños migrantes venezolanos en Colombia”, con el objetivo de determinar el impacto del
+          “Permiso de Protección Temporal” (PPT), otorgado a través del “Estatuto de Protección Temporal para Migrantes
+          Venezolanos” ETPMV en la afiliación al sistema de salud, el acceso a los servicios y, finalmente, la
+          morbilidad y mortalidad de mujeres venezolanas y sus hijos.
         </p>
 
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis eum omnis ab delectus maiores ea quis
-          explicabo earum voluptatibus nihil, ut ducimus iste vitae eligendi culpa aliquam nobis? Voluptatum,
-          voluptates?
+          Dado que cerca del 80% de los migrantes ha obtenido o está en proceso de obtener el (PPT), este mecanismo de
+          regularización migratoria debería ser un conducto efectivo para permitir la inscripción en al sistema de salud
+          y, por ende, tener un gran potencial para mejorar el acceso a servicios de prevención, atención y salud de
+          mujeres migrantes. No obstante, la evidencia muestra que existen barreras importantes que limitan el impacto
+          de la política de regularización sobre la salud.
         </p>
-      </section>
-
-      <section id="infoEmbarazadas" ref="seccionInfo">
-        <h2>Total de la población</h2>
-
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
-          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
-          saepe tempora velit maxime veritatis!
-        </p>
-
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
-          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
-        </p>
-
-        <BotonesCitas :citas="citas.totalPoblacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
       </section>
 
       <section id="infoRegularizadas" ref="seccionInfo">
-        <h2>Regularizadas</h2>
+        <h2>Regularización</h2>
 
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
-          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
-          saepe tempora velit maxime veritatis!
+          Para documentar los cambios tras la implementación del ETPMV, este estudio utiliza los datos administrativos
+          del sistema de salud colombiano y la información recogida a través de encuestas telefónicas a mujeres
+          migrantes venezolanas. Adicionalmente, para identificar y entender las barreras que limitan el impacto del
+          ETPMV sobre el acceso a servicios y la salud, se realizaron entrevistas a mujeres migrantes y actores clave.
+          También, se entrevistaron a representantes de organizaciones del Grupo Interagencial de Flujos Migratorios
+          Mixtos (GIFMM) para entender y triangular toda la evidencia recogida.
         </p>
 
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
-          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
+          En primer lugar, los resultados muestran que el número de migrantes regularizados (afiliados al sistema de
+          salud) en los últimos años ha aumentado notablemente, un resultado positivo del ETPMV.
         </p>
 
-        <BotonesCitas :citas="citas.regularizadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        <h3 class="tituloGrafica">
+          Probabilidad de utilizar los servicios de salud para mujeres migrantes venezolanas y los miembros de sus
+          hogares en los últimos 30 días, antes y después del ETPMV (N=4,423)
+        </h3>
+        <img class="imagenGrafica" src="/imgs/total_afiliacion_recortada.png" />
+
+        <p>
+          La investigación encontró que los impactos de tener acceso a los servicios de salud son mayores en los
+          municipios con menores niveles de regularización y afiliación al seguro de salud. Los principales destinos de
+          los migrantes venezolanos son las ciudades de frontera y ciudades como Bogotá, por lo que este hallazgo podría
+          reflejar una mayor necesidad de que los migrantes en situación de tránsito accedan a los servicios públicos de
+          salud para cubrir sus necesidades de atención médica. Poseer un documento de regularización facilita el acceso
+          al sistema de salud para las mujeres migrantes y sus hijos.
+        </p>
+
+        <Mapa />
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.regularizadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        </div>
       </section>
 
       <section id="infoAfiliadas" ref="seccionInfo">
-        <h2>Afiliadas al sistema de salud</h2>
+        <h2>Afiliación</h2>
 
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
@@ -109,52 +133,59 @@ function esconderRecurso() {
           saepe tempora velit maxime veritatis!
         </p>
 
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
-          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
-        </p>
+        <h3 class="tituloGrafica">Mujeres migrantes venezolanas en Colombia entre 15 y 44 años</h3>
+        <img class="imagenGrafica" src="/imgs/migrantes_venezolanas_colombia_15_44_años.png" />
 
-        <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        <h3 class="tituloGrafica">Mujeres migrantes venezolanas en Colombia que usan los servicios de salud</h3>
+        <img class="imagenGrafica" src="/imgs/migrantes_venezolanas_15_44 años_usan_servicios_medicos.png" />
 
-        <div class="botonRecurso" @mouseenter="mostrarRecurso('demo-afiliacion.jpg')" @mouseleave="esconderRecurso">
-          <span class="iconoRecurso" :style="{ backgroundImage: `url(${baseUrl}/imgs/grafica.svg)` }"></span>
-          <span class="fragmentoRecurso">Venezuelan Population Sizes (all genders)</span>
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
         </div>
       </section>
 
       <section id="infoControles" ref="seccionInfo">
-        <h2>Utilización</h2>
+        <h2>Utilización del sistema de salud</h2>
 
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
-          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
-          saepe tempora velit maxime veritatis!
+          Algunos de los resultados de las entrevistas muestran que las migrantes han buscado atención médica para la
+          salud de sus hijos o durante el embarazo. Pocas mencionaron haber caído enfermas y recurrido al sistema de
+          salud público. Es común que busquen atención médica en el sector privado, como médicos venezolanos dentro de
+          la comunidad, farmacéuticos y clínicas privadas. El acceso a oportunidades de empleo informal y a los
+          servicios de salud motiva a las mujeres migrantes a permanecer en territorio colombiano. Existe una gran
+          demanda de atención en salud sexual y reproductiva, y servicios dentales y oftalmológicos.
         </p>
 
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolor magnam, ab minima necessitatibus non
-          reiciendis distinctio unde iste molestias quis rerum? Illum a optio omnis! Error quos architecto fugit.
+          En cuanto a la atención prenatal, algunas mujeres indicaron que pudieron acceder a ella incluso sin estar
+          regularizadas, aunque debían llevar sus resultados de ecografías y comprar algunos medicamentos. También han
+          podido dar a luz o someterse a cesáreas sin complicaciones.
         </p>
 
-        <BotonesCitas :citas="citas.utilizacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        <p>
+          Durante las entrevistas, se percibió que cuando los migrantes llegaron por primera vez a Colombia, la
+          utilización del sistema de salud era mayor que en la actualidad. Muchas reportaron haber cruzado la frontera
+          con niños y adolescentes que rápidamente necesitaban servicios de salud como vacunas o chequeos pediátricos de
+          crecimiento y desarrollo.
+        </p>
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.utilizacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        </div>
       </section>
     </div>
 
     <div id="contenedorGrafica">
-      <LineaTiempo />
       <div ref="contenedorCita" :class="`contenedorCita ${tipoCita}${citaVisible ? ' visible' : ''}`">
         <p class="textoCita">
           {{ `"${textoCita}"` }}
         </p>
       </div>
 
-      <div ref="contenedorRecurso" :class="`contenedorRecurso${recursoVisible ? ' visible' : ''}`">
-        <img class="imgRecurso" :src="`${baseUrl}/imgs/demo-afiliacion.jpg`" />
-      </div>
+      <h3 class="tituloGrafica">Situación de las mujeres venezolanas embarazadas en el sistema de salud colombiano</h3>
 
-      <!-- <div id="grafica" ref="grafica"> -->
-      <Montes :irASeccion="irASeccion" />
-      <!-- </div> -->
+      <div id="grafica" ref="grafica">
+        <Montes :irASeccion="irASeccion" />
+      </div>
     </div>
   </div>
 </template>
@@ -166,9 +197,11 @@ function esconderRecurso() {
 
 .botonRecurso {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   line-height: 2;
   cursor: pointer;
+  width: 30%;
+  margin: 0 1em 0.7em 0;
 }
 
 .iconoRecurso {
@@ -200,7 +233,7 @@ $diferencia4: calc($alto4 - $alto5);
   position: fixed;
   top: 0;
   right: 0;
-  width: 70%;
+  width: 45%;
   height: 100vh;
   background-color: rgba(49, 109, 62, 0.76);
   z-index: 9;
@@ -248,14 +281,21 @@ $diferencia4: calc($alto4 - $alto5);
   }
 }
 
+.contenedorBurbujas {
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
 #escalera {
   display: flex;
 
   #info {
-    width: 30%;
+    width: 70%;
     border-right: 1px dotted;
     font-size: 1.3em;
-    padding-right: 1em;
+    padding: 0 4em 0 3em;
 
     section {
       min-height: 100vh;
@@ -264,7 +304,20 @@ $diferencia4: calc($alto4 - $alto5);
   }
 
   #contenedorGrafica {
-    width: 70%;
+    position: relative;
+    right: 0;
+    margin-top: 2em;
+  }
+
+  #contenedorGraficaMig {
+    position: relative;
+    right: 0;
+    margin-top: 2em;
+    width: 64vw;
+  }
+
+  .imagenGrafica {
+    width: 60%;
   }
 
   .escalon {
@@ -316,6 +369,12 @@ $diferencia4: calc($alto4 - $alto5);
 
 .resaltar {
   font-weight: bold;
+}
+
+.tituloGrafica {
+  position: sticky;
+  margin: 1em;
+  font-size: 0.9em;
 }
 
 #grafica {
