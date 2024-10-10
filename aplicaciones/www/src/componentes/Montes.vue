@@ -252,10 +252,11 @@ function animar() {
   height: 50vh;
 }
 .mujer {
-  width: 4px;
+  width: 8px;
   height: 10px;
+  border-radius: 50%;
   display: inline-block;
-  background-color: green;
+  background-color: rgba(176, 15, 201, 0.396);
   position: absolute;
 }
 
