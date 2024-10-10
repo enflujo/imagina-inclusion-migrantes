@@ -236,6 +236,7 @@ function animar() {
 #contenedor {
   position: sticky;
   top: 100px;
+  width: 30vw;
 }
 
 #contenedorAnim {

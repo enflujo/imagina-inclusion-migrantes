@@ -63,7 +63,7 @@ function esconderRecurso() {
           (OIM, 2024), siendo el país latinoamericano con más migrantes de esta nacionalidad.
         </p>
 
-        <div id="contenedorGrafica">
+        <div id="contenedorGraficaMig">
           <h3 id="tituloGrafMigrantes" class="tituloGrafica">Migrantes venezolanos en Colombia desde 2008</h3>
           <LineaTiempo />
         </div>
@@ -182,10 +182,6 @@ function esconderRecurso() {
         </p>
       </div>
 
-      <div ref="contenedorRecurso" :class="`contenedorRecurso${recursoVisible ? ' visible' : ''}`">
-        <img class="imgRecurso" :src="`${baseUrl}/imgs/demo-afiliacion.jpg`" />
-      </div>
-
       <h3 class="tituloGrafica">Situación de las mujeres venezolanas embarazadas en el sistema de salud colombiano</h3>
 
       <div id="grafica" ref="grafica">
@@ -291,7 +287,7 @@ $diferencia4: calc($alto4 - $alto5);
     width: 70%;
     border-right: 1px dotted;
     font-size: 1.3em;
-    padding: 0 5em;
+    padding: 0 4em 0 3em;
 
     section {
       min-height: 100vh;
@@ -303,6 +299,13 @@ $diferencia4: calc($alto4 - $alto5);
     position: relative;
     right: 0;
     margin-top: 2em;
+  }
+
+  #contenedorGraficaMig {
+    position: relative;
+    right: 0;
+    margin-top: 2em;
+    width: 64vw;
   }
 
   .imagenGrafica {
