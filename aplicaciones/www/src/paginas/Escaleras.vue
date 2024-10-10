@@ -46,28 +46,45 @@ function esconderRecurso() {
 </script>
 
 <template>
+  <section id="intro">
+    <h1>Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia</h1>
+
+    <p>
+      Desde el 2008 Venezuela atraviesa una crisis política, social y económica, que ha crecido con los años y ha
+      desencadenado una crisis migratoria y humanitaria en la región. Desde el 2014 el aumento de migrantes en Colombia
+      ha crecido drásticamente. Actualmente, el país acoge a unos 2,8 millones de migrantes venezolanos (OIM, 2024),
+      siendo el país latinoamericano con más migrantes de esta nacionalidad.
+    </p>
+
+    <div id="contenedorGraficaMig">
+      <h3 id="tituloGrafMigrantes" class="tituloGrafica">Migrantes venezolanos en Colombia desde 2008</h3>
+      <LineaTiempo />
+    </div>
+  </section>
+
+  <div id="contenedorGrafica">
+    <div class="descripcion">
+      <p>
+        Un caso particular que nos habla de la situación actual para las y los migrantes en Colombia la podemos entender
+        a partir de ver las barreras que existen actualmente.
+      </p>
+
+      <p>
+        Por ejemplo, las mujeres embarazadas tienen enormes dificultades en el proceso de hacerse los controles
+        prenatales
+      </p>
+    </div>
+
+    <div id="grafica" ref="grafica">
+      <h3 class="tituloGrafica">Situación de las mujeres venezolanas embarazadas en el sistema de salud colombiano</h3>
+      <Montes :irASeccion="irASeccion" />
+    </div>
+  </div>
+
   <div id="escalera">
-    <!-- <h1>
-      ¿Porqué es importante para el país que las mujeres tengan mínimo 4 controles prenatales durante su embarazo?
-    </h1> -->
     <div id="info" ref="info">
       <section>
-        <h2>
-          Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia
-        </h2>
-
-        <p>
-          Desde el 2008 Venezuela atraviesa una crisis política, social y económica, que ha crecido con los años y ha
-          desencadenado una crisis migratoria y humanitaria en la región. Desde el 2014 el aumento de migrantes en
-          Colombia ha crecido drásticamente. Actualmente, el país acoge a unos 2,8 millones de migrantes venezolanos
-          (OIM, 2024), siendo el país latinoamericano con más migrantes de esta nacionalidad.
-        </p>
-
-        <div id="contenedorGraficaMig">
-          <h3 id="tituloGrafMigrantes" class="tituloGrafica">Migrantes venezolanos en Colombia desde 2008</h3>
-          <LineaTiempo />
-        </div>
-
+        <h2>El proyecto</h2>
         <p>
           Con esta situación en mente, la Universidad de los Andes, Brandeis University y Boston College, con el apoyo
           de ELRHA, realizaron la investigación “Fortalecimiento del sistema de salud para reducir la morbilidad y
@@ -173,20 +190,6 @@ function esconderRecurso() {
         </div>
       </section>
     </div>
-
-    <div id="contenedorGrafica">
-      <div ref="contenedorCita" :class="`contenedorCita ${tipoCita}${citaVisible ? ' visible' : ''}`">
-        <p class="textoCita">
-          {{ `"${textoCita}"` }}
-        </p>
-      </div>
-
-      <h3 class="tituloGrafica">Situación de las mujeres venezolanas embarazadas en el sistema de salud colombiano</h3>
-
-      <div id="grafica" ref="grafica">
-        <Montes :irASeccion="irASeccion" />
-      </div>
-    </div>
   </div>
 </template>
 
@@ -228,6 +231,19 @@ $alto4: calc($altoTotal * 0.3789);
 $diferencia3: calc($alto3 - $alto4);
 $alto5: calc($altoTotal * 0.3426);
 $diferencia4: calc($alto4 - $alto5);
+
+#intro {
+  width: 60vw;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 2.1em;
+  }
+
+  p {
+    font-size: 1.4em;
+  }
+}
 
 .contenedorCita {
   position: fixed;
@@ -288,25 +304,31 @@ $diferencia4: calc($alto4 - $alto5);
   justify-content: flex-start;
 }
 
+#contenedorGrafica {
+  position: relative;
+  margin: 2em auto 0 auto;
+  width: 90%;
+
+  .descripcion {
+    font-size: 1.3em;
+    width: 70%;
+    margin: 0 auto;
+  }
+}
+
 #escalera {
   display: flex;
 
   #info {
-    width: 70%;
+    width: 60%;
     border-right: 1px dotted;
     font-size: 1.3em;
     padding: 0 4em 0 3em;
+    margin: 0 auto;
 
     section {
-      min-height: 100vh;
       padding-top: 1em;
     }
-  }
-
-  #contenedorGrafica {
-    position: relative;
-    right: 0;
-    margin-top: 2em;
   }
 
   #contenedorGraficaMig {
@@ -378,134 +400,9 @@ $diferencia4: calc($alto4 - $alto5);
 }
 
 #grafica {
-  // height: 500px;
-  // margin: 0 auto;
-  // background-color: rgba(245, 245, 245, 0.534);
-  display: flex;
   position: sticky;
   top: 100px;
-  // padding-left: 5%;
-
-  #lienzo {
-    position: absolute;
-    left: 5%;
-  }
-
-  // .escalon {
-  //   font-size: 3vw;
-  //   color: $colorPositivo;
-  //   position: relative;
-  //   border-top: 3px solid $colorPositivo;
-  //   border-bottom: 3px solid $colorPositivo;
-
-  //   &:nth-child(1) {
-  //     border-left: 3px solid $colorPositivo;
-  //   }
-
-  //   &:nth-child(9) {
-  //     border-right: 1px solid $colorPositivo;
-  //   }
-
-  //   .mensaje {
-  //     font-size: 28px;
-  //     position: absolute;
-  //     left: 0;
-  //     bottom: 0px;
-  //     width: 90%;
-  //     vertical-align: top;
-  //   }
-  // }
-
-  .diferencia {
-    border-style: solid;
-    border-color: transparent transparent $colorNegativo transparent;
-    position: relative;
-
-    .porcentaje {
-      position: absolute;
-      top: -20px;
-      font-size: 1.3em;
-      left: 10px;
-    }
-
-    .abajo {
-      color: $colorNegativo;
-    }
-  }
-
-  .diferencia1 {
-    height: $diferencia1;
-    margin-top: calc(500px - $altoTotal);
-    border-width: 0 $diferencia1 $diferencia1 0;
-  }
-
-  .diferencia2 {
-    height: $diferencia2;
-    margin-top: calc(500px - $alto2);
-    border-width: 0 $diferencia2 $diferencia2 0;
-  }
-
-  .diferencia3 {
-    height: $diferencia3;
-    margin-top: calc(500px - $alto3);
-    border-width: 0 $diferencia3 $diferencia3 0;
-  }
-
-  .diferencia4 {
-    height: $diferencia4;
-    margin-top: calc(500px - $alto4);
-    border-width: 0 $diferencia4 $diferencia4 0;
-  }
-
-  .escalon1 {
-    height: $altoTotal;
-    width: $anchoEscalon;
-    margin-top: calc(500px - $altoTotal);
-  }
-
-  .escalon2 {
-    height: $alto2;
-    width: calc($anchoEscalon - $diferencia1);
-    margin-top: calc(500px - $alto2);
-  }
-
-  .escalon3 {
-    height: $alto3;
-    width: calc($anchoEscalon - $diferencia2);
-    margin-top: calc(500px - $alto3);
-  }
-
-  .escalon4 {
-    height: $alto4;
-    width: calc($anchoEscalon - $diferencia3);
-    margin-top: calc(500px - $alto4);
-  }
-
-  .escalon5 {
-    height: $alto5;
-    width: calc($anchoEscalon - $diferencia4);
-    margin-top: calc(500px - $alto5);
-  }
 }
-
-// .columnas {
-//   display: flex;
-//   justify-content: space-around;
-
-//   .columna {
-//     width: 48%;
-
-//     h2 {
-//       text-align: center;
-//     }
-//   }
-// }
-
-// .enlace {
-//   cursor: pointer;
-//   padding: 0.3em;
-//   background-color: white;
-// }
 
 header {
   width: 50vw;
@@ -520,49 +417,4 @@ header {
     font-size: 2em;
   }
 }
-
-// .escalon {
-//   height: 200px;
-//   font-size: 1.8em;
-//   color: rgb(246, 239, 217);
-
-//   p {
-//     text-align: center;
-//     margin: 0;
-//   }
-// }
-
-// .contenido {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   // transform: translateX(-50%);
-// }
-
-// .cubierto {
-//   background-color: $colorPositivo;
-//   height: 100%;
-//   display: inline-block;
-//   position: relative;
-// }
-
-// .vacio {
-//   background-color: $colorNegativo;
-//   height: 100%;
-//   display: inline-block;
-// }
-
-// .conteo {
-//   font-weight: bold;
-//   letter-spacing: 2px;
-//   font-size: 2.5em;
-// }
-
-// .total {
-//   width: 100%;
-//   background-color: $colorPositivo;
-//   color: rgb(246, 239, 217);
-//   padding: 1em;
-// }
-//
 </style>
