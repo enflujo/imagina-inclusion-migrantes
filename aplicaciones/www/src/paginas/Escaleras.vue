@@ -4,7 +4,6 @@ import BotonesCitas from '@/componentes/BotonesCitas.vue';
 import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
 import type { Cita } from '@/tipos';
-import { baseUrl } from '@/utilidades/ayudas';
 import { ref, type Ref } from 'vue';
 import Mapa from './Mapa.vue';
 
@@ -46,7 +45,7 @@ function esconderRecurso() {
 </script>
 
 <template>
-  <section id="intro">
+  <section id="intro" ref="intro">
     <h1>Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia</h1>
 
     <p>
@@ -66,12 +65,8 @@ function esconderRecurso() {
     <div class="descripcion">
       <p>
         Un caso particular que nos habla de la situación actual para las y los migrantes en Colombia la podemos entender
-        a partir de ver las barreras que existen actualmente.
-      </p>
-
-      <p>
-        Por ejemplo, las mujeres embarazadas tienen enormes dificultades en el proceso de hacerse los controles
-        prenatales
+        a partir de ver las barreras que existen actualmente para las mujeres embarazadas tienen enormes dificultades en
+        el proceso de hacerse los controles prenatales.
       </p>
     </div>
 
@@ -83,6 +78,16 @@ function esconderRecurso() {
 
   <div id="escalera">
     <div id="info" ref="info">
+      <div
+        ref="contenedorCita"
+        :class="`contenedorCita ${tipoCita}${citaVisible ? ' visible' : ''}`"
+        @click="esconderCita"
+      >
+        <span id="cerrarCita" @click="esconderCita">X</span>
+        <p class="textoCita">
+          {{ `"${textoCita}"` }}
+        </p>
+      </div>
       <section>
         <h2>El proyecto</h2>
         <p>
@@ -249,7 +254,7 @@ $diferencia4: calc($alto4 - $alto5);
   position: fixed;
   top: 0;
   right: 0;
-  width: 45%;
+  width: 100%;
   height: 100vh;
   background-color: rgba(49, 109, 62, 0.76);
   z-index: 9;
@@ -259,6 +264,13 @@ $diferencia4: calc($alto4 - $alto5);
   display: none;
   justify-content: center;
   align-items: center;
+
+  #cerrarCita {
+    position: fixed;
+    top: 2em;
+    right: 2em;
+    cursor: pointer;
+  }
 
   &.visible {
     display: flex;

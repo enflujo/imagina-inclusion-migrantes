@@ -12,7 +12,7 @@ defineProps<Esquema>();
 </script>
 
 <template>
-  <div class="botonRecurso" v-for="cita in citas" @mouseenter="mostrarCita(cita)" @mouseleave="esconderCita">
+  <div class="botonRecurso" v-for="cita in citas" @click="mostrarCita(cita)">
     <div class="contenedorIconos">
       <span class="iconoRecurso" :style="{ backgroundImage: `url(${baseUrl}/imgs/burbuja.svg)` }"></span>
       <span :class="`tipo ${cita.tipo}`"></span>
