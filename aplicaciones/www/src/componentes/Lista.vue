@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { usarCerebroDatos } from '@/cerebros/datos';
-import type { DatosBuscador, DatosInclusion } from 'tipos/compartidos';
+import type { DatosBuscador, DatosInclusion } from '../../../../tiposCompartidos/compartidos';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import Buscador from './Buscador.vue';
 import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';

@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import type { Ref } from 'vue';
 import fuzzysort from 'fuzzysort';
 import { usarCerebroDatos } from '@/cerebros/datos';
-import type { DatosBuscador } from 'tipos/compartidos';
+import type { DatosBuscador } from '../../../../tiposCompartidos/compartidos';
 
 const buscador: Ref<HTMLInputElement | undefined> = ref();
 const sugerencias: Ref<DatosBuscador[]> = ref([]);

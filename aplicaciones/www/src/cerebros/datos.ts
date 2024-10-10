@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import type { DatosBuscador, DatosInclusion } from '@/tipos/compartidos';
+import type { DatosBuscador, DatosInclusion } from '../../../../tiposCompartidos/compartidos';
 import { pedirDatos } from '@/utilidades/ayudas';
 import type { Feature, FeatureCollection, Point } from 'geojson';
 

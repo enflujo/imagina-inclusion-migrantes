@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["ambiente.d.ts", "src/**/*", "src/**/*.vue", "tipos/**/*"],
+  "include": ["ambiente.d.ts", "src/**/*", "src/**/*.vue", "../../tiposCompartidos/*"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,

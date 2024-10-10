@@ -2,7 +2,7 @@
 import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { escalaColores } from '@/utilidades/ayudas';
-import type { DatosInclusion } from 'tipos/compartidos';
+import type { DatosInclusion } from '../../../../tiposCompartidos/compartidos';
 import { computed } from 'vue';
 
 const cerebroDatos = usarCerebroDatos();

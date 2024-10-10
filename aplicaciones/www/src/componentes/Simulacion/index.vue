@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, type Ref, computed } from 'vue';
 import Sim from './Sim';
-import type { DatosInclusion } from '@tipos/compartidos';
+import type { DatosInclusion } from '../../../../../tiposCompartidos/compartidos';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { generarBolas } from './utilidadesSimulacion';
 
