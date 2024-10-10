@@ -4,8 +4,9 @@ import BotonesCitas from '@/componentes/BotonesCitas.vue';
 import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
 import type { Cita } from '@/tipos';
-import { ref, type Ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 import Mapa from './Mapa.vue';
+import { duranteInterseccion } from '@/utilidades/observador';
 
 const info: Ref<HTMLDivElement | null> = ref(null);
 const seccionInfo: Ref<Ref<HTMLElement>[]> = ref([]);
@@ -14,6 +15,25 @@ const tipoCita = ref('');
 const citaVisible = ref(false);
 const textoCita = ref('');
 const recursoVisible = ref(false);
+const intro: Ref<HTMLDivElement | undefined> = ref();
+const animarIntro = ref(false);
+
+onMounted(() => {
+  if (intro.value) {
+    duranteInterseccion(
+      intro.value,
+      () => {
+        animarIntro.value = true;
+      },
+      false,
+      { threshold: [0.1] },
+      () => {
+        animarIntro.value = false;
+        console.log('fuera');
+      }
+    );
+  }
+});
 
 function irASeccion(i: number) {
   if (!info.value) return;
@@ -57,7 +77,7 @@ function esconderRecurso() {
 
     <div id="contenedorGraficaMig">
       <h3 id="tituloGrafMigrantes" class="tituloGrafica">Migrantes venezolanos en Colombia desde 2008</h3>
-      <LineaTiempo />
+      <LineaTiempo :mostrar="animarIntro" />
     </div>
   </section>
 
@@ -239,14 +259,18 @@ $diferencia4: calc($alto4 - $alto5);
 
 #intro {
   width: 60vw;
-  margin: 0 auto;
+  margin: 0 auto 10em auto;
+  // min-height: 100vh;
 
   h1 {
-    font-size: 2.1em;
+    font-size: 2.5em;
+    text-align: center;
+    border: 3px solid;
+    padding: 1em;
   }
 
   p {
-    font-size: 1.4em;
+    font-size: 1.8em;
   }
 }
 

@@ -3,7 +3,15 @@ import { datosLinea, fechaFinal, fechaInicial, numeroMax, numeroMin } from '@/ce
 import type { MomentoLinea } from '@/tipos';
 import { formatoNumero } from '@/utilidades/ayudas';
 import { convertirEscala } from '@enflujo/alquimia';
-import { onMounted, onUnmounted, ref, type Ref } from 'vue';
+import { onMounted, onUnmounted, onUpdated, ref, useTemplateRef, type Ref } from 'vue';
+
+interface Props {
+  mostrar: boolean;
+}
+
+const props = defineProps<Props>();
+const puntos = useTemplateRef<SVGGElement[]>('puntos');
+const datos = ref(datosLinea);
 
 const grafica: Ref<(HTMLElement & SVGElement) | undefined> = ref();
 const margenX = 20;
@@ -24,9 +32,27 @@ onMounted(() => {
   window.addEventListener('resize', escalar);
 });
 
+onUpdated(() => {
+  if (props.mostrar) {
+    puntos.value?.forEach((punto, i) => {
+      punto.classList.add('animar');
+      punto.style.transform = `translate(${posX(datosLinea[i].año)}px, ${dims.value.piso}px)`;
+    });
+  } else {
+    reiniciar();
+  }
+});
+
 onUnmounted(() => {
   window.removeEventListener('resize', escalar);
 });
+
+function reiniciar() {
+  puntos.value?.forEach((punto) => {
+    punto.classList.remove('animar');
+    punto.style.transform = `translate(-100px, ${dims.value.piso}px)`;
+  });
+}
 
 function escalar() {
   if (!grafica.value) return;
@@ -38,12 +64,16 @@ function escalar() {
     const altoTotal = svg.clientHeight;
     const ancho = anchoTotal - margenX * 2;
     const alto = altoTotal - margenY * 2;
+    const piso = alto - margenY;
     svg.setAttribute('width', `${anchoTotal}`);
     svg.setAttribute('height', `${altoTotal}`);
+
+    puntos.value?.forEach((punto) => (punto.style.transform = `translateY(${piso}px)`));
+
     Object.assign(dims.value, {
       ancho,
       alto,
-      piso: alto - margenY,
+      piso,
       techo: margenY,
     });
   }
@@ -72,11 +102,12 @@ function actualizarPosicion(evento: MouseEventInit) {
 <template>
   <svg class="lineaTiempo" ref="grafica" @mousemove="actualizarPosicion">
     <g
-      v-for="punto in datosLinea"
+      v-for="punto in datos"
       class="punto"
-      :style="{ transform: `translate(${posX(punto.año)}px, ${dims.piso}px)` }"
+      ref="puntos"
       @mouseenter="mostrarInfo(punto)"
       @mouseleave="esconderInfo"
+      style="transform: translate(-100px, 100px)"
     >
       <circle :class="`circulo ${punto.clase || ''}`" x="0" y="0" :r="radio(punto.numero)" />
       <text class="año" x="-12" :y="`-${radio(punto.numero) + 3}`">{{ punto.año }}</text>
@@ -94,10 +125,19 @@ function actualizarPosicion(evento: MouseEventInit) {
 <style lang="scss" scoped>
 .lineaTiempo {
   height: 150px;
+  position: relative;
 }
 
 .punto {
   cursor: pointer;
+  opacity: 0;
+  transition:
+    transform 3.45s ease-in-out,
+    opacity 0.4s ease-out;
+
+  &.animar {
+    opacity: 1;
+  }
 }
 
 .circulo {
@@ -108,7 +148,6 @@ function actualizarPosicion(evento: MouseEventInit) {
     stroke: rgb(1, 2, 2);
     stroke-width: 0.5;
     fill: rgb(70, 202, 129);
-    // stroke-dasharray: 3;
     animation: 2s infinite alternate acento;
   }
 
@@ -118,9 +157,9 @@ function actualizarPosicion(evento: MouseEventInit) {
     stroke-dasharray: 2;
   }
 }
+
 .año {
   font-size: 0.65em;
-  // transform: translate(-1em, 40px);
 }
 
 .resaltar {
