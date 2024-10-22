@@ -393,6 +393,7 @@ $diferencia4: calc($alto4 - $alto5);
 
 #escalera {
   display: flex;
+  justify-content: center;
 
   #contenedorGraficaMig {
     position: relative;
@@ -482,12 +483,11 @@ header {
 .info {
   position: relative;
   margin: 2em auto 3em auto;
-  width: 90%;
+  width: 75vw;
 
   p {
     font-size: 1.3em;
-    width: 70vw;
-    margin: 0 auto;
+    margin: 1em auto;
   }
 
   h2 {
@@ -535,7 +535,7 @@ header {
   }
 
   .info {
-    margin: 2em auto 5em auto;
+    width: 70vw;
     p {
       line-height: 1.8em;
     }

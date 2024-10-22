@@ -55,6 +55,7 @@ useHead({
 @media (min-width: $minTablet) {
   #contenedor {
     flex-direction: row;
+    width: 70vw;
     #columnaCentral {
       height: 70vh;
       margin-top: 0em;
