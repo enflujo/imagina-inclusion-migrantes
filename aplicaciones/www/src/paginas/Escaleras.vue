@@ -69,10 +69,10 @@ function esconderRecurso() {
     <h1>Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia</h1>
 
     <p>
-      Desde el 2008 Venezuela atraviesa una crisis política, social y económica, que ha crecido con los años y ha
-      desencadenado una crisis migratoria y humanitaria en la región. Desde el 2014 el aumento de migrantes en Colombia
-      ha crecido drásticamente. Actualmente, el país acoge a unos 2,8 millones de migrantes venezolanos (OIM, 2024),
-      siendo el país latinoamericano con más migrantes de esta nacionalidad.
+      Desde 2008 Venezuela atraviesa una crisis política, social y económica que ha crecido con los años y ha
+      desencadenado una crisis migratoria y humanitaria en la región. Desde 2014 la cantidad de migrantes en Colombia ha
+      crecido drásticamente. Actualmente, el país acoge a unos 2,8 millones de migrantes venezolanos (OIM, 2024), siendo
+      el país latinoamericano con más migrantes de esta nacionalidad.
     </p>
 
     <div id="contenedorGraficaMig">
@@ -84,9 +84,9 @@ function esconderRecurso() {
   <div id="contenedorGrafica">
     <div class="descripcion">
       <p>
-        Un caso particular que nos habla de la situación actual para las y los migrantes en Colombia la podemos entender
-        a partir de ver las barreras que existen actualmente para las mujeres embarazadas tienen enormes dificultades en
-        el proceso de hacerse los controles prenatales.
+        Un caso particular que nos habla de la situación actual para las y los migrantes en Colombia es el de las
+        barreras que existen actualmente para las mujeres embarazadas, quienes tienen enormes dificultades en el proceso
+        de hacerse controles prenatales.
       </p>
     </div>
 
@@ -135,9 +135,9 @@ function esconderRecurso() {
           Para documentar los cambios tras la implementación del ETPMV, este estudio utiliza los datos administrativos
           del sistema de salud colombiano y la información recogida a través de encuestas telefónicas a mujeres
           migrantes venezolanas. Adicionalmente, para identificar y entender las barreras que limitan el impacto del
-          ETPMV sobre el acceso a servicios y la salud, se realizaron entrevistas a mujeres migrantes y actores clave.
-          También, se entrevistaron a representantes de organizaciones del Grupo Interagencial de Flujos Migratorios
-          Mixtos (GIFMM) para entender y triangular toda la evidencia recogida.
+          ETPMV sobre el acceso a servicios y salud, se realizaron entrevistas a mujeres migrantes y actores clave.
+          También se entrevistaron representantes de organizaciones del Grupo Interagencial de Flujos Migratorios Mixtos
+          (GIFMM) para entender y triangular toda la evidencia recogida.
         </p>
 
         <p>
@@ -205,7 +205,7 @@ function esconderRecurso() {
         </p>
 
         <p>
-          Durante las entrevistas, se percibió que cuando los migrantes llegaron por primera vez a Colombia, la
+          Durante las entrevistas se percibió que cuando los migrantes llegaron por primera vez a Colombia, la
           utilización del sistema de salud era mayor que en la actualidad. Muchas reportaron haber cruzado la frontera
           con niños y adolescentes que rápidamente necesitaban servicios de salud como vacunas o chequeos pediátricos de
           crecimiento y desarrollo.
