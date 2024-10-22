@@ -108,7 +108,7 @@ function esconderRecurso() {
           {{ `"${textoCita}"` }}
         </p>
       </div>
-      <section>
+      <section class="info">
         <h2>El proyecto</h2>
         <p>
           Con esta situación en mente, la Universidad de los Andes, Brandeis University y Boston College, con el apoyo
@@ -128,7 +128,7 @@ function esconderRecurso() {
         </p>
       </section>
 
-      <section id="infoRegularizadas" ref="seccionInfo">
+      <section id="infoRegularizadas" ref="seccionInfo" class="info">
         <h2>Regularización</h2>
 
         <p>
@@ -166,7 +166,7 @@ function esconderRecurso() {
         </div>
       </section>
 
-      <section id="infoAfiliadas" ref="seccionInfo">
+      <section id="infoAfiliadas" ref="seccionInfo" class="info">
         <h2>Afiliación</h2>
 
         <p>
@@ -186,7 +186,7 @@ function esconderRecurso() {
         </div>
       </section>
 
-      <section id="infoControles" ref="seccionInfo">
+      <section id="infoControles" ref="seccionInfo" class="info">
         <h2>Utilización del sistema de salud</h2>
 
         <p>
@@ -214,11 +214,23 @@ function esconderRecurso() {
           <BotonesCitas :citas="citas.utilizacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
         </div>
       </section>
+
+      <section id="infoConclusion" ref="seccionInfo" class="info">
+        <h2>Conclusión</h2>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit per et vulputate consequat, convallis mauris laoreet
+          est aenean accumsan eros sociis nibh luctus. Cubilia pharetra quis dictum facilisis auctor ridiculus, vitae
+          morbi consequat cum. Orci mus ultrices per pharetra ac hac dui, laoreet lacinia condimentum aliquet id proin
+          elementum, risus habitant platea morbi eleifend senectus.
+        </p>
+      </section>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+@import '../estaticos/constantes';
 #aplicacion {
   padding-bottom: 10em;
 }
@@ -228,8 +240,10 @@ function esconderRecurso() {
   align-items: flex-start;
   line-height: 2;
   cursor: pointer;
-  width: 30%;
-  margin: 0 1em 0.7em 0;
+  width: 45%;
+  margin: 0.5em;
+  border: 1px dotted black;
+  padding: 1.5em;
 }
 
 .iconoRecurso {
@@ -239,9 +253,27 @@ function esconderRecurso() {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+// Tablets: 768px;
+@media (min-width: $minTablet) {
+  .botonRecurso {
+    width: 30%;
+    padding: 1em;
+  }
+}
+
+// Dispositivos grandes y pantallas medianas: 992px;
+@media (min-width: $minPantalla) {
+  .botonRecurso {
+    width: 20%;
+    padding: 1em;
+  }
+}
 </style>
 
 <style lang="scss" scoped>
+@import '../estaticos/constantes';
+
 $colorPositivo: rgb(13, 141, 130);
 $colorPositivo2: rgb(13, 141, 130);
 $colorNegativo: rgb(210, 87, 87);
@@ -258,8 +290,10 @@ $alto5: calc($altoTotal * 0.3426);
 $diferencia4: calc($alto4 - $alto5);
 
 #intro {
-  width: 60vw;
-  margin: 0 auto 10em auto;
+  width: 75vw;
+  margin: 0 auto;
+  line-height: 2.5em;
+
   // min-height: 100vh;
 
   h1 {
@@ -270,7 +304,8 @@ $diferencia4: calc($alto4 - $alto5);
   }
 
   p {
-    font-size: 1.8em;
+    font-size: 1.5em;
+    line-height: 1.2em;
   }
 }
 
@@ -280,19 +315,20 @@ $diferencia4: calc($alto4 - $alto5);
   right: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(49, 109, 62, 0.76);
+  background-color: rgba(49, 109, 62, 0.9);
   z-index: 9;
   color: white;
-  font-size: 2em;
-  padding: 2em;
+  font-size: 1.8em;
+  padding: 2em 1em;
   display: none;
   justify-content: center;
-  align-items: center;
+  align-items: normal;
+  overflow: auto;
 
   #cerrarCita {
     position: fixed;
-    top: 2em;
-    right: 2em;
+    top: 1.5em;
+    right: 1.5em;
     cursor: pointer;
   }
 
@@ -301,12 +337,13 @@ $diferencia4: calc($alto4 - $alto5);
   }
 
   &.negativo {
-    background-color: rgba(109, 49, 49, 0.76);
+    background-color: rgba(109, 49, 49, 0.9);
   }
 
   .textoCita {
     width: 70%;
     font-style: italic;
+    height: fit-content;
   }
 }
 
@@ -334,10 +371,12 @@ $diferencia4: calc($alto4 - $alto5);
 }
 
 .contenedorBurbujas {
-  margin-top: 2em;
+  margin: 2em auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-evenly;
+  width: 85vw;
+  font-size: 0.9em;
 }
 
 #contenedorGrafica {
@@ -347,25 +386,13 @@ $diferencia4: calc($alto4 - $alto5);
 
   .descripcion {
     font-size: 1.3em;
-    width: 70%;
+    width: 75vw;
     margin: 0 auto;
   }
 }
 
 #escalera {
   display: flex;
-
-  #info {
-    width: 60%;
-    border-right: 1px dotted;
-    font-size: 1.3em;
-    padding: 0 4em 0 3em;
-    margin: 0 auto;
-
-    section {
-      padding-top: 1em;
-    }
-  }
 
   #contenedorGraficaMig {
     position: relative;
@@ -375,7 +402,7 @@ $diferencia4: calc($alto4 - $alto5);
   }
 
   .imagenGrafica {
-    width: 60%;
+    width: 75vw;
   }
 
   .escalon {
@@ -406,13 +433,11 @@ $diferencia4: calc($alto4 - $alto5);
 }
 
 .escalonColombiana {
-  // border: 2px solid $colorColombiana;
   position: absolute;
   background-color: rgba($colorColombiana, 0.4);
 }
 
 .escalonVenezolana {
-  // border: 2px solid $colorPositivo2;
   position: absolute;
   background-color: rgba($colorPositivo2, 0.4);
 }
@@ -431,8 +456,8 @@ $diferencia4: calc($alto4 - $alto5);
 
 .tituloGrafica {
   position: sticky;
-  margin: 1em;
-  font-size: 0.9em;
+  margin: 2em;
+  font-size: 1em;
 }
 
 #grafica {
@@ -451,6 +476,119 @@ header {
 
   p {
     font-size: 2em;
+  }
+}
+
+.info {
+  position: relative;
+  margin: 2em auto 3em auto;
+  width: 90%;
+
+  p {
+    font-size: 1.3em;
+    width: 70vw;
+    margin: 0 auto;
+  }
+
+  h2 {
+    width: 70vw;
+    margin: 1em auto;
+  }
+}
+
+@media (min-width: $minTablet) {
+  #escalera {
+    .imagenGrafica {
+      width: 60%;
+    }
+  }
+
+  .contenedorBurbujas {
+    width: 70vw;
+  }
+}
+
+// $minTablet: 768px;
+@media (min-width: $minTablet) {
+  .tituloGrafica {
+    margin: 3em 1em 1em 1em;
+  }
+}
+
+// Dispositivos grandes y pantallas medianas: 992px;
+@media (min-width: $minPantalla) {
+  #intro {
+    width: 60vw;
+    margin: 0 auto 10em auto;
+    line-height: 3em;
+
+    p {
+      font-size: 1.8em;
+      line-height: 1.5em;
+    }
+  }
+
+  #contenedorGrafica {
+    .descripcion {
+      width: 70%;
+    }
+  }
+
+  .info {
+    margin: 2em auto 5em auto;
+    p {
+      line-height: 1.8em;
+    }
+
+    h2 {
+      font-size: 1.8em;
+    }
+  }
+
+  .tituloGrafica {
+    position: sticky;
+    margin: 4em 1em 1.5em 1em;
+    font-size: 1.3em;
+  }
+
+  #escalera {
+    display: flex;
+
+    #contenedorGraficaMig {
+      position: relative;
+      right: 0;
+      margin-top: 2em;
+      width: 64vw;
+    }
+
+    .imagenGrafica {
+      width: 50%;
+    }
+  }
+
+  .contenedorBurbujas {
+    justify-content: center;
+    width: 75vw;
+  }
+
+  .contenedorCita {
+    font-size: 2em;
+    padding: 2em;
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    #cerrarCita {
+      top: 2em;
+      right: 2em;
+    }
+  }
+}
+
+// $minPantallaGrande: 1333px;
+@media (min-width: $minPantallaGrande) {
+  .tituloGrafica {
+    margin: 6em 1em 2em 1em;
   }
 }
 </style>

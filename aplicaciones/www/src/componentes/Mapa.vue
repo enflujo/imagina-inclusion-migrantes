@@ -164,7 +164,7 @@ onUnmounted(() => {
   }
 
   #contenedorMapa {
-    height: calc(100% - 30px);
+    height: 70vh;
   }
 }
 </style>

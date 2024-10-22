@@ -276,9 +276,9 @@ h2 {
   list-style: none;
   margin: 0;
   padding: 0.3em 0 0.5em 0;
-  height: 38vh;
   overflow-y: auto;
   position: relative;
+  height: 70vh;
 }
 
 .lugar {

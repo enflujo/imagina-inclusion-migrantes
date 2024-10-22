@@ -33,8 +33,8 @@ main {
 }
 
 .seccionLado {
-  width: 70%;
-  height: var(--minAltoSeccion);
+  width: 75vw;
+  height: 70vh;
   background-color: var(--naranja);
   padding: 0em 2em 0em 2em;
   overflow: auto;
@@ -67,7 +67,7 @@ main {
   display: flex;
   flex-direction: column;
   width: 24vw;
-  height: var(--minAltoSeccion);
+  height: 70vh;
   overflow: auto;
   background-color: var(--naranja);
   //color del scroll
@@ -122,4 +122,11 @@ main {
 
 .centrado {
   padding: 0 27.52px;
+}
+
+// Dispositivos grandes y pantallas medianas: 992px;
+@media (min-width: $minPantalla) {
+  .seccionLado {
+    width: 70%;
+  }
 }
