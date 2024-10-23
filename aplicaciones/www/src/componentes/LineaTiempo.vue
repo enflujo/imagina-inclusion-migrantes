@@ -130,10 +130,41 @@ function actualizarPosicion(evento: MouseEventInit) {
 
 .punto {
   cursor: pointer;
-  opacity: 0;
-  transition:
-    transform 3.45s ease-in-out,
-    opacity 0.4s ease-out;
+  transition: opacity 0.4s ease-out;
+
+  &:nth-child(1) {
+    transition: transform 3.2s ease-in-out;
+  }
+  &:nth-child(2) {
+    transition: transform 3s ease-in-out;
+  }
+  &:nth-child(3) {
+    transition: transform 2.8s ease-in-out;
+  }
+  &:nth-child(4) {
+    transition: transform 2.6s ease-in-out;
+  }
+  &:nth-child(5) {
+    transition: transform 2.4s ease-in-out;
+  }
+  &:nth-child(6) {
+    transition: transform 2.2s ease-in-out;
+  }
+  &:nth-child(7) {
+    transition: transform 2s ease-in-out;
+  }
+  &:nth-child(8) {
+    transition: transform 1.8s ease-in-out;
+  }
+  &:nth-child(9) {
+    transition: transform 1.6s ease-in-out;
+  }
+  &:nth-child(10) {
+    transition: transform 1.4s ease-in-out;
+  }
+  &:nth-child(11) {
+    transition: transform 1.2s ease-in-out;
+  }
 
   &.animar {
     opacity: 1;
@@ -143,12 +174,29 @@ function actualizarPosicion(evento: MouseEventInit) {
 .circulo {
   fill: rgb(202, 96, 223);
   filter: drop-shadow(0 0 0.55rem rgba(0, 0, 0, 0.2));
+  scale: 1;
+  animation: animate 5s ease-in;
+
+  @keyframes animate {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    30% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 
   &.acento {
     stroke: rgb(1, 2, 2);
     stroke-width: 0.5;
     fill: rgb(70, 202, 129);
-    animation: 2s infinite alternate acento;
   }
 
   &.extremo {
