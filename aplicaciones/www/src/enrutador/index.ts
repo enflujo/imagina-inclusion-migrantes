@@ -17,6 +17,11 @@ const enrutador = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../paginas/Creditos.vue'),
     },
+    {
+      path: '/recursos',
+      name: 'recursos',
+      component: () => import('../paginas/Recursos.vue'),
+    },
     // {
     //   path: '/mapa',
     //   name: 'mapa',
