@@ -36,8 +36,30 @@ useHead({
 </template>
 
 <style lang="scss" scoped>
+@import '../estaticos/constantes';
 #contenedor {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  margin-top: 2em;
+  width: 75vw;
+
+  #columnaCentral {
+    margin-top: 2em;
+    width: 75vw;
+    height: auto;
+  }
+}
+
+// $minTablet: 768px;
+@media (min-width: $minTablet) {
+  #contenedor {
+    flex-direction: row;
+    width: 70vw;
+    #columnaCentral {
+      height: 70vh;
+      margin-top: 0em;
+    }
+  }
 }
 </style>

@@ -22,6 +22,8 @@ defineProps<Esquema>();
 </template>
 
 <style lang="scss" scoped>
+@import '../estaticos/constantes';
+
 $dimFlechaX: 7px;
 $dimFlechaAlto: 13px;
 
@@ -34,18 +36,36 @@ $dimFlechaAlto: 13px;
 
 .contenedorIconos {
   display: inline-flex;
+  flex-direction: column;
   padding-top: 0.3em;
+  margin-right: 0.2em;
+  align-items: center;
+}
+
+.iconoRecurso {
+  margin-right: 0.3em;
 }
 
 .tipo {
-  // margin-left: 0.5em;
   border-left: $dimFlechaX solid transparent;
   border-right: $dimFlechaX solid transparent;
   border-bottom: $dimFlechaAlto solid var(--colorPositivo);
+  margin-top: 0.5em;
 
   &.negativo {
     border-bottom: 0;
     border-top: $dimFlechaAlto solid var(--colorNegativo);
+  }
+}
+
+// Dispositivos grandes y pantallas medianas: 992px;
+@media (min-width: $minTablet) {
+  .fragmentoCita {
+    font-size: 1em;
+    align-items: end;
+  }
+  .contenedorIconos {
+    flex-direction: row;
   }
 }
 </style>

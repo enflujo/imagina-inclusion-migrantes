@@ -1,5 +1,19 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
+
+import { useHead } from '@unhead/vue';
+import type { Organization, Person } from 'schema-dts';
+
+const SEOEnflujo: Organization = {
+  '@type': 'ResearchOrganization',
+  name: 'EnFlujo',
+  url: 'enflujo.com',
+};
+
+useHead({
+  title: 'Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia',
+  script: [{ hid: 'json-ld', type: 'application/ld+json', textContent: JSON.stringify(SEOEnflujo) }],
+});
 </script>
 
 <template>
@@ -8,6 +22,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/">Inicio</RouterLink>
       <!-- <RouterLink to="/mapa">Mapa</RouterLink> -->
       <RouterLink to="/creditos">Créditos</RouterLink>
+      <RouterLink to="/recursos">Recursos</RouterLink>
     </nav>
   </header>
 

@@ -64,11 +64,18 @@ p {
 .logos {
   display: flex;
   list-style: none;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-end;
 
   li {
     img {
       height: 70px;
     }
+  }
+
+  .logoEnFlujo {
+    height: 63px;
   }
 }
 
