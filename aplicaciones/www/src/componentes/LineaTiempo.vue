@@ -226,6 +226,7 @@ function actualizarPosicion(evento: MouseEventInit) {
   padding: 0.5em;
   z-index: 999;
   pointer-events: none;
+  line-height: 1.2;
 
   &.visible {
     display: block;

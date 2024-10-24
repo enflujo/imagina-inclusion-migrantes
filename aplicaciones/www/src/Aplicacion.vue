@@ -11,7 +11,14 @@ const SEOEnflujo: Organization = {
 };
 
 useHead({
-  title: 'Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia',
+  titleTemplate: '%s %separator %siteName',
+  templateParams: { separator: '|', siteName: 'Rompiendo Barreras' },
+  meta: [
+    {
+      name: 'description',
+      content: 'Estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia.',
+    },
+  ],
   script: [{ hid: 'json-ld', type: 'application/ld+json', textContent: JSON.stringify(SEOEnflujo) }],
 });
 </script>

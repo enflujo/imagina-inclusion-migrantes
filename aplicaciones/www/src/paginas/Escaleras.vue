@@ -29,7 +29,6 @@ onMounted(() => {
       { threshold: [0.1] },
       () => {
         animarIntro.value = false;
-        console.log('fuera');
       }
     );
   }
@@ -66,30 +65,35 @@ function esconderRecurso() {
 
 <template>
   <section id="intro" ref="intro">
-    <h1>Rompiendo barreras: estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia</h1>
+    <header class="contenedorTitulo">
+      <h1 class="tituloPrincipal">Rompiendo Barreras</h1>
+      <h2 class="subtitulo">Estrategias para mejorar el acceso a la salud de los migrantes y refugiados en Colombia</h2>
+    </header>
 
     <p>
       Desde 2008 Venezuela atraviesa una crisis política, social y económica que ha crecido con los años y ha
-      desencadenado una crisis migratoria y humanitaria en la región. Desde 2014 la cantidad de migrantes en Colombia ha
-      crecido drásticamente. Actualmente, el país acoge a unos 2,8 millones de migrantes venezolanos (OIM, 2024), siendo
-      el país latinoamericano con más migrantes de esta nacionalidad.
+      desencadenado una crisis migratoria y humanitaria en la región.
     </p>
 
     <div id="contenedorGraficaMig">
       <h3 id="tituloGrafMigrantes" class="tituloGrafica">Migrantes venezolanos en Colombia desde 2008</h3>
       <LineaTiempo :mostrar="animarIntro" />
     </div>
+
+    <p>
+      Desde 2014 la cantidad de migrantes en Colombia ha crecido drásticamente. Actualmente, el país acoge a unos 2,8
+      millones de migrantes venezolanos (OIM, 2024), siendo el país latinoamericano con más migrantes de esta
+      nacionalidad.
+    </p>
+
+    <p>
+      Un caso particular que nos habla de la situación actual para las y los migrantes en Colombia es el de las barreras
+      que existen actualmente para las mujeres embarazadas, quienes tienen enormes dificultades en el proceso de hacerse
+      controles prenatales.
+    </p>
   </section>
 
   <div id="contenedorGrafica">
-    <div class="descripcion">
-      <p>
-        Un caso particular que nos habla de la situación actual para las y los migrantes en Colombia es el de las
-        barreras que existen actualmente para las mujeres embarazadas, quienes tienen enormes dificultades en el proceso
-        de hacerse controles prenatales.
-      </p>
-    </div>
-
     <div id="grafica" ref="grafica">
       <h3 class="tituloGrafica">Situación de las mujeres venezolanas embarazadas en el sistema de salud colombiano</h3>
       <Montes :irASeccion="irASeccion" />
@@ -108,7 +112,8 @@ function esconderRecurso() {
           {{ `"${textoCita}"` }}
         </p>
       </div>
-      <section class="info">
+
+      <section class="seccion">
         <h2>El proyecto</h2>
         <p>
           Con esta situación en mente, la Universidad de los Andes, Brandeis University y Boston College, con el apoyo
@@ -128,7 +133,7 @@ function esconderRecurso() {
         </p>
       </section>
 
-      <section id="infoRegularizadas" ref="seccionInfo" class="info">
+      <section id="infoRegularizadas" ref="seccionInfo" class="seccion">
         <h2>Regularización</h2>
 
         <p>
@@ -166,7 +171,7 @@ function esconderRecurso() {
         </div>
       </section>
 
-      <section id="infoAfiliadas" ref="seccionInfo" class="info">
+      <section id="infoAfiliadas" ref="seccionInfo" class="seccion">
         <h2>Afiliación</h2>
 
         <p>
@@ -186,16 +191,32 @@ function esconderRecurso() {
         </div>
       </section>
 
-      <section id="infoControles" ref="seccionInfo" class="info">
+      <section id="infoControles" ref="seccionInfo" class="seccion">
         <h2>Utilización del sistema de salud</h2>
 
         <p>
           Algunos de los resultados de las entrevistas muestran que las migrantes han buscado atención médica para la
-          salud de sus hijos o durante el embarazo. Pocas mencionaron haber caído enfermas y recurrido al sistema de
-          salud público. Es común que busquen atención médica en el sector privado, como médicos venezolanos dentro de
-          la comunidad, farmacéuticos y clínicas privadas. El acceso a oportunidades de empleo informal y a los
-          servicios de salud motiva a las mujeres migrantes a permanecer en territorio colombiano. Existe una gran
-          demanda de atención en salud sexual y reproductiva, y servicios dentales y oftalmológicos.
+          salud de sus hijos o durante el embarazo.
+        </p>
+
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.utilizacionA" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        </div>
+
+        <p>
+          Pocas mencionaron haber caído enfermas y recurrido al sistema de salud público. Es común que busquen atención
+          médica en el sector privado, como médicos venezolanos dentro de la comunidad, farmacéuticos y clínicas
+          privadas.
+        </p>
+
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.utilizacionB" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        </div>
+
+        <p>
+          El acceso a oportunidades de empleo informal y a los servicios de salud motiva a las mujeres migrantes a
+          permanecer en territorio colombiano. Existe una gran demanda de atención en salud sexual y reproductiva, y
+          servicios dentales y oftalmológicos.
         </p>
 
         <p>
@@ -210,12 +231,13 @@ function esconderRecurso() {
           con niños y adolescentes que rápidamente necesitaban servicios de salud como vacunas o chequeos pediátricos de
           crecimiento y desarrollo.
         </p>
+
         <div class="contenedorBurbujas">
           <BotonesCitas :citas="citas.utilizacion" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
         </div>
       </section>
 
-      <section id="infoConclusion" ref="seccionInfo" class="info">
+      <section id="infoConclusion" ref="seccionInfo" class="seccion">
         <h2>Conclusión</h2>
 
         <p>
@@ -294,13 +316,21 @@ $diferencia4: calc($alto4 - $alto5);
   margin: 0 auto;
   line-height: 2.5em;
 
-  // min-height: 100vh;
-
-  h1 {
-    font-size: 2.5em;
+  .contenedorTitulo {
     text-align: center;
-    border: 3px solid;
+    border: 8px solid;
     padding: 1em;
+    margin: 5em 0 8em 0;
+  }
+
+  .tituloPrincipal {
+    font-size: 3em;
+    border-bottom: 2px solid;
+    padding-bottom: 1em;
+  }
+
+  .subtitulo {
+    font-size: 2.3em;
   }
 
   p {
@@ -466,21 +496,7 @@ $diferencia4: calc($alto4 - $alto5);
   top: 100px;
 }
 
-header {
-  width: 50vw;
-  margin: 2em auto 0.2em;
-
-  h1 {
-    font-size: 3em;
-    text-align: center;
-  }
-
-  p {
-    font-size: 2em;
-  }
-}
-
-.info {
+.seccion {
   position: relative;
   margin: 2em auto 3em auto;
   width: 75vw;
@@ -534,7 +550,7 @@ header {
     }
   }
 
-  .info {
+  .seccion {
     width: 70vw;
     p {
       line-height: 1.8em;
@@ -559,6 +575,10 @@ header {
       right: 0;
       margin-top: 2em;
       width: 64vw;
+
+      .tituloGrafica {
+        margin: 0;
+      }
     }
 
     .imagenGrafica {
@@ -588,7 +608,7 @@ header {
 // $minPantallaGrande: 1333px;
 @media (min-width: $minPantallaGrande) {
   .tituloGrafica {
-    margin: 6em 1em 2em 1em;
+    // margin: 6em 1em 2em 1em;
   }
 }
 </style>

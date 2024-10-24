@@ -1,6 +1,13 @@
 import type { Cita } from '@/tipos';
 
-const citas: { totalPoblacion: Cita[]; regularizadas: Cita[]; afiliadas: Cita[]; utilizacion: Cita[] } = {
+const citas: {
+  totalPoblacion: Cita[];
+  regularizadas: Cita[];
+  afiliadas: Cita[];
+  utilizacion: Cita[];
+  utilizacionA: Cita[];
+  utilizacionB: Cita[];
+} = {
   totalPoblacion: [
     {
       tipo: 'positivo',
@@ -125,7 +132,7 @@ const citas: { totalPoblacion: Cita[]; regularizadas: Cita[]; afiliadas: Cita[];
         'Fuera del hospital una muchacha me dijo que fuera a la Alcaldía, que allá me iban a ayudar a afiliarme a salud para que no tuviera que pagar nada porque estaba embarazada',
     },
   ],
-  utilizacion: [
+  utilizacionA: [
     {
       tipo: 'positivo',
       texto:
@@ -141,6 +148,8 @@ const citas: { totalPoblacion: Cita[]; regularizadas: Cita[]; afiliadas: Cita[];
       texto:
         'Cuando no había salido el PPT mi hijo mayor tuvo un accidente, lo atendieron sin papeles ni nada, lo llevé por urgencias, pensé que me iban a cobrar, pero no, nada, obviamente los medicamentos que le pusieron los pagué yo',
     },
+  ],
+  utilizacionB: [
     {
       tipo: 'negativo',
       texto:
@@ -151,6 +160,8 @@ const citas: { totalPoblacion: Cita[]; regularizadas: Cita[]; afiliadas: Cita[];
       texto:
         'Me enfermé mientras no tenía papeles, pero no fui al médico porque no sabía a dónde tenía que ir, me mantuve con pastas, con guarapo caliente, y se me pasó',
     },
+  ],
+  utilizacion: [
     {
       tipo: 'negativo',
       texto:
