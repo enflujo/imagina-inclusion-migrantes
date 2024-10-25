@@ -6,6 +6,7 @@ import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
 import { Delaunay } from 'd3';
 import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
+import { pedirDatos } from '@/utilidades/ayudas';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
@@ -39,6 +40,8 @@ onMounted(async () => {
       propiedades[i] = lugar.properties;
     }
   });
+
+  const municipios = await pedirDatos<FeatureCollection>('https://enflujo.com/bodega/colombia/municipios.json');
 
   const delaunay = Delaunay.from(coordenadas);
   const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
@@ -75,7 +78,7 @@ onMounted(async () => {
   instanciaMapa.on('load', () => {
     instanciaMapa.addSource('municipios', {
       type: 'geojson',
-      data: cerebroDatos.geojson,
+      data: municipios, //cerebroDatos.geojson,
     });
 
     // Agregar datos para voronoi
@@ -84,8 +87,24 @@ onMounted(async () => {
       data: geojson,
     });
 
-    // Pintar polígonos
     instanciaMapa.addLayer({
+      id: 'capa-municipios',
+      type: 'fill',
+      source: 'municipios',
+      paint: {
+        'fill-color': {
+          property: 'indice',
+          stops: [
+            [25, colorMax],
+            [50, colorMedio],
+            [100, colorMin],
+          ],
+        },
+      },
+    });
+
+    // Pintar polígonos
+    /*    instanciaMapa.addLayer({
       id: 'voronoi-gononea',
       type: 'fill-extrusion',
       source: 'voronoi',
@@ -104,13 +123,13 @@ onMounted(async () => {
         'fill-extrusion-height': {
           property: 'indice',
           stops: [
-            [0, 600000],
-            [50, 30000],
-            [100, 0],
+            [1, 600000],
+            [5, 30000],
+            [10, 0],
           ],
         },
       },
-    });
+    }); */
 
     const leyenda = new mapboxgl.Popup();
 
