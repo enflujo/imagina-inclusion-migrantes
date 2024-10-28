@@ -2,20 +2,13 @@ import { resolve } from 'path';
 import { departamentos, municipios } from './utilidades/lugaresColombia';
 import { getXlsxStream } from 'xlstream';
 import { guardarJSON, normalizarTexto } from './utilidades/ayudas';
-import { DatosBuscador, DatosInclusion } from '../../../tiposCompartidos/compartidos';
+import { DatosBuscador, DatosInclusion, Geo } from '../../../tiposCompartidos/compartidos';
 import type { Fila, FilaMunicipioBDJuan, MunicipioCoordenadas } from '../tipos';
 import datosMunicipiosAlgunos from '../datos/municipiosAlgunos.json';
 import municipiosGeo from '../datos/municipios.json';
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
-type Geo = {
-  type: string;
-  features: {
-    type: string;
-    properties: DatosInclusion;
-    geometry: { type: string; coordinates: number[][][] } | { type: string; coordinates: number[][][][] };
-  }[];
-};
+
 const datosMunicipios: Geo = { type: 'FeatureCollection', features: [] };
 const municipiosBDJuan: FilaMunicipioBDJuan[] = [];
 const mapaPoblacionMunicipios = new Map();

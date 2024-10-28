@@ -18,35 +18,35 @@ onMounted(async () => {
     await cerebroDatos.cargarDatos();
   }
 
-  const coordenadas: [x: number, y: number][] = [];
+  /*   const coordenadas: [x: number, y: number][] = [];
   const propiedades: GeoJsonProperties = [];
   const lonMin = -82.2020433;
   const lonMax = -66.8;
   const latMin = -4.2167;
-  const latMax = 12.9365903;
+  const latMax = 12.9365903; */
 
   // Borrar datos repetidos
-  cerebroDatos.geojson.features.forEach((lugar, i) => {
-    if (
-      i ===
-      cerebroDatos.geojson.features.findIndex(
-        (registrado) =>
-          lugar.geometry.coordinates[0] === registrado.geometry.coordinates[0] &&
-          lugar.geometry.coordinates[1] === registrado.geometry.coordinates[1]
-      )
-    ) {
-      const [x, y] = lugar.geometry.coordinates;
-      coordenadas.push([x, y]);
-      propiedades[i] = lugar.properties;
-    }
-  });
+  // cerebroDatos.geojson.features.forEach((lugar, i) => {
+  //   if (
+  //     i ===
+  //     cerebroDatos.geojson.features.findIndex(
+  //       (registrado) =>
+  //         lugar.geometry.coordinates[0] === registrado.geometry.coordinates[0] &&
+  //         lugar.geometry.coordinates[1] === registrado.geometry.coordinates[1]
+  //     )
+  //   ) {
+  //     const [x, y] = lugar.geometry.coordinates;
+  //     coordenadas.push([x, y]);
+  //     propiedades[i] = lugar.properties;
+  //   }
+  // });
 
-  const municipios = await pedirDatos<FeatureCollection>('https://enflujo.com/bodega/colombia/municipios.json');
+  const municipios = await cerebroDatos.geojson;
 
-  const delaunay = Delaunay.from(coordenadas);
-  const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
-  const geojson: FeatureCollection<Polygon> = { type: 'FeatureCollection', features: [] };
-
+  // const delaunay = Delaunay.from(coordenadas);
+  // const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
+  // const geojson: FeatureCollection<Polygon> = { type: 'FeatureCollection', features: [] };
+  /*
   coordenadas.forEach((d, i) => {
     const trazo = voronoi.cellPolygon(i);
 
@@ -63,7 +63,7 @@ onMounted(async () => {
     } else {
       // console.log(d);
     }
-  });
+  }); */
 
   const instanciaMapa = new mapboxgl.Map({
     container: contenedorMapa.value as HTMLDivElement,
@@ -78,14 +78,14 @@ onMounted(async () => {
   instanciaMapa.on('load', () => {
     instanciaMapa.addSource('municipios', {
       type: 'geojson',
-      data: municipios, //cerebroDatos.geojson,
+      data: municipios,
     });
 
     // Agregar datos para voronoi
-    instanciaMapa.addSource('voronoi', {
+    /* instanciaMapa.addSource('voronoi', {
       type: 'geojson',
       data: geojson,
-    });
+    }); */
 
     instanciaMapa.addLayer({
       id: 'capa-municipios',
@@ -93,7 +93,7 @@ onMounted(async () => {
       source: 'municipios',
       paint: {
         'fill-color': {
-          property: 'indice',
+          property: 'valorIndice',
           stops: [
             [25, colorMax],
             [50, colorMedio],
@@ -104,24 +104,22 @@ onMounted(async () => {
     });
 
     // Pintar polígonos
-    /*    instanciaMapa.addLayer({
+    /*  instanciaMapa.addLayer({
       id: 'voronoi-gononea',
       type: 'fill-extrusion',
-      source: 'voronoi',
+      source: 'municipios',
       paint: {
         'fill-extrusion-color': {
-          property: 'indice',
+          property: 'valorIndice',
           stops: [
             [25, colorMax],
             [50, colorMedio],
             [100, colorMin],
           ],
         },
-
-        'fill-extrusion-opacity': 0.6,
-
+        'fill-extrusion-opacity': 0.5,
         'fill-extrusion-height': {
-          property: 'indice',
+          property: 'valorIndice',
           stops: [
             [1, 600000],
             [5, 30000],
@@ -133,15 +131,15 @@ onMounted(async () => {
 
     const leyenda = new mapboxgl.Popup();
 
-    instanciaMapa.on('click', 'voronoi-gononea', (evento) => {
+    /*  instanciaMapa.on('click', 'voronoi-gononea', (evento) => {
       const lugar = evento.features?.[0];
 
       if (lugar && lugar.properties) {
         const { lat, lng } = evento.lngLat;
         const coords: [number, number] = [lng, lat];
-        const indice = lugar.properties.indice.toFixed(2) as number;
+        const indice = lugar.properties.valorIndice.toFixed(2) as number;
 
-        const municipio = lugar.properties.mun;
+        const municipio = lugar.properties.nombre;
         const departamento = lugar.properties.dep;
 
         leyenda
@@ -154,7 +152,7 @@ onMounted(async () => {
           )
           .addTo(instanciaMapa);
       }
-    });
+    });*/
   });
   mapa.value = instanciaMapa;
 });
@@ -174,6 +172,7 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 #contenedorCajaMapa {
+  content-visibility: auto;
   overflow: hidden;
   padding: 0;
 
