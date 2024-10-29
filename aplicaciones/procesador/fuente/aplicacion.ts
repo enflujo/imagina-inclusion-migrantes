@@ -50,7 +50,6 @@ async function inicio() {
     console.log(cantidadMunFaltantes);
   }
   guardarJSON(datosMunicipios, 'inclusion-municipios');
-  // guardarJSON(datosInclusion, 'inclusion-municipios');
   guardarJSON(datosBuscador, 'buscador');
 
   console.log('FIN');
@@ -248,7 +247,6 @@ async function preProcesarLugares(): Promise<void> {
       } else {
         console.error('No se encontró departamento', dep);
       }
-
       // console.log(nombre, lat, lon, dep);
     });
 

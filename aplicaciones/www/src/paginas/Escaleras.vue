@@ -5,9 +5,11 @@ import LineaTiempo from '@/componentes/LineaTiempo.vue';
 import Montes from '@/componentes/Montes.vue';
 import type { Cita } from '@/tipos';
 import { onMounted, ref, type Ref } from 'vue';
-import Mapa from './Mapa.vue';
+import Mapa from '@/componentes/Mapa.vue';
 import { duranteInterseccion } from '@/utilidades/observador';
+import { usarCerebroDatos } from '@/cerebros/datos';
 
+const cerebroDatos = usarCerebroDatos();
 const info: Ref<HTMLDivElement | null> = ref(null);
 const seccionInfo: Ref<Ref<HTMLElement>[]> = ref([]);
 const seccionesInfo = ['infoEmbarazadas', 'infoRegularizadas', 'infoAfiliadas', 'infoControles'];
@@ -18,7 +20,10 @@ const recursoVisible = ref(false);
 const intro: Ref<HTMLDivElement | undefined> = ref();
 const animarIntro = ref(false);
 
-onMounted(() => {
+onMounted(async () => {
+  if (!cerebroDatos.cargados) {
+    await cerebroDatos.cargarDatos();
+  }
   if (intro.value) {
     duranteInterseccion(
       intro.value,
@@ -166,6 +171,7 @@ function esconderRecurso() {
         </p>
 
         <Mapa />
+
         <div class="contenedorBurbujas">
           <BotonesCitas :citas="citas.regularizadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
         </div>
