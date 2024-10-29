@@ -88,7 +88,7 @@ function previsualizarLugar(lugar?: DatosBuscador) {
 
 <template>
   <section id="contenedorIndice" class="seccionCentro" ref="contenedorIndice">
-    <h2 class="tituloSeccion centrado">Ranking de inclusión</h2>
+    <h2 class="tituloSeccion centrado">Tasa de afiliación</h2>
 
     <div id="buscadoresBotones" class="centrado">
       <Buscador />

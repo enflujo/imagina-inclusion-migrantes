@@ -98,7 +98,6 @@ onUnmounted(() => {
 <template>
   <div id="contenedorGeneral">
     <section class="seccionLado" id="contenedorCajaMapa">
-      <h2 class="tituloSeccion">Mapa de inclusión</h2>
       <div class="seccion" id="contenedorMapa" ref="contenedorMapa"></div>
     </section>
 
