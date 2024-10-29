@@ -14,8 +14,12 @@ defineProps<Esquema>();
 <template>
   <div class="botonRecurso" v-for="cita in citas" @click="mostrarCita(cita)">
     <div class="contenedorIconos">
-      <span class="iconoRecurso" :style="{ backgroundImage: `url(${baseUrl}/imgs/burbuja.svg)` }"></span>
-      <span :class="`tipo ${cita.tipo}`"></span>
+      <span
+        :class="`iconoRecurso ${cita.tipo}`"
+        :style="{
+          backgroundImage: `url(${baseUrl}/imgs/${cita.tipo === 'negativo' ? 'cara_triste.png' : 'cara_feliz.png'})`,
+        }"
+      ></span>
     </div>
     <span class="fragmentoCita">{{ truncarTexto(cita.texto) }}</span>
   </div>
@@ -44,17 +48,12 @@ $dimFlechaAlto: 13px;
 
 .iconoRecurso {
   margin-right: 0.3em;
-}
-
-.tipo {
-  border-left: $dimFlechaX solid transparent;
-  border-right: $dimFlechaX solid transparent;
-  border-bottom: $dimFlechaAlto solid var(--colorPositivo);
-  margin-top: 0.5em;
-
+  border-radius: 50%;
   &.negativo {
-    border-bottom: 0;
-    border-top: $dimFlechaAlto solid var(--colorNegativo);
+    background-color: var(--colorNegativo);
+  }
+  &.positivo {
+    background-color: var(--colorPositivo);
   }
 }
 
