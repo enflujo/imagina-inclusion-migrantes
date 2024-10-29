@@ -25,13 +25,6 @@ useHead({
       <Lista />
       <!--  <Comparacion /> -->
     </section>
-    <!--   <div class="seccionLado">
-      <Simulacion
-        v-for="lugar in cerebroDatos.lugaresSeleccionados"
-        :id-lugar="lugar.id"
-        :key="`simLugar${lugar.id}`"
-      />
-    </div> -->
   </main>
 </template>
 

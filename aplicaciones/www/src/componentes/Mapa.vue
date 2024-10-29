@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type Map } from 'mapbox-gl';
-import type { Feature, FeatureCollection, GeoJsonProperties, Point, Polygon, Position } from 'geojson';
 import { ref, onMounted, type Ref, onUnmounted } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
-import { Delaunay } from 'd3';
 import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
-import { pedirDatos } from '@/utilidades/ayudas';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N2x0M3dvIn0.eWs4BHs67PcETEUI00T66Q';
 
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
@@ -18,60 +15,13 @@ onMounted(async () => {
     await cerebroDatos.cargarDatos();
   }
 
-  /*   const coordenadas: [x: number, y: number][] = [];
-  const propiedades: GeoJsonProperties = [];
-  const lonMin = -82.2020433;
-  const lonMax = -66.8;
-  const latMin = -4.2167;
-  const latMax = 12.9365903; */
-
-  // Borrar datos repetidos
-  // cerebroDatos.geojson.features.forEach((lugar, i) => {
-  //   if (
-  //     i ===
-  //     cerebroDatos.geojson.features.findIndex(
-  //       (registrado) =>
-  //         lugar.geometry.coordinates[0] === registrado.geometry.coordinates[0] &&
-  //         lugar.geometry.coordinates[1] === registrado.geometry.coordinates[1]
-  //     )
-  //   ) {
-  //     const [x, y] = lugar.geometry.coordinates;
-  //     coordenadas.push([x, y]);
-  //     propiedades[i] = lugar.properties;
-  //   }
-  // });
-
   const municipios = await cerebroDatos.geojson;
-
-  // const delaunay = Delaunay.from(coordenadas);
-  // const voronoi = delaunay.voronoi([lonMin, latMin, lonMax, latMax]);
-  // const geojson: FeatureCollection<Polygon> = { type: 'FeatureCollection', features: [] };
-  /*
-  coordenadas.forEach((d, i) => {
-    const trazo = voronoi.cellPolygon(i);
-
-    if (trazo) {
-      const respuesta: Feature<Polygon> = {
-        type: 'Feature',
-        properties: propiedades[i],
-        geometry: { type: 'Polygon', coordinates: [trazo] },
-      };
-
-      if (!respuesta.properties) return;
-
-      geojson.features.push(respuesta);
-    } else {
-      // console.log(d);
-    }
-  }); */
 
   const instanciaMapa = new mapboxgl.Map({
     container: contenedorMapa.value as HTMLDivElement,
     style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
-    center: [-74.5810727, 4.116107698],
-    zoom: 4.3,
-    pitch: 60,
-    bearing: 2,
+    center: [-73.1, 3],
+    zoom: 4.4,
   });
 
   // Agregar datos para puntos
@@ -80,12 +30,6 @@ onMounted(async () => {
       type: 'geojson',
       data: municipios,
     });
-
-    // Agregar datos para voronoi
-    /* instanciaMapa.addSource('voronoi', {
-      type: 'geojson',
-      data: geojson,
-    }); */
 
     instanciaMapa.addLayer({
       id: 'capa-municipios',
@@ -103,35 +47,19 @@ onMounted(async () => {
       },
     });
 
-    // Pintar polígonos
-    /*  instanciaMapa.addLayer({
-      id: 'voronoi-gononea',
-      type: 'fill-extrusion',
+    instanciaMapa.addLayer({
+      id: 'línea',
+      type: 'line',
       source: 'municipios',
       paint: {
-        'fill-extrusion-color': {
-          property: 'valorIndice',
-          stops: [
-            [25, colorMax],
-            [50, colorMedio],
-            [100, colorMin],
-          ],
-        },
-        'fill-extrusion-opacity': 0.5,
-        'fill-extrusion-height': {
-          property: 'valorIndice',
-          stops: [
-            [1, 600000],
-            [5, 30000],
-            [10, 0],
-          ],
-        },
+        'line-color': '#fef6bc',
+        'line-width': 1,
       },
-    }); */
+    });
 
     const leyenda = new mapboxgl.Popup();
 
-    /*  instanciaMapa.on('click', 'voronoi-gononea', (evento) => {
+    instanciaMapa.on('click', 'capa-municipios', (evento) => {
       const lugar = evento.features?.[0];
 
       if (lugar && lugar.properties) {
@@ -152,7 +80,7 @@ onMounted(async () => {
           )
           .addTo(instanciaMapa);
       }
-    });*/
+    });
   });
   mapa.value = instanciaMapa;
 });
