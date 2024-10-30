@@ -594,7 +594,6 @@ $diferencia4: calc($alto4 - $alto5);
 
   .contenedorBurbujas {
     justify-content: center;
-    width: 75vw;
   }
 
   .contenedorCita {
