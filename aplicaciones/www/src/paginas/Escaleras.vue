@@ -258,7 +258,7 @@ function esconderRecurso() {
 </template>
 
 <style lang="scss">
-@import '../estaticos/constantes';
+@use '../estaticos/constantes' as *;
 #aplicacion {
   padding-bottom: 10em;
 }
@@ -300,7 +300,7 @@ function esconderRecurso() {
 </style>
 
 <style lang="scss" scoped>
-@import '../estaticos/constantes';
+@use '../estaticos/constantes' as *;
 
 $colorPositivo: rgb(13, 141, 130);
 $colorPositivo2: rgb(13, 141, 130);

@@ -15,7 +15,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../estaticos/constantes';
+@use '../estaticos/constantes' as *;
 
 main {
   width: 70vw;

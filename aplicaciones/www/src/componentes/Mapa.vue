@@ -109,7 +109,8 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '../estaticos/constantes';
+@use '../estaticos/constantes' as *;
+
 #contenedorGeneral {
   display: flex;
   justify-content: space-around;

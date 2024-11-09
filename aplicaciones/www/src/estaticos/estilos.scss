@@ -1,4 +1,4 @@
-@import './constantes';
+@use './constantes' as *;
 
 html {
   box-sizing: border-box;
