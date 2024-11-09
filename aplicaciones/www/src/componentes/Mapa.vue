@@ -109,7 +109,7 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@use '../estaticos/constantes' as *;
+@use '../scss/constantes' as *;
 
 #contenedorGeneral {
   display: flex;

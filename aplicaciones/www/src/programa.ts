@@ -1,4 +1,4 @@
-import './estaticos/estilos.scss';
+import './scss/estilos.scss';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';

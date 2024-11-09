@@ -26,7 +26,7 @@ defineProps<Esquema>();
 </template>
 
 <style lang="scss" scoped>
-@use '../estaticos/constantes' as *;
+@use '../scss/constantes' as *;
 
 $dimFlechaX: 7px;
 $dimFlechaAlto: 13px;
