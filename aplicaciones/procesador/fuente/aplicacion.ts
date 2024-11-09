@@ -2,12 +2,14 @@ import { resolve } from 'path';
 import { departamentos, municipios } from './utilidades/lugaresColombia';
 import { getXlsxStream } from 'xlstream';
 import { guardarJSON, normalizarTexto } from './utilidades/ayudas';
-import { DatosBuscador, DatosInclusion } from '../../www/tipos/compartidos';
+import { DatosBuscador, DatosInclusion, Geo } from '../../../tiposCompartidos/compartidos';
 import type { Fila, FilaMunicipioBDJuan, MunicipioCoordenadas } from '../tipos';
-import datosMunicipiosAlgunos from '../datos/municipios.json';
+import datosMunicipiosAlgunos from '../datos/municipiosAlgunos.json';
+import municipiosGeo from '../datos/municipios.json';
 const nombreArchivo = 'Inclusion scores nationwide180324';
 const nombreArchivoPoblacion = 'Censo_nacional_de_poblacion_2018_mun';
 
+const datosMunicipios: Geo = { type: 'FeatureCollection', features: [] };
 const municipiosBDJuan: FilaMunicipioBDJuan[] = [];
 const mapaPoblacionMunicipios = new Map();
 let cantidadMunFaltantes = 0;
@@ -38,11 +40,16 @@ async function inicio() {
     return 0;
   });
 
+  datosMunicipios.features.sort((a, b) => {
+    if (a.properties.valorIndice < b.properties.valorIndice) return -1;
+    if (a.properties.valorIndice > b.properties.valorIndice) return 1;
+    return 0;
+  });
+
   if (cantidadMunFaltantes) {
     console.log(cantidadMunFaltantes);
   }
-
-  guardarJSON(datosInclusion, 'inclusion-municipios');
+  guardarJSON(datosMunicipios, 'inclusion-municipios');
   guardarJSON(datosBuscador, 'buscador');
 
   console.log('FIN');
@@ -149,6 +156,30 @@ async function procesarInclusion(): Promise<DatosInclusion[]> {
       return;
     }
 
+    const indiceMun = municipiosGeo.features.findIndex((obj) => +obj.properties.codigo === codMun);
+
+    if (indiceMun < 0) {
+      console.log(indiceMun, `${codMun}`, nombreMun);
+    } else {
+      const { geometry, type } = municipiosGeo.features[indiceMun];
+      datosMunicipios.features.push({
+        type,
+        properties: {
+          id: numeroFila - 1,
+          nombre: mun[1],
+          dep: dep[1],
+          pobVenMun,
+          porcentRegularMun,
+          porcentAfiliadDep,
+          valorRank,
+          valorIndice,
+          encuestado: !!indiceEncuestado,
+          poblacionTotal: +mapaPoblacionMunicipios.get(mun[3]),
+        },
+        geometry,
+      });
+    }
+
     datos.push({
       id: numeroFila - 1,
       nombre: mun[1],
@@ -216,7 +247,6 @@ async function preProcesarLugares(): Promise<void> {
       } else {
         console.error('No se encontró departamento', dep);
       }
-
       // console.log(nombre, lat, lon, dep);
     });
 

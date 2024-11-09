@@ -5,23 +5,24 @@ import { computed, onMounted, ref, type Ref } from 'vue';
 import Buscador from './Buscador.vue';
 import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
 import { escalaColores } from '@/utilidades/ayudas';
+import { storeToRefs } from 'pinia';
 
 type OrdenLista = 'ascendente' | 'descendente' | 'alfabetico';
 const cerebroDatos = usarCerebroDatos();
 const orden: Ref<OrdenLista> = ref('descendente');
 const listaLugares: Ref<HTMLUListElement | null> = ref(null);
-const avisoInstrucciones: Ref<HTMLDivElement | null> = ref(null);
+const { limiteLugares, datosA, datosD, datosABC, lugaresSeleccionados } = storeToRefs(cerebroDatos);
 
-const lugares = computed(() => cerebroDatos.lugaresSeleccionados);
 const coloresAltos = escalaColores(20, 50, colorMax, colorMedio, 0.4);
 const coloresBajos = escalaColores(50, 100, colorMedio, colorMin, 0.4);
 const esVisible = ref(false);
 
 const datos = computed<DatosInclusion[]>(() => {
-  if (orden.value === 'ascendente') return cerebroDatos.datosA;
-  else if (orden.value === 'descendente') return cerebroDatos.datosD;
-  return cerebroDatos.datosABC;
+  if (orden.value === 'ascendente') return datosA.value;
+  else if (orden.value === 'descendente') return datosD.value;
+  return datosABC.value;
 });
+
 function color(indice: number) {
   if (indice >= 50) return coloresBajos(indice);
   return coloresAltos(indice);
@@ -35,33 +36,40 @@ function buscarColor(id: number) {
   }
 }
 
-onMounted(async () => {
-  if (!cerebroDatos.cargados) {
-    await cerebroDatos.cargarDatos();
-  }
-});
-
 function ordenarLista(criterioOrden: OrdenLista) {
   orden.value = criterioOrden;
 }
 
 function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
-  const lugaresSeleccionados = cerebroDatos.lugaresSeleccionados;
-  const indice = lugaresSeleccionados.findIndex((obj) => obj.id === datosLugar.id);
+  const indice = lugaresSeleccionados.value.findIndex((obj) => {
+    return obj.id === datosLugar.id;
+  });
 
-  if (cerebroDatos.lugaresSeleccionados.length >= 4) {
+  if (lugaresSeleccionados.value.length >= 4) {
     esVisible.value = true;
+  }
+
+  if (indice < 0) {
+    if (lugaresSeleccionados.value.length < 4) {
+      cerebroDatos.seleccionarLugar({
+        id: datosLugar.id as number,
+        nombre: datosLugar.nombre,
+      });
+    } else {
+      cerebroDatos.seleccionarLugar({
+        id: datosLugar.id as number,
+        nombre: datosLugar.nombre,
+      });
+    }
+  } else {
+    //console.log('ya existe');
   }
 
   if (indice > -1) {
     cerebroDatos.lugaresSeleccionados.splice(indice, 1);
     esVisible.value = false;
   } else {
-    if (lugaresSeleccionados.length <= cerebroDatos.limiteLugares - 1) {
-      cerebroDatos.lugaresSeleccionados.push({
-        id: datosLugar.id as number,
-        nombre: datosLugar.nombre,
-      });
+    if (lugaresSeleccionados.value.length <= limiteLugares.value - 1) {
     }
   }
 }
@@ -80,17 +88,7 @@ function previsualizarLugar(lugar?: DatosBuscador) {
 
 <template>
   <section id="contenedorIndice" class="seccionCentro" ref="contenedorIndice">
-    <h2 class="tituloSeccion centrado">Ranking de inclusión</h2>
-
-    <div
-      class="centrado"
-      id="avisoInstrucciones"
-      ref="avisoInstrucciones"
-      :class="{ visible: esVisible }"
-      @click="esVisible = false"
-    >
-      Puede comparar máximo {{ cerebroDatos.limiteLugares }} lugares
-    </div>
+    <h2 class="tituloSeccion centrado">Tasa de afiliación</h2>
 
     <div id="buscadoresBotones" class="centrado">
       <Buscador />
@@ -121,12 +119,12 @@ function previsualizarLugar(lugar?: DatosBuscador) {
       <span
         v-for="i = 0 in 4"
         :key="`pildora${i}`"
-        :class="`${lugares[i - 1] ? 'pildora lugarElegido' : 'pildora'}`"
-        @click="actualizarSeleccionados(lugares[i - 1])"
-        :style="`background-color:${lugares[i - 1] ? buscarColor(lugares[i - 1].id) : 'transparent'}`"
-        @mouseover="previsualizarLugar(lugares[i - 1])"
+        :class="`${lugaresSeleccionados[i - 1] ? 'pildora lugarElegido' : 'pildora'}`"
+        @click="actualizarSeleccionados(lugaresSeleccionados[i - 1])"
+        :style="`background-color:${lugaresSeleccionados[i - 1] ? buscarColor(lugaresSeleccionados[i - 1].id) : 'transparent'}`"
+        @mouseover="previsualizarLugar(lugaresSeleccionados[i - 1])"
       >
-        {{ lugares[i - 1] ? lugares[i - 1].nombre : '' }}</span
+        {{ lugaresSeleccionados[i - 1] ? lugaresSeleccionados[i - 1].nombre : '' }}</span
       >
     </div>
 
@@ -136,7 +134,7 @@ function previsualizarLugar(lugar?: DatosBuscador) {
         :key="`${elemento.nombre}-${i}`"
         :id="`mun${elemento.id}`"
         class="lugar"
-        :class="`${lugares.length && lugares.find((lugar) => lugar.id === elemento.id) ? ' activo' : ''}`"
+        :class="`${lugaresSeleccionados.length && lugaresSeleccionados.find((lugar) => lugar.id === elemento.id) ? ' activo' : ''}`"
         @click="actualizarSeleccionados(elemento)"
         :style="`background-color:${color(elemento.valorIndice)}`"
       >

@@ -1,15 +1,15 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import type { DatosBuscador, DatosInclusion } from '../../../../tiposCompartidos/compartidos';
+import type { DatosBuscador, DatosInclusion, Geo } from '../../../../tiposCompartidos/compartidos';
 import { pedirDatos } from '@/utilidades/ayudas';
-import type { Feature, FeatureCollection, Point } from 'geojson';
+import type { Feature, FeatureCollection, Polygon, MultiPolygon, Point } from 'geojson';
 
 interface EstructuraDatos {
   datosA: DatosInclusion[];
   datosD: DatosInclusion[];
   datosABC: DatosInclusion[];
   datosBuscador: DatosBuscador[];
-  geojson: FeatureCollection<Point>;
+  geojson: FeatureCollection<Polygon | MultiPolygon, DatosInclusion>;
   cargados: boolean;
   lugaresSeleccionados: { id: number; nombre: string }[];
   limiteLugares: number;
@@ -34,45 +34,48 @@ export const usarCerebroDatos = defineStore('datos', {
     geojson: { type: 'FeatureCollection', features: [] },
     cargados: false,
     lugaresSeleccionados: [],
-    limiteLugares: 4,
+    limiteLugares: 5,
   }),
 
   actions: {
     seleccionarLugar(lugar: { id: number; nombre: string }) {
       if (this.lugaresSeleccionados.length <= this.limiteLugares - 1) {
         if (!this.lugaresSeleccionados.includes(lugar)) {
-          this.lugaresSeleccionados.push(lugar);
+          if (this.lugaresSeleccionados.length < 4) {
+            this.lugaresSeleccionados.push(lugar);
+          } else {
+            this.lugaresSeleccionados.shift();
+            this.lugaresSeleccionados.push(lugar);
+          }
         }
       }
     },
 
     async cargarDatos() {
-      const datos = await pedirDatos<DatosInclusion[]>(`${import.meta.env.BASE_URL}/inclusion-municipios.json`);
-      const lugares: Feature<Point>[] = [];
-
-      datos.forEach((lugar) => {
+      const datos = await pedirDatos<Geo>(`${import.meta.env.BASE_URL}/inclusion-municipios.json`);
+      const lugares: DatosInclusion[] = [];
+      datos.features.forEach((lugar) => {
         lugares.push({
-          type: 'Feature',
-          properties: {
-            ranking: lugar.valorRank,
-            indice: lugar.valorIndice,
-            poblacion: lugar.poblacionTotal,
-            mun: lugar.nombre,
-            dep: lugar.dep,
-          },
-          geometry: { type: 'Point', coordinates: [lugar.longitud, lugar.latitud] },
+          id: lugar.properties.id ? +lugar.properties.id : 0,
+          valorRank: lugar.properties.valorRank,
+          valorIndice: lugar.properties.valorIndice,
+          poblacionTotal: lugar.properties.poblacionTotal,
+          nombre: lugar.properties.nombre,
+          dep: lugar.properties.dep,
         });
       });
-      this.datosA = [...datos];
-      this.datosD = [...datos.reverse()];
+
+      this.datosA = [...lugares];
+      this.datosD = [...lugares.reverse()];
       this.datosABC = [
-        ...datos.sort((a, b) => {
+        ...lugares.sort((a, b) => {
           if (a.nombre < b.nombre) return -1;
           if (a.nombre > b.nombre) return 1;
           return 0;
         }),
       ];
-      this.geojson.features = lugares;
+      this.geojson = datos;
+      this.cargados = true;
     },
 
     async cargarDatosBuscador() {
