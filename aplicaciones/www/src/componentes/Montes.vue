@@ -14,6 +14,7 @@ defineProps<Esquema>();
 const grafica: Ref<(HTMLElement & SVGElement) | undefined> = ref();
 const lineaV = ref('');
 const lineaC = ref('');
+const lineaI = ref('');
 const numeroSecciones = ref(0);
 const margenX = 100;
 const dims = ref({
@@ -33,8 +34,9 @@ const posY = (valor: number) => convertirEscala(valor, 0, 100, 10, dims.value.pi
 const datosControlesV: PasosEscalera = [76599, 63306, 39883, 26243];
 const porcentajesV = datosControlesV.map((valor) => +((valor / datosControlesV[0]) * 100).toFixed(2)) as PasosEscalera;
 const bloqueosV = porcentajesV.map((p) => 100 - Math.floor(p));
-const numParticulasVen = 100;
-const numParticulasCo = 100;
+const numParticulasVen = 80;
+const numParticulasCo = 80;
+const numParticulasI = 80;
 // console.log(porcentajesV, bloqueosV);
 let reloj = 0;
 /**
@@ -46,7 +48,7 @@ const umbralODS = 93;
 
 const datosControlesC: PasosEscalera = [623715, 623715, 623715, 503715];
 const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2)) as PasosEscalera;
-const porcentajesIdeal = [100, 100, 100, umbralPlanDecenal];
+const porcentajesIdeal: PasosEscalera = [100, 100, 100, umbralPlanDecenal];
 
 const nombresSecciones = [
   'Mujeres Embarazadas',
@@ -128,10 +130,12 @@ function escalar() {
 
     const venezolanas = construirLinea(porcentajesV);
     const colombianas = construirLinea(porcentajesC);
+    const ideal = construirLinea(porcentajesIdeal);
 
-    if (venezolanas && colombianas) {
+    if (venezolanas && colombianas && ideal) {
       lineaV.value = venezolanas.linea;
       lineaC.value = colombianas ? colombianas.linea : '';
+      lineaI.value = ideal ? ideal.linea : '';
       const personajes: Particula[] = [];
       const limites: PuntoSimple = [ancho - margenX, piso];
       let iBloqueos = 0;
@@ -140,8 +144,6 @@ function escalar() {
         if (i >= bloqueosV[iBloqueos]) {
           iBloqueos++;
         }
-
-        // console.log(i, iBloqueos, [anchoSeccion * iBloqueos, piso]);
 
         personajes.push(
           new Particula(
@@ -170,6 +172,20 @@ function escalar() {
         );
       }
 
+      for (let i = 0; i < numParticulasI; i++) {
+        personajes.push(
+          new Particula(
+            'ideal',
+            numeroAleatorio(-margenX, margenX),
+            piso,
+            numeroAleatorio(1, 4),
+            [margenX, margenY],
+            [ancho - margenX, margenY],
+            ideal.datos
+          )
+        );
+      }
+
       particulas.value = personajes;
     }
   }
@@ -179,7 +195,15 @@ function animar() {
 
   mujeres.value.forEach((mujer, i) => {
     const particula = particulas.value[i];
-    const desplazar = particula.tipo === 'venezolana' ? 'translate(10px, -30px)' : 'translateY(-10px)';
+    let desplazar = 'translateY(-10px)';
+
+    if (particula.tipo === 'colombiana') {
+      desplazar = 'translate(10px, -30px)';
+    }
+
+    if (particula.tipo === 'venezolana') {
+      desplazar = 'translate(20px, -50px)';
+    }
 
     Object.assign(mujer.style, {
       left: `${particula.x}px`,
@@ -213,21 +237,35 @@ function animar() {
         <text x="10px" y="20px">{{ nombresSecciones[i - 1] }}</text>
       </g>
 
-      <g style="transform: translate(10px, -20px)">
+      <g style="transform: translate(20px, -40px)">
+        <rect class="leyenda venezolana" x="0" y="327" width="90" height="20"></rect>
         <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Venezolanas</text>
         <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesV" :linea="lineaV" :pos-y="posY" />
         <path v-if="lineaV.length" class="lineaRecorrido" :d="lineaV" fill="url(#color)"></path>
       </g>
 
-      <g style="transform: translate(0, 0)">
+      <g style="transform: translate(10px, -20px)">
+        <rect class="leyenda colombiana" x="0" y="327" width="90" height="20"></rect>
         <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Colombianas</text>
-        <!-- <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesC" :linea="lineaV" :pos-y="posY" /> -->
+        <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesC" :linea="lineaV" :pos-y="posY" />
         <path v-if="lineaC.length" class="lineaRecorrido" :d="lineaC" fill="url(#color)"></path>
+      </g>
+
+      <g style="transform: translate(0, 0)">
+        <rect class="leyenda ideal" x="0" y="327" width="90" height="20"></rect>
+        <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Ideal</text>
+        <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesIdeal" :linea="lineaV" :pos-y="posY" />
+        <path v-if="lineaC.length" class="lineaRecorrido" :d="lineaI" fill="url(#color)"></path>
       </g>
     </svg>
 
     <div id="contenedorAnim">
-      <span v-for="(_, i) in particulas" ref="mujeres" :key="`particula${i}`" class="mujer"></span>
+      <span
+        v-for="(particula, i) in particulas"
+        ref="mujeres"
+        :key="`particula${i}`"
+        :class="`mujer ${particula.tipo}`"
+      ></span>
     </div>
   </div>
 </template>
@@ -236,6 +274,18 @@ function animar() {
 #contenedor {
   position: sticky;
   top: 100px;
+}
+
+.leyenda {
+  fill: rgba(176, 15, 201, 0.396);
+
+  &.colombiana {
+    fill: rgba(17, 141, 157, 0.396);
+  }
+
+  &.ideal {
+    fill: rgba(59, 157, 17, 0.396);
+  }
 }
 
 #contenedorAnim {
@@ -251,6 +301,7 @@ function animar() {
 .montes {
   height: 50vh;
 }
+
 .mujer {
   width: 8px;
   height: 10px;
@@ -258,6 +309,14 @@ function animar() {
   display: inline-block;
   background-color: rgba(176, 15, 201, 0.396);
   position: absolute;
+
+  &.colombiana {
+    background-color: rgba(17, 141, 157, 0.396);
+  }
+
+  &.ideal {
+    background-color: rgba(59, 157, 17, 0.396);
+  }
 }
 
 .lineaRecorrido {
