@@ -24,3 +24,5 @@ export interface Cita {
 }
 
 export type PuntoSimple = [x: number, y: number];
+
+export type TiposMujeres = 'venezolanas' | 'colombianas' | 'ideal';

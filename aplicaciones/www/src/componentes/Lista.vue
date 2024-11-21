@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import { usarCerebroDatos } from '@/cerebros/datos';
 import type { DatosBuscador, DatosInclusion } from '../../../../tiposCompartidos/compartidos';
-import { computed, onMounted, ref, type Ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 import Buscador from './Buscador.vue';
 import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
 import { escalaColores } from '@/utilidades/ayudas';
 import { storeToRefs } from 'pinia';
+import mapbox, { type Map } from 'mapbox-gl';
+
+interface Esquema {
+  mapa: Map | null;
+}
+const props = defineProps<Esquema>();
 
 type OrdenLista = 'ascendente' | 'descendente' | 'alfabetico';
 const cerebroDatos = usarCerebroDatos();
 const orden: Ref<OrdenLista> = ref('descendente');
 const listaLugares: Ref<HTMLUListElement | null> = ref(null);
-const { limiteLugares, datosA, datosD, datosABC, lugaresSeleccionados } = storeToRefs(cerebroDatos);
+const { datosA, datosD, datosABC, lugaresSeleccionados } = storeToRefs(cerebroDatos);
+const marcaMapa: Ref<HTMLDivElement | null> = ref(null);
 
 const coloresAltos = escalaColores(20, 50, colorMax, colorMedio, 0.4);
 const coloresBajos = escalaColores(50, 100, colorMedio, colorMin, 0.4);
@@ -68,21 +75,42 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
   if (indice > -1) {
     cerebroDatos.lugaresSeleccionados.splice(indice, 1);
     esVisible.value = false;
-  } else {
-    if (lugaresSeleccionados.value.length <= limiteLugares.value - 1) {
-    }
   }
 }
 
-function previsualizarLugar(lugar?: DatosBuscador) {
-  if (!listaLugares.value || !lugar) return;
+// let marca: mapbox.Marker | null = null;
 
-  const posY = listaLugares.value.querySelector<HTMLLIElement>(`#mun${lugar.id}`)?.offsetTop;
+function previsualizarLugar(lugar?: DatosInclusion) {
+  if (!lugar && props.mapa) {
+    console.log('restaurar');
+    props.mapa.setFilter('capa-municipios', null);
+    return;
+  }
 
-  listaLugares.value.scrollTo({
-    top: posY,
-    behavior: 'smooth',
-  });
+  if (!lugar || !props.mapa || !cerebroDatos.geojson || !marcaMapa.value) return;
+
+  const { mapa } = props;
+  const datosLugar = cerebroDatos.geojson.features.find((l) => l.properties.id === lugar.id);
+
+  if (datosLugar) {
+    mapa.setFilter('capa-municipios', ['==', 'id', lugar.id]);
+    const [long, lat] = datosLugar.geometry.coordinates[0][0];
+    if (!long || !lat) return;
+    // marca = new mapbox.Marker(marcaMapa.value).setLngLat([long, lat]).addTo(mapa);
+    // marcaMapa.value.innerHTML =
+    //   `<p class="nombreMunicipio">${lugar.nombre} (${lugar.dep})</p>` +
+    //   `<span class="infoLeyenda">Tasa de afiliación:</span> ${datosLugar.properties.valorIndice.toFixed(2)}`;
+  }
+
+  // const features = mapa.queryRenderedFeatures('composite', {
+  //   layers: ['counties-highlighted'],
+  // });
+  // const posY = listaLugares.value.querySelector<HTMLLIElement>(`#mun${lugar.id}`)?.offsetTop;
+
+  // listaLugares.value.scrollTo({
+  //   top: posY,
+  //   behavior: 'smooth',
+  // });
 }
 </script>
 
@@ -115,7 +143,7 @@ function previsualizarLugar(lugar?: DatosBuscador) {
       </div>
     </div>
 
-    <div id="seleccionados" ref="seleccionados" class="centrado">
+    <!-- <div id="seleccionados" ref="seleccionados" class="centrado">
       <span
         v-for="i = 0 in 4"
         :key="`pildora${i}`"
@@ -126,7 +154,7 @@ function previsualizarLugar(lugar?: DatosBuscador) {
       >
         {{ lugaresSeleccionados[i - 1] ? lugaresSeleccionados[i - 1].nombre : '' }}</span
       >
-    </div>
+    </div> -->
 
     <ul class="listaLugares" ref="listaLugares">
       <li
@@ -136,6 +164,8 @@ function previsualizarLugar(lugar?: DatosBuscador) {
         class="lugar"
         :class="`${lugaresSeleccionados.length && lugaresSeleccionados.find((lugar) => lugar.id === elemento.id) ? ' activo' : ''}`"
         @click="actualizarSeleccionados(elemento)"
+        @mouseenter="previsualizarLugar(elemento)"
+        @mouseleave="previsualizarLugar()"
         :style="`background-color:${color(elemento.valorIndice)}`"
       >
         <span class="valor">{{ elemento.valorRank }}. </span>
@@ -145,6 +175,8 @@ function previsualizarLugar(lugar?: DatosBuscador) {
       </li>
     </ul>
   </section>
+
+  <div id="marcaMapa" ref="marcaMapa"></div>
 </template>
 
 <style lang="scss" scoped>

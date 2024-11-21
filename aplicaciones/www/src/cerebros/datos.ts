@@ -2,7 +2,7 @@ import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import type { DatosBuscador, DatosInclusion, Geo } from '../../../../tiposCompartidos/compartidos';
 import { pedirDatos } from '@/utilidades/ayudas';
-import type { Feature, FeatureCollection, Polygon, MultiPolygon, Point } from 'geojson';
+import type { FeatureCollection, Polygon, MultiPolygon } from 'geojson';
 
 interface EstructuraDatos {
   datosA: DatosInclusion[];
@@ -12,7 +12,6 @@ interface EstructuraDatos {
   geojson: FeatureCollection<Polygon | MultiPolygon, DatosInclusion>;
   cargados: boolean;
   lugaresSeleccionados: { id: number; nombre: string }[];
-  limiteLugares: number;
 }
 
 export const useCounterStore = defineStore('counter', () => {
@@ -34,20 +33,12 @@ export const usarCerebroDatos = defineStore('datos', {
     geojson: { type: 'FeatureCollection', features: [] },
     cargados: false,
     lugaresSeleccionados: [],
-    limiteLugares: 5,
   }),
 
   actions: {
     seleccionarLugar(lugar: { id: number; nombre: string }) {
-      if (this.lugaresSeleccionados.length <= this.limiteLugares - 1) {
-        if (!this.lugaresSeleccionados.includes(lugar)) {
-          if (this.lugaresSeleccionados.length < 4) {
-            this.lugaresSeleccionados.push(lugar);
-          } else {
-            this.lugaresSeleccionados.shift();
-            this.lugaresSeleccionados.push(lugar);
-          }
-        }
+      if (!this.lugaresSeleccionados.includes(lugar)) {
+        this.lugaresSeleccionados.push(lugar);
       }
     },
 

@@ -1,12 +1,12 @@
 import type { MomentoLinea } from '@/tipos';
 
 export const datosLinea: MomentoLinea[] = [
-  {
-    año: 2008,
-    numero: 21142,
-    texto: 'comienza la crisis económica en Venezuela.',
-    clase: 'extremo',
-  },
+  // {
+  //   año: 2008,
+  //   numero: 21142,
+  //   texto: 'comienza la crisis económica en Venezuela.',
+  //   clase: 'extremo',
+  // },
   {
     año: 2014,
     numero: 23573,
