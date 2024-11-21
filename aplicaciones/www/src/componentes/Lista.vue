@@ -99,12 +99,15 @@ function previsualizarLugar(lugar?: DatosInclusion) {
     const longitud = Array.isArray(long) ? long[0] : long;
     const latitud = Array.isArray(lat) ? lat[1] : lat;
     const { x, y } = mapa.project([longitud, latitud]);
+    const contenedorMapa = document.getElementById('contenedorGeneral');
+    if (!contenedorMapa) return;
+    const { left, top } = contenedorMapa.getBoundingClientRect();
     console.log(`Pixel coordinates: x=${x}, y=${y}`);
     marcaMapa.value.innerHTML =
       `<p class="nombreMunicipio">${lugar.nombre} (${lugar.dep})</p>` +
       `<span class="infoLeyenda">Tasa de afiliación:</span> ${datosLugar.properties.valorIndice.toFixed(2)}`;
-    marcaMapa.value.style.left = `${x}px`;
-    marcaMapa.value.style.top = `${y}px`;
+    marcaMapa.value.style.left = `${x + left}px`;
+    marcaMapa.value.style.top = `${y + top}px`;
     marcaMapa.value?.classList.remove('oculto');
   }
 }
@@ -186,7 +189,7 @@ h2 {
   padding: 0.5em;
   border: 1px solid black;
   border-radius: 5px;
-  transform: translate(200px, 0px);
+  transform: translate(-50%, -100%);
 
   &.oculto {
     display: none;
