@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { PasosEscalera, PuntoSimple } from '@/tipos';
+import type { PasosEscalera, PuntoSimple, TiposMujeres } from '@/tipos';
 import { convertirEscala } from '@enflujo/alquimia';
 import { onMounted, onUnmounted, ref, useTemplateRef, type Ref } from 'vue';
 import InfoMonte from './InfoMonte.vue';
 import Particula from './Particula';
-import { numeroAleatorio } from '@/utilidades/ayudas';
+import { formatoNumero, numeroAleatorio } from '@/utilidades/ayudas';
 
 interface Esquema {
   irASeccion: (i: number) => void;
@@ -15,6 +15,8 @@ const grafica: Ref<(HTMLElement & SVGElement) | undefined> = ref();
 const lineaV = ref('');
 const lineaC = ref('');
 const lineaI = ref('');
+const info: Ref<HTMLDivElement | null> = ref(null);
+const mostrarInfo = ref(false);
 const numeroSecciones = ref(0);
 const margenX = 100;
 const dims = ref({
@@ -37,17 +39,15 @@ const bloqueosV = porcentajesV.map((p) => 100 - Math.floor(p));
 const numParticulasVen = 80;
 const numParticulasCo = 80;
 const numParticulasI = 80;
-// console.log(porcentajesV, bloqueosV);
 let reloj = 0;
 /**
  * Según el Plan Decenal de Salud el 95 % de las mujeres gestantes debe tener cuatro o más controles prenatales.
 Según la meta de los Objetivos de Desarrollo Sostenible (ODS), para el 2030, el 93 % de las gestantes debe tener cuatro o más controles prenatales
  */
 const umbralPlanDecenal = 95;
-const umbralODS = 93;
-
+const porcentajeColombianas2023 = 76.08;
 const datosControlesC: PasosEscalera = [623715, 623715, 623715, 503715];
-const porcentajesC = datosControlesC.map((valor) => +((valor / datosControlesC[0]) * 100).toFixed(2)) as PasosEscalera;
+const porcentajesC: PasosEscalera = [100, 100, 100, porcentajeColombianas2023];
 const porcentajesIdeal: PasosEscalera = [100, 100, 100, umbralPlanDecenal];
 
 const nombresSecciones = [
@@ -55,6 +55,47 @@ const nombresSecciones = [
   'Regularizadas',
   'Afiliadas al sistema de salud',
   'Con 4 controles prenatales',
+];
+
+const textosLineas = {
+  venezolanas: {
+    texto:
+      'Las mujeres venezolanas embarazadas en Colombia tienen muchas dificultades para acceder a los servicios de salud y llegar al ideal de los 4 controles prenatales.',
+    datos: {},
+    fondo: 'rgba(176, 15, 201, 0.396)',
+  },
+  colombianas: {
+    texto:
+      'A pesar de que el 100% de las mujeres embarazadas colombianas están afiliadas al sistema de salud, no todas logran llegar a los 4 controles prenatales.',
+    datos: {},
+    fondo: 'rgba(17, 141, 157, 0.396)',
+  },
+  ideal: {
+    texto:
+      'El Plan Decenal de Salud establece que el 95% de las mujeres embarazadas deben tener 4 o más controles prenatales. La meta de los ODS es del 93% para el 2030.',
+    datos: {},
+    fondo: 'rgba(59, 157, 17, 0.396)',
+  },
+};
+
+const textosSecciones = [
+  {
+    titulo: 'Mujeres Embarazadas',
+    texto: `En Colombia hay ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas.`,
+  },
+
+  {
+    titulo: 'Mujeres Embarazadas y Regularizadas',
+    texto: `De las ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas, <span class="resaltar">${porcentajesV[1]}%</span> están regularizadas. La meta del Plan Decenal de Salud es del <span class="resaltar ideal">${porcentajesIdeal[1]}%</span>.`,
+  },
+  {
+    titulo: 'Afiliadas al sistema de salud',
+    texto: `De las ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas, <span class="resaltar alerta">${porcentajesV[2]}%</span> están afiliadas al sistema de salud. La meta del Plan Decenal de Salud es del <span class="resaltar ideal">${porcentajesIdeal[2]}%</span>.`,
+  },
+  {
+    titulo: 'Con 4 controles prenatales',
+    texto: `De las ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas, <span class="resaltar alerta">${porcentajesV[3]}%</span> han tenido 4 o más controles prenatales. Hay una gran brecha de <span class="resaltar alerta">${porcentajesIdeal[3] - porcentajesV[3]}%</span> con el ideal del Plan Decenal de Salud que indica que debería ser mínimo del <span class="resaltar ideal">${porcentajesIdeal[3]}%</span>.`,
+  },
 ];
 
 onMounted(() => {
@@ -215,10 +256,46 @@ function animar() {
 
   reloj = requestAnimationFrame(animar);
 }
+
+function infoLinea(tipo: TiposMujeres | null) {
+  if (!info.value) return;
+  if (!tipo) {
+    info.value.innerHTML = '';
+    mostrarInfo.value = false;
+    return;
+  }
+  mostrarInfo.value = true;
+  info.value.style.backgroundColor = textosLineas[tipo].fondo;
+  info.value.innerHTML = textosLineas[tipo].texto;
+}
+
+function infoSeccion(i: number | null) {
+  if (!info.value) return;
+
+  if (i === null) {
+    // info.value.innerHTML = '';
+    mostrarInfo.value = false;
+    return;
+  }
+  mostrarInfo.value = true;
+  info.value.style.backgroundColor = 'rgb(255 255 255 / 97%)';
+  info.value.innerHTML = textosSecciones[i].texto;
+}
+
+function posInfo(evento: MouseEvent) {
+  evento.stopImmediatePropagation();
+  if (!info.value) return;
+  const { clientX, clientY } = evento;
+  const { height } = info.value.getBoundingClientRect();
+  const x = clientX;
+  const y = clientY - height - 20;
+  info.value.style.left = `${x}px`;
+  info.value.style.top = `${y}px`;
+}
 </script>
 
 <template>
-  <div id="contenedor">
+  <div id="contenedor" @mousemove="posInfo">
     <svg class="montes" ref="grafica">
       <defs>
         <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
@@ -232,27 +309,53 @@ function animar() {
         class="areaEscalon"
         :style="{ transform: `translate(${margenX + dims.anchoSeccion * (i - 1)}px, 0)` }"
         @click="irASeccion(i - 1)"
+        @mouseenter="infoSeccion(i - 1)"
+        @mouseleave="infoSeccion(null)"
       >
         <rect class="zona" :x="0" y="0" :width="`${dims.anchoSeccion}px`" height="100%" />
         <text x="10px" y="20px">{{ nombresSecciones[i - 1] }}</text>
       </g>
 
       <g style="transform: translate(20px, -40px)">
-        <rect class="leyenda venezolana" x="0" y="327" width="90" height="20"></rect>
+        <rect
+          class="leyenda venezolana"
+          x="0"
+          :y="`${dims.piso - 20}px`"
+          width="80"
+          height="20"
+          @mouseenter="infoLinea('venezolanas')"
+          @mouseleave="infoLinea(null)"
+        ></rect>
         <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Venezolanas</text>
         <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesV" :linea="lineaV" :pos-y="posY" />
         <path v-if="lineaV.length" class="lineaRecorrido" :d="lineaV" fill="url(#color)"></path>
       </g>
 
       <g style="transform: translate(10px, -20px)">
-        <rect class="leyenda colombiana" x="0" y="327" width="90" height="20"></rect>
+        <rect
+          class="leyenda colombiana"
+          x="0"
+          :y="`${dims.piso - 20}px`"
+          width="90"
+          height="20"
+          @mouseenter="infoLinea('colombianas')"
+          @mouseleave="infoLinea(null)"
+        ></rect>
         <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Colombianas</text>
         <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesC" :linea="lineaV" :pos-y="posY" />
         <path v-if="lineaC.length" class="lineaRecorrido" :d="lineaC" fill="url(#color)"></path>
       </g>
 
       <g style="transform: translate(0, 0)">
-        <rect class="leyenda ideal" x="0" y="327" width="90" height="20"></rect>
+        <rect
+          class="leyenda ideal"
+          x="0"
+          :y="`${dims.piso - 20}px`"
+          width="100"
+          height="20"
+          @mouseenter="infoLinea('ideal')"
+          @mouseleave="infoLinea(null)"
+        ></rect>
         <text class="nombreGrupo" x="10px" :y="`${dims.piso - 3}px`">Ideal</text>
         <InfoMonte :dims="dims" :margenX="margenX" :porcentajes="porcentajesIdeal" :linea="lineaV" :pos-y="posY" />
         <path v-if="lineaC.length" class="lineaRecorrido" :d="lineaI" fill="url(#color)"></path>
@@ -267,6 +370,7 @@ function animar() {
         :class="`mujer ${particula.tipo}`"
       ></span>
     </div>
+    <div id="info" ref="info" :class="{ visible: mostrarInfo }"></div>
   </div>
 </template>
 
@@ -276,7 +380,24 @@ function animar() {
   top: 100px;
 }
 
+#info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  background-color: #a3bcd2f7;
+  padding: 1em;
+  pointer-events: none;
+  display: none;
+  // display: block;
+
+  &.visible {
+    display: block;
+  }
+}
+
 .leyenda {
+  cursor: pointer;
   fill: rgba(176, 15, 201, 0.396);
 
   &.colombiana {
@@ -296,6 +417,7 @@ function animar() {
   display: block;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 .montes {
@@ -328,6 +450,7 @@ function animar() {
 
 .nombreGrupo {
   font-size: 0.85em;
+  pointer-events: none;
 }
 
 .areaEscalon {
