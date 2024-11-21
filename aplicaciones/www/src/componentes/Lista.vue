@@ -102,7 +102,7 @@ function previsualizarLugar(lugar?: DatosInclusion) {
     const contenedorMapa = document.getElementById('contenedorGeneral');
     if (!contenedorMapa) return;
     const { left, top } = contenedorMapa.getBoundingClientRect();
-    console.log(`Pixel coordinates: x=${x}, y=${y}`);
+
     marcaMapa.value.innerHTML =
       `<p class="nombreMunicipio">${lugar.nombre} (${lugar.dep})</p>` +
       `<span class="infoLeyenda">Tasa de afiliación:</span> ${datosLugar.properties.valorIndice.toFixed(2)}`;
