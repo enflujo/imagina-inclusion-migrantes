@@ -138,6 +138,18 @@ main {
   padding: 0.1em;
 }
 
+#marcaMapa {
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.7em;
+
+  .nombreMunicipio {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0;
+  }
+}
+
 // Dispositivos grandes y pantallas medianas: 992px;
 @media (min-width: $minPantalla) {
   .seccionLado {

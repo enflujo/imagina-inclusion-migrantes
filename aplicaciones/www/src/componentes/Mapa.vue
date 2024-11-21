@@ -3,7 +3,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { type Map } from 'mapbox-gl';
 import { ref, onMounted, type Ref, onUnmounted, watch } from 'vue';
 import { usarCerebroDatos } from '@/cerebros/datos';
-import { colorMax, colorMedio, colorMin } from '@/cerebros/constantes';
+import { colorMax, colorMax2, colorMedio, colorMedio2, colorMin, colorMin2 } from '@/cerebros/constantes';
 import { storeToRefs } from 'pinia';
 import Lista from '@/componentes/Lista.vue';
 
@@ -12,17 +12,60 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZW5mbHVqbyIsImEiOiJjbDNrOXNndXQwMnZsM2lvNDd4N
 const contenedorMapa: Ref<HTMLDivElement | null> = ref(null);
 const mapa: Ref<Map | null> = ref(null);
 const cerebroDatos = usarCerebroDatos();
+const mapaCreado = ref(false);
 const { geojson } = storeToRefs(cerebroDatos);
 
-watch(geojson, () => {
-  const instanciaMapa = mapa.value;
-  if (!instanciaMapa) return;
+watch(geojson, (datos) => {
+  if (!datos) return;
+
+  if (mapaCreado.value) {
+    mapa.value?.remove();
+    mapa.value = null;
+    cargarMapa();
+    console.log('recreando mapa');
+  }
+});
+
+onMounted(async () => {
+  cargarMapa();
+});
+
+onUnmounted(() => {
+  mapa.value?.remove();
+  mapa.value = null;
+});
+
+function cargarMapa() {
+  const instanciaMapa = new mapboxgl.Map({
+    container: contenedorMapa.value as HTMLDivElement,
+    style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
+    center: [-73.1, 3],
+    zoom: 4.4,
+  });
+
+  mapa.value = instanciaMapa;
 
   // Agregar datos para puntos
   instanciaMapa.on('load', () => {
     instanciaMapa.addSource('municipios', {
       type: 'geojson',
       data: geojson.value,
+    });
+
+    instanciaMapa.addLayer({
+      id: 'capa-base',
+      type: 'fill',
+      source: 'municipios',
+      paint: {
+        'fill-color': {
+          property: 'valorIndice',
+          stops: [
+            [25, colorMax2],
+            [50, colorMedio2],
+            [100, colorMin2],
+          ],
+        },
+      },
     });
 
     instanciaMapa.addLayer({
@@ -52,8 +95,18 @@ watch(geojson, () => {
     });
 
     const leyenda = new mapboxgl.Popup();
+    leyenda.addTo(instanciaMapa);
 
-    instanciaMapa.on('click', 'capa-municipios', (evento) => {
+    instanciaMapa.on('mouseenter', 'capa-municipios', () => {
+      leyenda.addTo(instanciaMapa);
+      instanciaMapa.getCanvas().style.cursor = 'pointer';
+    });
+
+    instanciaMapa.on('mouseleave', 'capa-municipios', () => {
+      leyenda.remove();
+    });
+
+    instanciaMapa.on('mousemove', 'capa-municipios', (evento) => {
       const lugar = evento.features?.[0];
 
       if (lugar && lugar.properties) {
@@ -71,28 +124,13 @@ watch(geojson, () => {
               '<span class="infoLeyenda">Tasa de afiliación:</span> ' +
               indice +
               '</div>'
-          )
-          .addTo(instanciaMapa);
+          );
       }
     });
+
+    mapaCreado.value = true;
   });
-});
-
-onMounted(async () => {
-  const instanciaMapa = new mapboxgl.Map({
-    container: contenedorMapa.value as HTMLDivElement,
-    style: 'mapbox://styles/enflujo/cltixf9jp000h01pfdd2oby94',
-    center: [-73.1, 3],
-    zoom: 4.4,
-  });
-
-  mapa.value = instanciaMapa;
-});
-
-onUnmounted(() => {
-  mapa.value?.remove();
-  mapa.value = null;
-});
+}
 </script>
 
 <template>
@@ -102,8 +140,7 @@ onUnmounted(() => {
     </section>
 
     <section id="columnaCentral">
-      <Lista />
-      <!--  <Comparacion /> -->
+      <Lista :mapa="mapa" />
     </section>
   </div>
 </template>
@@ -120,7 +157,7 @@ onUnmounted(() => {
 
   #columnaCentral {
     margin-top: 2em;
-    width: 75vw;
+    width: 50vw;
     height: auto;
   }
 }

@@ -46,7 +46,8 @@ Según la meta de los Objetivos de Desarrollo Sostenible (ODS), para el 2030, el
  */
 const umbralPlanDecenal = 95;
 const porcentajeColombianas2023 = 76.08;
-const datosControlesC: PasosEscalera = [623715, 623715, 623715, 503715];
+//nacieron = 510908;
+const datosControlesC: PasosEscalera = [623715, 623715, 623715, 441340];
 const porcentajesC: PasosEscalera = [100, 100, 100, porcentajeColombianas2023];
 const porcentajesIdeal: PasosEscalera = [100, 100, 100, umbralPlanDecenal];
 
@@ -86,11 +87,11 @@ const textosSecciones = [
 
   {
     titulo: 'Mujeres Embarazadas y Regularizadas',
-    texto: `De las ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas, <span class="resaltar">${porcentajesV[1]}%</span> están regularizadas. La meta del Plan Decenal de Salud es del <span class="resaltar ideal">${porcentajesIdeal[1]}%</span>.`,
+    texto: `De las ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas, <span class="resaltar">${porcentajesV[1]}%</span> están regularizadas. La meta debería ser del <span class="resaltar ideal">${porcentajesIdeal[1]}%</span>.`,
   },
   {
     titulo: 'Afiliadas al sistema de salud',
-    texto: `De las ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas, <span class="resaltar alerta">${porcentajesV[2]}%</span> están afiliadas al sistema de salud. La meta del Plan Decenal de Salud es del <span class="resaltar ideal">${porcentajesIdeal[2]}%</span>.`,
+    texto: `De las ${formatoNumero.format(datosControlesV[0])} Venezolanas embarazadas, <span class="resaltar alerta">${porcentajesV[2]}%</span> están afiliadas al sistema de salud. La meta debería ser del <span class="resaltar ideal">${porcentajesIdeal[2]}%</span>.`,
   },
   {
     titulo: 'Con 4 controles prenatales',
