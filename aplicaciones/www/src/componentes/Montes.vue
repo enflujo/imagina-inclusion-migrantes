@@ -389,6 +389,7 @@ function posInfo(evento: MouseEvent) {
   padding: 1em;
   pointer-events: none;
   display: none;
+  border: 1px solid black;
   // display: block;
 
   &.visible {
