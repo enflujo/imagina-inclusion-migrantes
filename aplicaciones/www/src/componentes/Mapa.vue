@@ -68,7 +68,7 @@ watch(geojson, () => {
           .setLngLat(coords)
           .setHTML(
             `<div id='leyenda'><p class="nombreMunicipio">${municipio} (${departamento})</p>` +
-              '<span class="yanaina">Ranking de inclusión:</span> ' +
+              '<span class="infoLeyenda">Tasa de afiliación:</span> ' +
               indice +
               '</div>'
           )

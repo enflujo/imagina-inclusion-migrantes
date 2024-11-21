@@ -54,7 +54,7 @@ main {
         margin: 0;
       }
 
-      .yanaina {
+      .infoLeyenda {
         font-weight: 400;
         font-size: 1.1em;
         margin: 0;
@@ -122,6 +122,20 @@ main {
 
 .centrado {
   padding: 0 27.52px;
+}
+
+.resaltar {
+  font-weight: bold;
+}
+
+.alerta {
+  color: var(--colorNegativo);
+}
+
+.ideal {
+  color: var(--colorPositivo);
+  background-color: rgb(79, 74, 74);
+  padding: 0.1em;
 }
 
 // Dispositivos grandes y pantallas medianas: 992px;
