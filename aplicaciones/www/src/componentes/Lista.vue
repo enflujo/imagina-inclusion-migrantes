@@ -82,8 +82,8 @@ function actualizarSeleccionados(datosLugar: { id?: number; nombre: string }) {
 
 function previsualizarLugar(lugar?: DatosInclusion) {
   if (!lugar && props.mapa) {
-    console.log('restaurar');
     props.mapa.setFilter('capa-municipios', null);
+    marcaMapa.value?.classList.add('oculto');
     return;
   }
 
@@ -96,21 +96,17 @@ function previsualizarLugar(lugar?: DatosInclusion) {
     mapa.setFilter('capa-municipios', ['==', 'id', lugar.id]);
     const [long, lat] = datosLugar.geometry.coordinates[0][0];
     if (!long || !lat) return;
-    // marca = new mapbox.Marker(marcaMapa.value).setLngLat([long, lat]).addTo(mapa);
-    // marcaMapa.value.innerHTML =
-    //   `<p class="nombreMunicipio">${lugar.nombre} (${lugar.dep})</p>` +
-    //   `<span class="infoLeyenda">Tasa de afiliación:</span> ${datosLugar.properties.valorIndice.toFixed(2)}`;
+    const longitud = Array.isArray(long) ? long[0] : long;
+    const latitud = Array.isArray(lat) ? lat[1] : lat;
+    const { x, y } = mapa.project([longitud, latitud]);
+    console.log(`Pixel coordinates: x=${x}, y=${y}`);
+    marcaMapa.value.innerHTML =
+      `<p class="nombreMunicipio">${lugar.nombre} (${lugar.dep})</p>` +
+      `<span class="infoLeyenda">Tasa de afiliación:</span> ${datosLugar.properties.valorIndice.toFixed(2)}`;
+    marcaMapa.value.style.left = `${x}px`;
+    marcaMapa.value.style.top = `${y}px`;
+    marcaMapa.value?.classList.remove('oculto');
   }
-
-  // const features = mapa.queryRenderedFeatures('composite', {
-  //   layers: ['counties-highlighted'],
-  // });
-  // const posY = listaLugares.value.querySelector<HTMLLIElement>(`#mun${lugar.id}`)?.offsetTop;
-
-  // listaLugares.value.scrollTo({
-  //   top: posY,
-  //   behavior: 'smooth',
-  // });
 }
 </script>
 
@@ -182,6 +178,19 @@ function previsualizarLugar(lugar?: DatosInclusion) {
 <style lang="scss" scoped>
 h2 {
   margin-bottom: 0.8em;
+}
+#marcaMapa {
+  position: fixed;
+  z-index: 99;
+  background-color: white;
+  padding: 0.5em;
+  border: 1px solid black;
+  border-radius: 5px;
+  transform: translate(200px, 0px);
+
+  &.oculto {
+    display: none;
+  }
 }
 
 #contenedorIndice {
