@@ -177,42 +177,45 @@ function esconderRecurso() {
         </div>
       </section>
 
-      <section id="infoAfiliadas" ref="seccionInfo" class="seccion">
-        <h2>Afiliación</h2>
-
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, repudiandae officia. Qui sit dolorum
-          similique voluptatem consectetur doloremque delectus excepturi, quos expedita laudantium consequatur culpa
-          saepe tempora velit maxime veritatis!
-        </p>
-
-        <h3 class="tituloGrafica">Mujeres migrantes venezolanas en Colombia entre 15 y 44 años</h3>
-        <img class="imagenGrafica" src="/imgs/migrantes_venezolanas_colombia_15_44_años.png" />
-
-        <h3 class="tituloGrafica">Mujeres migrantes venezolanas en Colombia que usan los servicios de salud</h3>
-        <img class="imagenGrafica" src="/imgs/migrantes_venezolanas_15_44 años_usan_servicios_medicos.png" />
-
-        <div class="contenedorBurbujas">
-          <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
-        </div>
-      </section>
-
       <section id="infoControles" ref="seccionInfo" class="seccion">
         <h2>Utilización del sistema de salud</h2>
 
         <p>
-          Algunos de los resultados de las entrevistas muestran que las migrantes han buscado atención médica para la
-          salud de sus hijos o durante el embarazo.
+          Los resultados muestran que las tasas de utilización de servicios de salud de los y las migrantes ha venido
+          disminuyendo desde el 2019.
         </p>
+
+        <h3 class="tituloGrafica">Mujeres migrantes venezolanas en Colombia que usan los servicios de salud</h3>
+        <img class="imagenGrafica" src="/imgs/migrantes_venezolanas_15_44 años_usan_servicios_medicos.png" />
+
+        <p>
+          El uso de servicios de salud creció antes de la pandemia. No obstante, desde el 2019 el uso ha disminuido, lo
+          que puede deberse a la buena salud de las migrantes o a la utilización de médicos informales no registrados en
+          los sistemas oficiales.
+        </p>
+
+        <div class="contenedorBurbujas">
+          <BotonesCitas :citas="citas.afiliadas" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
+        </div>
 
         <div class="contenedorBurbujas">
           <BotonesCitas :citas="citas.utilizacionA" :mostrar-cita="mostrarCita" :esconder-cita="esconderCita" />
         </div>
 
         <p>
-          Pocas mencionaron haber caído enfermas y recurrido al sistema de salud público. Es común que busquen atención
-          médica en el sector privado, como médicos venezolanos dentro de la comunidad, farmacéuticos y clínicas
-          privadas.
+          Además, nos dimos cuenta que, después del ETPMV, estar afiliado al sistema de seguridad social en salud (es
+          decir, tener seguro) mejoró el acceso a atención médica en comparación con aquellos migrantes sin seguro, lo
+          que proporciona un efecto protector contra la disminución de utilización de la salud a nivel nacional desde el
+          2019.
+        </p>
+
+        <p>
+          Las entrevistas con mujeres migrantes revelaron que buscan atención principalmente por temas de salud de sus
+          hijos o durante el embarazo. Para su propia salud, prefieren evitar el sistema de seguridad social, buscando
+          proveedores en el sector privado, como médicos (venezolanos y colombianos) o farmacéuticos, para una atención
+          más rápida y sin sentirse discriminadas. La mayoría desea quedarse en Colombia debido a la estabilidad, el
+          acceso a empleos informales y las oportunidades de atención médica, aunque enfrentan xenofobia, pagos
+          adicionales y atención de emergencia intermitente.
         </p>
 
         <div class="contenedorBurbujas">
@@ -220,22 +223,13 @@ function esconderRecurso() {
         </div>
 
         <p>
-          El acceso a oportunidades de empleo informal y a los servicios de salud motiva a las mujeres migrantes a
-          permanecer en territorio colombiano. Existe una gran demanda de atención en salud sexual y reproductiva, y
-          servicios dentales y oftalmológicos.
-        </p>
-
-        <p>
-          En cuanto a la atención prenatal, algunas mujeres indicaron que pudieron acceder a ella incluso sin estar
-          regularizadas, aunque debían llevar sus resultados de ecografías y comprar algunos medicamentos. También han
-          podido dar a luz o someterse a cesáreas sin complicaciones.
-        </p>
-
-        <p>
-          Durante las entrevistas se percibió que cuando los migrantes llegaron por primera vez a Colombia, la
-          utilización del sistema de salud era mayor que en la actualidad. Muchas reportaron haber cruzado la frontera
-          con niños y adolescentes que rápidamente necesitaban servicios de salud como vacunas o chequeos pediátricos de
-          crecimiento y desarrollo.
+          Aunque algunas mujeres acceden a servicios de emergencia sin tener documentación, existe un desconocimiento
+          general sobre los beneficios de la regularización y la afiliación al sistema nacional de salud. Además,
+          reportaron necesidades no satisfechas en salud sexual, reproductiva, dental y optometría, y servicios
+          preventivos en general, que las lleva a proveedores informales. Las mujeres también informaron que sus mayores
+          necesidades de atención médica ocurrieron al llegar a Colombia, especialmente para sus hijos. En cuanto al
+          embarazo, algunas indicaron que pudieron acceder a la atención, incluso para el parto, sin estar
+          regularizadas, aunque algunas debieron pagar por medicamentos o llevar resultados de ecografías.
         </p>
 
         <div class="contenedorBurbujas">
@@ -247,11 +241,63 @@ function esconderRecurso() {
         <h2>Conclusión</h2>
 
         <p>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit per et vulputate consequat, convallis mauris laoreet
-          est aenean accumsan eros sociis nibh luctus. Cubilia pharetra quis dictum facilisis auctor ridiculus, vitae
-          morbi consequat cum. Orci mus ultrices per pharetra ac hac dui, laoreet lacinia condimentum aliquet id proin
-          elementum, risus habitant platea morbi eleifend senectus.
+          El Estatuto Temporal de Protección para Migrantes Venezolanos (ETPMV) ha demostrado ser una herramienta
+          efectiva para la afiliación de las mujeres migrantes al sistema de salud colombiano. Entre el 2020 y el 2023,
+          hubo un aumento significativo en el cubrimiento de salud, especialmente en los municipios con bajos niveles de
+          regularización y afiliación previa. Sin embargo, a pesar del incremento en la afiliación, el uso de los
+          servicios de salud ha disminuido, lo que indica que la inscripción en el sistema no garantiza el acceso
+          efectivo a la atención médica.
         </p>
+
+        <p>
+          Las mujeres migrantes venezolanas siguen enfrentado grandes barreras para acceder al sistema de protección
+          social en salud, lo que las lleva a acudir a servicios privados donde asumen un costo de bolsillo alto o a
+          servicios informales con una calidad subóptima. La discriminación, la falta de documentación, los costos
+          adicionales y el desconocimiento del personal de salud sobre el alcance de emergencias médicas continúan
+          limitando su acceso. Además, la disminución del apoyo de las ONG que anteriormente facilitaban el acceso a
+          servicios de salud ha dejado a muchas en una situación de vulnerabilidad.
+        </p>
+
+        <p>
+          Ante estos desafíos, se recomienda fortalecer los mecanismos de regularización (en términos de simplicidad y
+          alcance), mejorar la capacitación del personal de salud en prácticas no discriminatorias y ampliar el acceso a
+          los servicios de salud sexual y reproductiva para garantizar una atención integral y equitativa.
+        </p>
+      </section>
+
+      <section class="seccion">
+        <h2>Recomendaciones de política pública</h2>
+
+        <ul>
+          <li>
+            <span class="resaltar"
+              >Ampliar la elegibilidad para el ETPMV o implementar políticas similares de regularización:</span
+            >
+            permitir que más migrantes, incluyendo aquellos que recién llegan, accedan a la regularización y a la
+            afiliación a los sistemas de protección social en Colombia.
+          </li>
+
+          <li>
+            <span class="resaltar">Establecer un mecanismo inclusivo de regularización migratoria:</span> implementar un
+            proceso permanente de regularización que otorgue estatus legal a los migrantes venezolanos sin restricciones
+            de fecha de ingreso, asegurando una mayor protección, especialmente para padres o cuidadores de niños
+            colombianos o migrantes. Este proceso debe estar articulado (y no limitado por) la adquisición de un puntaje
+            del Sisbén.
+          </li>
+
+          <li>
+            <span class="resaltar">Abordar la xenofobia y la discriminación en los servicios de salud:</span> promover
+            el acceso equitativo a la atención médica mediante la implementación de capacitaciones para el personal de
+            salud sobre prácticas no discriminatorias y campañas de sensibilización para educar a los migrantes sobre
+            sus derechos en salud.
+          </li>
+
+          <li>
+            <span class="resaltar">Ampliar el acceso a los servicios de salud sexual y reproductiva:</span>
+            fortalecer la atención en salud sexual y reproductiva para jóvenes migrantes mediante el desarrollo de
+            programas educativos, sin importar el estatus migratorio.
+          </li>
+        </ul>
       </section>
     </div>
   </div>
@@ -515,6 +561,15 @@ $diferencia4: calc($alto4 - $alto5);
   h2 {
     width: 70vw;
     margin: 1em auto;
+  }
+
+  ul {
+    font-size: 1.3em;
+    line-height: 1.7em;
+
+    li {
+      margin-bottom: 1em;
+    }
   }
 }
 

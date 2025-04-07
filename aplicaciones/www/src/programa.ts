@@ -2,7 +2,7 @@ import './scss/estilos.scss';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { createHead } from '@unhead/vue';
+import { createHead } from '@unhead/vue/client';
 
 import Aplicacion from './Aplicacion.vue';
 import enrutador from './enrutador';
