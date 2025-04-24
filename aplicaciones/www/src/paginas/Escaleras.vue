@@ -159,6 +159,7 @@ function esconderRecurso() {
           Probabilidad de utilizar los servicios de salud para mujeres migrantes venezolanas y los miembros de sus
           hogares en los últimos 30 días, antes y después del ETPMV (N=4,423)
         </h3>
+
         <img class="imagenGrafica" src="/imgs/total_afiliacion_recortada.png" />
 
         <p>
