@@ -2,14 +2,6 @@
   <main class="creditos">
     <h1 id="tituloPagina">Créditos</h1>
 
-    <p>
-      Este <span class="negrita">sitio web</span> es Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-      ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-      esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-      officia deserunt mollit anim id est laborum
-    </p>
-
     <h2 class="rol">Desarrollo</h2>
 
     <ul class="logos">
@@ -29,7 +21,13 @@
     <h2 class="rol">Financiación</h2>
 
     <div class="listaAgentes">
-      <ol></ol>
+      <ul>
+        <li>
+          <a href="https://www.elrha.org/" target="_blank">
+            <img class="logoElrha" src="/imgs/r2hc-logo.webp" alt="Logo elrha" />
+          </a>
+        </li>
+      </ul>
     </div>
   </main>
 </template>
@@ -76,6 +74,10 @@ p {
 
   .logoEnFlujo {
     height: 63px;
+  }
+
+  .logoElrha {
+    height: 70px;
   }
 }
 
