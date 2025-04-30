@@ -18,7 +18,7 @@ useHead({
   <header>
     <nav>
       <RouterLink to="/">Inicio</RouterLink>
-      <RouterLink to="/recursos">Videos informativos</RouterLink>
+      <RouterLink to="/recursos">Recursos</RouterLink>
       <RouterLink to="/creditos">Créditos</RouterLink>
     </nav>
   </header>

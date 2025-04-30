@@ -2,6 +2,21 @@
   <main class="creditos">
     <h1 id="tituloPagina">Créditos</h1>
 
+    <h2>Líderes</h2>
+
+    <ul>
+      <li>Diana Bowser</li>
+      <li>Arturo Harker</li>
+      <li>Brielle Ruscitti</li>
+      <li>Priya Agarwal-Harding</li>
+      <li>Donald Shepard</li>
+      <li>Tatiana Andia</li>
+      <li>Eliana Pineda</li>
+      <li>Carlos William Rincón Pérez</li>
+      <li>Salomé González Buitrago</li>
+      <li>Angélica Cantor Ortiz</li>
+    </ul>
+
     <h2 class="rol">Desarrollo</h2>
 
     <ul class="logos">

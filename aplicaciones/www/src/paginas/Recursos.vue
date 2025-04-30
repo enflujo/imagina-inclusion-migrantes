@@ -4,7 +4,18 @@ import { baseUrl } from '@/utilidades/ayudas';
 
 <template>
   <main class="creditos">
+    <h1 id="tituloPagina">Recursos</h1>
     <div id="contenedorVideos">
+      <p>
+        En esta sección encontrarás recursos útiles para acceder a atención en salud en Colombia. Estos recursos están
+        dirigidos a migrantes y refugiados que buscan atención en salud en el país.
+      </p>
+
+      <p>
+        También encontraras enlaces a documentos complementarios a esta investigación y pueden ser útiles para otros
+        investigadores o tomadores de decisiones.
+      </p>
+
       <div class="elementoVideo">
         <h2>Accede a atención en salud en Colombia</h2>
         <h3>Esto es lo que debes saber</h3>
@@ -29,6 +40,17 @@ import { baseUrl } from '@/utilidades/ayudas';
         <video :src="`https://imagina.uniandes.edu.co/especiales/videos/elrha/video4.mp4`" controls></video>
       </div>
     </div>
+
+    <h2>Documentos adicionales</h2>
+    <ul class="pdfs">
+      <li class="enlacePdf">
+        <a
+          href="https://imagina.uniandes.edu.co/repositorio/rompiendo-barreras-estrategias-para-mejorar-la-salud-de-las-mujeres-y-ninos-migrantes-en-colombia/"
+          ><img class="iconoRecurso" src="/imgs/pdf.svg" alt="Icono PDF" />Rompiendo barreras: estrategias para mejorar
+          la salud de las mujeres y niños migrantes en Colombia</a
+        >
+      </li>
+    </ul>
   </main>
 </template>
 
@@ -42,6 +64,29 @@ main {
 
 p {
   font-size: 1.2em;
+}
+a,
+a:link,
+a:visited {
+  color: var(--negro);
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--negro);
+    color: white;
+  }
+}
+
+.pdfs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .iconoRecurso {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 0.5em;
+  }
 }
 
 #tituloPagina {
