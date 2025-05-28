@@ -19,25 +19,25 @@ import { baseUrl } from '@/utilidades/ayudas';
       <div class="elementoVideo">
         <h2>Accede a atención en salud en Colombia</h2>
         <h3>Esto es lo que debes saber</h3>
-        <video :src="`https://imagina.uniandes.edu.co/especiales/videos/elrha/video1.mp4`" controls></video>
+        <video :src="`${baseUrl}/videos/video1.mp4`" controls></video>
       </div>
 
       <div class="elementoVideo">
         <h2>¿Tienes PPT?</h2>
         <h3>Así puedes afiliarte al sistema de salud colombiano</h3>
-        <video :src="`https://imagina.uniandes.edu.co/especiales/videos/elrha/video2.mp4`" controls></video>
+        <video :src="`${baseUrl}/videos/video2.mp4`" controls></video>
       </div>
 
       <div class="elementoVideo">
         <h2>¿Necesitas el PPT para un menor de edad?</h2>
         <h3>Así puedes tramitarlo</h3>
-        <video :src="`https://imagina.uniandes.edu.co/especiales/videos/elrha/video3.mp4`" controls></video>
+        <video :src="`${baseUrl}/videos/video3.mp4`" controls></video>
       </div>
 
       <div class="elementoVideo">
         <h2>¿Eres solicitante de refugio en Colombia?</h2>
         <h3>Aprende cómo obtener tu salvoconducto</h3>
-        <video :src="`https://imagina.uniandes.edu.co/especiales/videos/elrha/video4.mp4`" controls></video>
+        <video :src="`${baseUrl}/videos/video4.mp4`" controls></video>
       </div>
     </div>
 

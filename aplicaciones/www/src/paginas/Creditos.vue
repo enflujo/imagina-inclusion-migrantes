@@ -21,6 +21,11 @@
 
     <ul class="logos">
       <li>
+        <a href="https://www.bc.edu/" target="_blank">
+          <img class="logoGrande" src="/imgs/logo boston.png" alt="Logo Boston College" />
+        </a>
+      </li>
+      <li>
         <a href="https://imagina.uniandes.edu.co/" target="_blank">
           <img class="logoImagina" src="/imgs/logo_imagina.svg" alt="Logo Centro Imagina" />
         </a>
