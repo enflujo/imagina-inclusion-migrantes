@@ -1,19 +1,29 @@
-name: 🦍 Despliegue
+name: 🐘 Despliegue
 
 on:
   push:
-    branches: [main]
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+env:
+  BUILD_PATH: '.'
 
 jobs:
-  build:
-    name: 🐘 Desplegar
+  armar:
+    name: 🦣 Armar
     runs-on: ubuntu-latest
-
     steps:
       - name: 🐯 Obtener código del repositorio
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: 🐜 Activar Corepack
         run: corepack enable
@@ -23,17 +33,34 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'yarn'
+          cache-dependency-path: ${{ env.BUILD_PATH }}/yarn.lock
 
-      - name: 🦒 Instalar dependencias y hacer build
+      - name: 🐾 Configurar página de GitHub
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: 🦒 Instalar dependencias
+        run: yarn install --inmutable
+        working-directory: ${{ env.BUILD_PATH }}
+
+      - name: 👾 Armar página con Astro
         run: |
-          yarn install --immutable
           yarn build
-      - name: 🦅 Enviar por SFTP
-        uses: wangyucode/sftp-upload-action@v2.0.2
+        working-directory: ${{ env.BUILD_PATH }}
+
+      - name: 🛸 Subir archivos transpilados
+        uses: actions/upload-pages-artifact@v3
         with:
-          host: ${{ secrets.DOMINIO_IMAGINA }}
-          username: ${{ secrets.USUARIO_IMAGINA }}
-          password: ${{ secrets.CLAVE_IMAGINA }}
-          localDir: 'aplicaciones/www/publico'
-          remoteDir: '/srv/www/wordpress/especiales/rompiendo-barreras/'
-          removeExtraFilesOnServer: true
+          path: ${{ env.BUILD_PATH }}/aplicaciones/www/publico
+
+  despliegue:
+    name: 🦫 Despliegue final
+    needs: armar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 🐦 Mandar todo al servidor de GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
