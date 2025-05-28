@@ -13,7 +13,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   publicDir: 'estaticos',
-  base: '/especiales/rompiendo-barreras/',
+  // base: '/especiales/rompiendo-barreras/',
+  base: '/imagina-inclusion-migrantes/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
